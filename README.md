@@ -18,7 +18,6 @@
 </p>
 
 <br>
-<br>
 
 ## About The Project
 ChatPools is an Open Source chat client which uses technologies like Ionic, Angular, Firebase and more...
@@ -30,4 +29,7 @@ The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms
   <li>ChatPools App: This repo and the main app for mobile users</li>
   <li>Pool Tabs App and Website: The dashboard for administrators of the main app</li>
 </ol>
+
+<br>
+
 Click the name for a link to the repository of Pool Tabs App.
