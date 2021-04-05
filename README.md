@@ -25,7 +25,7 @@ The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms
 ## Project Structure
 <ol>
   <li>ChatPools App: This repo and the main app for mobile users</li>
-  <li>Pool Tabs App and Website: The dashboard for administrators of the main app</li>
+  <li>PoolTabs App and Website: The dashboard for administrators of the main app</li>
 </ol>
 
 <br>
