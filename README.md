@@ -46,5 +46,4 @@ Click the name for a link to the repository of Pool Tabs App.
 </a>
 
 ## Mockup of the main App
-<img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/pools_layout.svg" alt="Logo" width="600" height="600">
 <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/chat_layout.svg" alt="Logo" width="600" height="600">
