@@ -1,9 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="media/logo.svg" alt="Logo" width="200" height="200">
-  </a>
+
+  <img src="media/logo.svg" alt="Logo" width="200" height="200">
 
   <h3 align="center">ChatPools</h3>
   <p align="center">Dive into your community</p>
@@ -20,8 +19,7 @@
 <br>
 
 ## About The Project
-ChatPools is an Open Source chat client which uses technologies like Ionic, Angular, Firebase and more...
-<br>
+ChatPools is an Open Source chat client focused on it's community.
 The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms) based on their interest for communicating with people with the same interests.
 
 ## Project Structure
@@ -33,3 +31,20 @@ The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms
 <br>
 
 Click the name for a link to the repository of Pool Tabs App.
+
+## Technologies Used
+<a href="https://github.com/ionic-team/ionic-framework">
+    <img src="" alt="Logo" width="200" height="200">
+</a>
+
+<a href="https://github.com/firebase">
+    <img src="" alt="Logo" width="200" height="200">
+</a>
+
+<a href="https://github.com/angular/angular">
+    <img src="" alt="Logo" width="200" height="200">
+</a>
+
+## Mockup
+<img src="" alt="Logo" width="200" height="200">
+<img src="" alt="Logo" width="200" height="200">
