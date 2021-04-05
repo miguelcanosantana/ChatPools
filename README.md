@@ -34,15 +34,15 @@ Click the name for a link to the repository of Pool Tabs App.
 
 ## Technologies Used
 <a href="https://github.com/ionic-team/ionic-framework">
-    <img src="media/ionic.png" alt="Logo" width="200" height="200">
+    <img src="media/ionic.png" alt="Logo" width="300" height="200">
 </a>
 
 <a href="https://github.com/firebase">
-    <img src="media/firebase.png" alt="Logo" width="200" height="200">
+    <img src="media/firebase.png" alt="Logo" width="300" height="200">
 </a>
 
 <a href="https://github.com/angular/angular">
-    <img src="media/angular.png" alt="Logo" width="200" height="200">
+    <img src="media/angular.png" alt="Logo" width="300" height="200">
 </a>
 
 ## Mockup of the main App
