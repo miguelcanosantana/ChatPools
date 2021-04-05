@@ -38,6 +38,7 @@ Click the name for a link to the repository of Pool Tabs App.
 </a>
 
 <br>
+<br>
 
 <a href="https://github.com/firebase">
     <img src="media/firebase.png" alt="Logo" width="250" height="100">
