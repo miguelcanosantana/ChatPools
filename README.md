@@ -58,4 +58,8 @@ Click the name for a link to the repository of Pool Tabs App.
 ### 1st Week (Starting at 12/04/2021)
 <ol>
   <li>ChatPools App: App is created</li>
+  <li>
+    As https://www.mongodb.com/nosql-explained/data-modeling says, visual schemas of NoSQL DBs should have a JSON format as they can change easily over the time, so in my marker board I tried to draw how data will be organized inside Firebase:
+    <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/IMG_20210412_213148.jpg" alt="img" width="1200" height="600">
+  </li>
 </ol>
