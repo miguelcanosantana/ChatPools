@@ -53,3 +53,9 @@ Click the name for a link to the repository of Pool Tabs App.
 ## Mockup of the main App
 <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/pools_layout.svg" alt="Logo" width="600" height="600">
 <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/chat_layout.svg" alt="Logo" width="600" height="600">
+
+## Progress Diary
+### 1st Week (Starting at 12/04/2021)
+<ol>
+  <li>ChatPools App: App is created</li>
+</ol>
