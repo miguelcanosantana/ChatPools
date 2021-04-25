@@ -63,3 +63,11 @@ Click the name for a link to the repository of Pool Tabs App.
     <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/IMG_20210412_213148.jpg" alt="img" width="1200" height="600">
   </li>
 </ol>
+
+### 2nd Week (Starting at 19/04/2021)
+<ol>
+  <li>All References I look are now located in the References file at the root of the project</li>
+  <li>Added the Ubuntu font family</li>
+  <li>Added some services and pages</li>
+  <li>Added a loading screen page that will read the url parameters and redirect to different pages depending on them</li>
+</ol>
