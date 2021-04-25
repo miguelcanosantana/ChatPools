@@ -1,6 +1,7 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -76,6 +77,7 @@
   --ion-color-light-tint: #f5f6f9;
 }
 
+
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors
@@ -146,6 +148,7 @@
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
   }
+
 
   /*
    * iOS Dark Theme
