@@ -71,3 +71,11 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Added some services and pages</li>
   <li>Added a loading screen page that will read the url parameters and redirect to different pages depending on them</li>
 </ol>
+
+### 3nd Week (Starting at 26/04/2021)
+<ol>
+  <li>Created the colors for the app</li>
+  <li>Added a login checker to see if previous users were connected</li>
+  <li>Made Login page</li>
+  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-05-03%2000-00-21.png" alt="img" width="300" height="600">
+</ol>
