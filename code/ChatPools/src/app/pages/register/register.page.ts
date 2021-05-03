@@ -112,13 +112,4 @@ export class RegisterPage implements OnInit {
   }
 
 
-  // Redirect to register page
-  goToRegister() {
-    this.router.navigateByUrl("/register")
-  }
-
-
-
-  
-
 }
