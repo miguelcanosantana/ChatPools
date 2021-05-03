@@ -28,6 +28,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/allpools/allpools.module').then( m => m.AllpoolsPageModule)
   },
   {
+    path: 'groupchat',
+    loadChildren: () => import('./pages/groupchat/groupchat.module').then( m => m.GroupchatPageModule)
+  },
+  {
     path: 'settings',
     loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
   },

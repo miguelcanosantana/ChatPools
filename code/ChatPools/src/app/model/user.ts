@@ -7,7 +7,6 @@
  * @property {boolean} isModerator? : Can the user moderate?
  * @property {boolean} isAdmin? : Moderate + Can access web panel?
  * @property {boolean} isBanned? : Cannot acess account
- * @property {Report[]} reports? : Array of reports to the user
  */
 
 import { Report } from "./report";
@@ -22,6 +21,6 @@ export class User {
     isModerator?: boolean;
     isAdmin?: boolean;
     isBanned?: boolean;
-    reports?: Report[] = []; // Initialize array
+    //reports?: Report[] = []; // Initialize array
 
 }
