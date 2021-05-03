@@ -1,49 +1,102 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { CheckuserService } from 'src/app/services/checkuser.service';
+import { AlertController, MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
+
+
 export class LoginPage implements OnInit {
 
 
-  //Variables
+  // Variables
   email: string;
   password: string;
 
 
   constructor(
     private auth: AuthService,
-    private checkUser: CheckuserService
+    public alert: AlertController,
+    private menu: MenuController,
+    private router: Router
     ) { }
 
 
   ngOnInit() {}
 
 
+  //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
+  ionViewDidEnter() {
+
+    //Disable Menu
+    this.menu.enable(false);
+  }
+
+
+  // Try to login and redirect to mypools
   async tryLogin() {
 
-    
-    let signedUid;
+    // Log out from current user
+    this.auth.logout();
 
-    //Check if there is a previous uid to remove it
-    this.checkUser.getUid().then(
+    // Log in with new user
+    this.auth.login(this.email, this.password).then(
+
       data => {
-        signedUid = data;
 
-        if (signedUid) this.checkUser.removeUid();
-
-        //Login the new user
-        this.auth.login(this.email, this.password);
-
+        console.log("User has been logged");
+        this.router.navigateByUrl("/mypools")
       }
-    )
 
-
-    this.auth.login
+      // Catch any errors during login
+    ).catch(error => this.showErrorAlert(error.code));
   }
+
+
+  // Show an alert with the login error with a custom message
+  async showErrorAlert(errorCode) {
+
+    console.log(errorCode)
+
+    let customMessage;
+
+    // Custom error messages
+    if (errorCode == "auth/argument-error") {
+      customMessage = "Fields can't be let empty."
+    }
+
+    if (errorCode == "auth/invalid-email") {
+      customMessage = "The email adress seems wrong."
+    }
+
+    if (errorCode == "auth/user-not-found") {
+      customMessage = "User doesn't exist."
+    }
+
+    if (errorCode == "auth/wrong-password") {
+      customMessage = "The password is incorrect."
+    }
+
+    // Create alert
+    const alert = await this.alert.create({
+      header: 'There was an error',
+      message: customMessage,
+      buttons: ['Ok']
+    });
+
+    await alert.present();
+  }
+
+
+  // Redirect to register page
+  goToRegister() {
+    this.router.navigateByUrl("/register")
+  }
+
 
 }

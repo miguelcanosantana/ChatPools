@@ -1,9 +1,85 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
+  <ion-toolbar color="dark" class="ion-text-center">
+
+    <ion-title>Welcome to the Register!</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+    </ion-buttons>
+
+    <ion-icon slot="end" name=""></ion-icon>
+    <ion-icon slot="end" name=""></ion-icon>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content class="ion-padding" class="ion-text-center">
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size-xs="1.5" size-md="3" size-lg="4" size-xl="4.5"></ion-col>
+
+      <!-- Column with the page content -->
+      <ion-col size-xs="9" size-md="6" size-lg="4" size-xl="3">
+
+        <div class="top-space"></div>
+
+        <!-- Logo -->
+        <img src="https://raw.githubusercontent.com/miguelcanosantana/ChatPools/main/media/logo.svg" alt="Logo">
+      
+        <div class="space"></div>
+
+        <!-- Username input -->
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input [(ngModel)]="username"></ion-input>
+        </ion-item>
+
+        <!-- Username is empty -->
+        <ion-item lines="none" class="ion-text-center" *ngIf="!username">
+          <ion-icon name="person"></ion-icon>
+          <ion-label color="danger">Username can't be empty</ion-label>
+          <ion-icon name=""></ion-icon>
+        </ion-item>
+      
+        <!-- Email input -->
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="email" type="email"></ion-input>
+        </ion-item>
+      
+        <!-- Password input -->
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+
+        <!-- Repeat password input -->
+        <ion-item>
+          <ion-label position="floating">Repeat Password</ion-label>
+          <ion-input [(ngModel)]="repPassword" type="password"></ion-input>
+        </ion-item>
+
+        <!-- Passwords don't match text -->
+        <ion-item lines="none" class="ion-text-center" *ngIf="password != repPassword">
+          <ion-icon name="key"></ion-icon>
+          <ion-label color="danger">Passwords don't match</ion-label>
+          <ion-icon name=""></ion-icon>
+        </ion-item>
+      
+        <div class="space"></div>
+      
+        <!-- Register button -->
+        <ion-button color="dark" [hidden]="password != repPassword || !username" (click)="tryRegister()">Register</ion-button>
+        
+
+      </ion-col>
+
+      <ion-col size-xs="1.5" size-md="3" size-lg="4" size-xl="4.5"></ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

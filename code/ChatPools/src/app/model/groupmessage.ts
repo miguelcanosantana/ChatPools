@@ -7,6 +7,7 @@
    * @property {boolean} isDeleted : Has the message been deleted?
    */
 
+  
 export class Groupmessage {
 
     id?: string;
