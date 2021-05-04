@@ -1,26 +1,61 @@
-ion-title {
-    font-family: 'Ubuntu';
-    font-weight: bold;
-}
-
-.top-space {
-    min-height: 15vh;
-}
-
 img {
     max-width: 200px;
     max-height: 200px;
+}
+
+.top-space {
+    min-height: 10vh;
 }
 
 .space {
     min-height: 5vh;
 }
 
+.form-space {
+    min-height: 20px;
+}
+
 ion-input {
     font-family: 'Ubuntu';
 }
 
-ion-button {
+ion-label {
     font-family: 'Ubuntu';
-    font-weight: bold;
+}
+
+// Welcome SVG
+svg {
+    max-width: 250px;
+}
+
+@-webkit-keyframes svg-text-anim {
+40% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+    }
+    60% {
+    stroke-dashoffset: 0;
+    fill: #0f42a246;
+    }
+    100% {
+    stroke-dashoffset: 0;
+    fill: #0f42a246;
+    }
+    
+}
+
+@keyframes svg-text-anim {
+40% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+    }
+    60% {
+    stroke-dashoffset: 0;
+    fill: #0f42a246;
+    }
+    100% {
+    stroke-dashoffset: 0;
+    fill: #0f42a246;
+    }
+    
 }

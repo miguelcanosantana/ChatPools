@@ -1,26 +1,24 @@
-ion-title {
-    font-family: 'Ubuntu';
-    font-weight: bold;
+img {
+    max-width: 200px;
+    max-height: 200px;
 }
 
 .top-space {
     min-height: 15vh;
 }
 
-img {
-    max-width: 200px;
-    max-height: 200px;
-}
-
 .space {
     min-height: 5vh;
+}
+
+.form-space {
+    min-height: 20px;
 }
 
 ion-input {
     font-family: 'Ubuntu';
 }
 
-ion-button {
+ion-label {
     font-family: 'Ubuntu';
-    font-weight: bold;
 }

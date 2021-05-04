@@ -1,9 +1,56 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>groupchat</ion-title>
+  <ion-toolbar color="primary" class="ion-text-center">
+
+    <ion-title>Group name</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="mypools"></ion-back-button>
+    </ion-buttons>
+
+    <ion-icon slot="end" name=""></ion-icon>
+    <ion-icon slot="end" name=""></ion-icon>
+    <ion-icon slot="end" name=""></ion-icon>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+
+<ion-content class="ion-padding" class="ion-text-center">
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size-xs="0.25" size-md="1" size-lg="2" size-xl="3"></ion-col>
+
+      <!-- Column with the page content -->
+      <ion-col size-xs="11.5" size-md="10" size-lg="8" size-xl="6">
+
+        <!-- List of Input Items -->
+        <ion-list lines="none">
+
+          <!-- User message -->
+          <ion-item class="user-message" color="secondary">
+
+            <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt="">
+
+            <div>username</div>
+            
+            <div>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. At omnis mollitia quam aperiam error minus 
+              eveniet neque ut ad? Dolore ipsam maiores reiciendis qui, 
+              eveniet libero placeat amet? Libero, pariatur.
+            </div>
+
+
+          </ion-item>
+
+        </ion-list>
+
+      </ion-col>
+
+      <ion-col size-xs="0.25" size-md="1" size-lg="2" size-xl="3"></ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="dark" class="ion-text-center">
+  <ion-toolbar color="primary" class="ion-text-center">
 
     <ion-title>User Login</ion-title>
     
@@ -25,24 +25,26 @@
         <div class="space"></div>
       
         <!-- Email input -->
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
+        <ion-item class="form">
+          <ion-label color="dark" position="floating">Email</ion-label>
           <ion-input [(ngModel)]="email" type="email"></ion-input>
         </ion-item>
+
+        <div class="form-space"></div>
       
         <!-- Password input -->
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
+        <ion-item class="form">
+          <ion-label color="dark" position="floating">Password</ion-label>
           <ion-input [(ngModel)]="password" type="password"></ion-input>
         </ion-item>
       
         <div class="space"></div>
       
         <!-- Register button -->
-        <ion-button color="dark" fill="outline" (click)="goToRegister()">Register</ion-button>
+        <ion-button color="primary" fill="outline" (click)="goToRegister()">Register</ion-button>
       
         <!-- Login button -->
-        <ion-button color="dark" (click)="tryLogin()">Login</ion-button>
+        <ion-button color="primary" (click)="tryLogin()">Login</ion-button>
 
       </ion-col>
 

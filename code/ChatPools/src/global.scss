@@ -59,68 +59,17 @@
 }
 
 
-//App default colors
-:root {
-    --ion-color-primary: #2660cf;
-    --ion-color-primary-rgb: 38,96,207;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #2154b6;
-    --ion-color-primary-tint: #3c70d4;
-  
-    --ion-color-secondary: #3aaef4;
-    --ion-color-secondary-rgb: 58,174,244;
-    --ion-color-secondary-contrast: #000000;
-    --ion-color-secondary-contrast-rgb: 0,0,0;
-    --ion-color-secondary-shade: #3399d7;
-    --ion-color-secondary-tint: #4eb6f5;
-  
-    --ion-color-tertiary: #6a71ff;
-    --ion-color-tertiary-rgb: 106,113,255;
-    --ion-color-tertiary-contrast: #ffffff;
-    --ion-color-tertiary-contrast-rgb: 255,255,255;
-    --ion-color-tertiary-shade: #5d63e0;
-    --ion-color-tertiary-tint: #797fff;
-  
-    --ion-color-success: #7fe9f4;
-    --ion-color-success-rgb: 127,233,244;
-    --ion-color-success-contrast: #000000;
-    --ion-color-success-contrast-rgb: 0,0,0;
-    --ion-color-success-shade: #70cdd7;
-    --ion-color-success-tint: #8cebf5;
-  
-    --ion-color-warning: #f4ec7f;
-    --ion-color-warning-rgb: 244,236,127;
-    --ion-color-warning-contrast: #000000;
-    --ion-color-warning-contrast-rgb: 0,0,0;
-    --ion-color-warning-shade: #d7d070;
-    --ion-color-warning-tint: #f5ee8c;
-  
-    --ion-color-danger: #df5d84;
-    --ion-color-danger-rgb: 223,93,132;
-    --ion-color-danger-contrast: #000000;
-    --ion-color-danger-contrast-rgb: 0,0,0;
-    --ion-color-danger-shade: #c45274;
-    --ion-color-danger-tint: #e26d90;
-  
-    --ion-color-dark: #002772;
-    --ion-color-dark-rgb: 0,39,114;
-    --ion-color-dark-contrast: #ffffff;
-    --ion-color-dark-contrast-rgb: 255,255,255;
-    --ion-color-dark-shade: #002264;
-    --ion-color-dark-tint: #1a3d80;
-  
-    --ion-color-medium: #6d81a6;
-    --ion-color-medium-rgb: 109,129,166;
-    --ion-color-medium-contrast: #ffffff;
-    --ion-color-medium-contrast-rgb: 255,255,255;
-    --ion-color-medium-shade: #607292;
-    --ion-color-medium-tint: #7c8eaf;
-  
-    --ion-color-light: #ddedff;
-    --ion-color-light-rgb: 221,237,255;
-    --ion-color-light-contrast: #000000;
-    --ion-color-light-contrast-rgb: 0,0,0;
-    --ion-color-light-shade: #c2d1e0;
-    --ion-color-light-tint: #e0efff;
-  }
+// Parts of the UI
+ion-title {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+}
+
+ion-button {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+}
+
+.form {
+    border-radius: 5px 5px 0px 0px;
+}

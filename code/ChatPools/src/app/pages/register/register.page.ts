@@ -34,12 +34,20 @@ export class RegisterPage implements OnInit {
 
   ngOnInit() {}
 
+  // Animate the SVG before entering to avoid black lines
+  ionViewWillEnter() {
 
-  //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
+    // SVG
+    this.setTextAnimation(0.1,3,2.5,'ease-in-out','#2660cf',false);
+  }
+
+  // Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
   ionViewDidEnter() {
 
-    //Disable Menu
+    // Disable Menu
     this.menu.enable(false);
+
+    
   }
 
 
@@ -54,7 +62,7 @@ export class RegisterPage implements OnInit {
 
       data => {
 
-        //Create a new User object
+        // Create a new User object
         let tempUser: User = {
           uid: data.user.uid,
           nick: this.username
@@ -72,8 +80,6 @@ export class RegisterPage implements OnInit {
         console.log("User has been registered");
         this.router.navigateByUrl("/allpools");
       }
-
-      
 
       // Catch any errors during register
     ).catch(error => this.showErrorAlert(error.code));
@@ -111,5 +117,21 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-
+  // SVG animation
+  setTextAnimation(delay, duration, strokeWidth, timingFunction, strokeColor,repeat) {
+      let paths = document.querySelectorAll("path");
+      let mode=repeat?'infinite':'forwards'
+      for (let i = 0; i < paths.length; i++) {
+          const path = paths[i];
+          const length = path.getTotalLength();
+          path.style["stroke-dashoffset"] = `${length}px`;
+          path.style["stroke-dasharray"] = `${length}px`;
+          path.style["stroke-width"] = `${strokeWidth}px`;
+          path.style["stroke"] = `${strokeColor}`;
+          path.style["animation"] = `${duration}s svg-text-anim ${mode} ${timingFunction}`;
+          path.style["animation-delay"] = `${i * delay}s`;
+      }
+  }
+  
+  
 }
