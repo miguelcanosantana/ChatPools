@@ -2,15 +2,45 @@ ion-list {
     background-color: transparent;
 }
 
-.user-message {
-    max-width: 400px;
-    border-radius: 5px 20px 20px 20px;
+.user-image {
+    max-width: 45px;
+    min-width: 45px;
+    max-height: 45px;
+    min-height: 45px;
+    background-color: rgba(155, 168, 189, 0.364);
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
+    box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
 }
 
-.user-image {
-    max-width: 40px;
-    min-width: 40px;
-    max-height: 40px;
-    min-height: 40px;
-    margin-right: 20px;
+.inner-bubble-gap {
+    min-height: 10px;
+}
+
+.bubble {
+    text-align: left;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    background-color: rgba(155, 168, 189, 0.364);
+    border-radius: 5px 20px 20px 20px;
+    -webkit-box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
+    box-shadow: 0px 10px 21px -10px rgba(0,0,0,0.5);
+}
+
+.message-user {
+    font-family: 'Ubuntu';
+    font-weight: bold;
+}
+
+.message-text {
+    font-family: 'Ubuntu';
+}
+
+.message-date {
+    font-family: 'Ubuntu';
+    text-align: right;
+    font-size: 15px;
 }

@@ -28,21 +28,44 @@
         <!-- List of Input Items -->
         <ion-list lines="none">
 
-          <!-- User message -->
-          <ion-item class="user-message" color="secondary">
+          <!-- Message elemments -->
+          <ion-grid>
+            <ion-row>
 
-            <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt="">
+              <!-- User Image -->
+              <ion-col size="45px"> 
+                <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt=""> 
+              </ion-col>
 
-            <div>username</div>
-            
-            <div>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. At omnis mollitia quam aperiam error minus 
-              eveniet neque ut ad? Dolore ipsam maiores reiciendis qui, 
-              eveniet libero placeat amet? Libero, pariatur.
-            </div>
+              <!-- Bubble -->
+              <ion-col>
 
+                <div class="bubble">
 
-          </ion-item>
+                  <!-- Username -->
+                  <div class="message-user">Username</div>
+
+                  <div class="inner-bubble-gap"></div>
+
+                  <!-- Message -->
+                  <div class="message-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, vel. 
+                    Placeat sequi autem dolorem eaque labore ullam facere. 
+                    Eveniet omnis animi obcaecati repellat iure rerum aperiam debitis 
+                    quisquam numquam totam.
+                  </div>
+
+                  <div class="inner-bubble-gap"></div>
+
+                  <!-- Date -->
+                  <div class="message-date">8/5/2021</div>
+                  
+                </div>
+
+              </ion-col>
+
+            </ion-row>
+          </ion-grid>
 
         </ion-list>
 
