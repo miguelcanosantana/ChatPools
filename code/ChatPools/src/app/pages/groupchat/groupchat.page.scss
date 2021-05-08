@@ -44,3 +44,27 @@ ion-list {
     text-align: right;
     font-size: 15px;
 }
+
+.writting-area {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-height: 60px;
+    margin-left: -5px;
+    background-color: rgba(155, 168, 189, 0.364);
+}
+
+.write-message {
+    min-height: 50px;
+    max-width: calc(100vw - 10px);
+    text-align: left;
+    margin-top: 5px;
+}
+
+.writting-button {
+    max-width: 50px;
+    max-height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    margin-left: 5px;
+}
