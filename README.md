@@ -85,5 +85,4 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Designed register page with animated svg</li>
   <li>When creating an user it's username it's added to the db</li>
   <li>Completelly Redesigned chats ui</li>
-  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-05-03%2000-00-21.png" alt="img" width="300" height="600">
 </ol>
