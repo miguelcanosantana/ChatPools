@@ -1,0 +1,7 @@
+{
+  "name": "PoolTabs",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
