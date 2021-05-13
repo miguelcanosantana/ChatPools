@@ -25,7 +25,6 @@ export class HomePage {
   image: string;
 
   allPools: Pool[] = [];
-  searchPool: string;
 
 
   constructor(
@@ -43,7 +42,11 @@ export class HomePage {
 
   // Try to login with user
   async login() {
-    this.auth.login(this.email, this.password);
+
+    await this.auth.login(this.email, this.password);
+
+    // Check if user is admin
+    await this.getAdmin();
   }
 
 
@@ -57,7 +60,7 @@ export class HomePage {
   async getAdmin() {
 
     // Get current FireAuth user
-    this.auth.getCurrentUser().subscribe(
+    await this.auth.getCurrentUser().subscribe(
 
       data => {
 
@@ -103,6 +106,8 @@ export class HomePage {
       // Add the Pool
       this.fireStore.addPool(tempPool);
 
+    } else {
+      console.log("Can't do it because user isn't admin")
     }
   }
 
