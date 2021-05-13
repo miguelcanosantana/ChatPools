@@ -132,7 +132,7 @@ export class GroupchatPage implements OnInit {
 
           // Scroll to the bottom of the page
           //this.content.scrollToBottom();
-          var titleELe = document.getElementById("writting-area");
+          var titleELe = document.getElementById("bottom");
           this.content.scrollToPoint(0, titleELe.offsetTop, 1000);
 
         } catch (error) {

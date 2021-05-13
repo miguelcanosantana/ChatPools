@@ -26,46 +26,41 @@
       <!-- Column with the page content -->
       <ion-col class="leave-margin" size-xs="11.5" size-md="10" size-lg="8" size-xl="6">
 
-        <!-- List of Messages -->
-        <ion-list lines="none">
+        <!-- Message elemments -->
+        <ion-grid>
+          <ion-row *ngFor="let message of allMessages">
 
-          <!-- Message elemments -->
-          <ion-grid>
-            <ion-row>
+            <!-- User Image -->
+            <ion-col size="12" class="ion-text-left"> 
+              <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt=""> 
+            </ion-col>
 
-              <!-- User Image -->
-              <ion-col size="45px"> 
-                <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt=""> 
-              </ion-col>
+            <!-- Bubble -->
+            <ion-col>
 
-              <!-- Bubble -->
-              <ion-col>
+              <div class="bubble">
 
-                <div class="bubble" *ngFor="let message of allMessages">
+                <!-- Username -->
+                <div class="message-user"> {{message.userId}} </div>
 
-                  <!-- Username -->
-                  <div class="message-user"> {{message.userId}} </div>
+                <div class="inner-bubble-gap"></div>
 
-                  <div class="inner-bubble-gap"></div>
-
-                  <!-- Message -->
-                  <div class="message-text">
-                    {{message.content}}
-                  </div>
-
-                  <div class="inner-bubble-gap"></div>
-
-                  <!-- Date -->
-                  <div class="message-date">{{message.time}}</div>
-                  
+                <!-- Message -->
+                <div class="message-text">
+                  {{message.content}}
                 </div>
 
-              </ion-col>
+                <div class="inner-bubble-gap"></div>
 
-            </ion-row>
-          </ion-grid>
+                <!-- Date -->
+                <div class="message-date">{{message.time}}</div>
+                
+              </div>
 
-        </ion-list>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
         
       </ion-col>
 
@@ -108,5 +103,7 @@
 
     </ion-row>
   </ion-grid>
+
+  <div id="bottom"></div>
 
 </ion-content>
