@@ -1,20 +1,122 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      PoolTabs
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Login -->
+  <div [hidden]="this.auth.getCurrentUser() | async">
+
+    <h1>Login</h1>
+
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="login()" expand="block">
+      Login
+    </ion-button>
+
+    <br>
+
   </div>
+
+
+  <!-- Close session -->
+  <div *ngIf="this.auth.getCurrentUser() | async">
+
+    <h1>Close Session</h1>
+
+    <ion-button color="danger" (click)="closeSession()" expand="block">
+      Log out
+    </ion-button>
+
+    <br>
+
+  </div>
+  
+
+  <!-- Create Pool -->
+  <div *ngIf="this.auth.getCurrentUser() | async">
+
+    <h1>Create Pool</h1>
+
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input type="text" [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-input type="text" [(ngModel)]="description"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Image</ion-label>
+      <ion-input type="text" [(ngModel)]="image"></ion-input>
+    </ion-item>
+
+    <ion-button (click)="createPool()" expand="block">
+      Create pool
+    </ion-button>
+
+    <br>
+
+  </div>
+
+
+  <!-- Pools list -->
+  <div *ngIf="this.auth.getCurrentUser() | async">
+
+    <h1>List of existing Pools</h1>
+
+    <!-- Search bar -->
+    <ion-searchbar [(ngModel)]="searchPool" placeholder="Search by name" animated showCancelButton="never">
+    </ion-searchbar>
+
+    <!-- Pools table header--> 
+    <ion-item class="ion-text-center">
+
+      <!-- Name -->
+      <ion-label>Name</ion-label>
+
+      <!-- Number of users -->
+      <ion-label>Users</ion-label>
+
+      <div class="little-space"></div>
+
+    </ion-item>
+
+    <ion-list>
+
+      <!-- Pool --> 
+      <ion-item *ngFor="let pool of this.allPools" class="ion-text-center">
+
+        <!-- Name -->
+        <ion-label> {{pool.name}} </ion-label>
+
+        <!-- Number of users -->
+        <ion-label> {{pool.usersNumber}} </ion-label>
+
+        <!-- Erase button -->
+        <ion-button (click)="deletePool(pool.name)" color="danger">
+          <ion-icon name="close-circle"></ion-icon>
+        </ion-button>
+
+      </ion-item>
+
+    </ion-list>
+
+  </div>
+
 </ion-content>
