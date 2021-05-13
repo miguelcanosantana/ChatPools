@@ -46,10 +46,11 @@
   </div>
   
 
-  <!-- Create Pool -->
+  <!-- Create/Update Pool -->
   <div *ngIf="this.auth.getCurrentUser() | async">
 
-    <h1>Create Pool</h1>
+    <h1>Create or Update Pool</h1>
+    <h6>If you enter the name of an already existing pool you can update it's description or image</h6>
 
     <ion-item>
       <ion-label position="floating">Name</ion-label>
@@ -105,7 +106,7 @@
         <ion-label> {{pool.usersNumber}} </ion-label>
 
         <!-- Erase button -->
-        <ion-button (click)="deletePool(pool.name)" color="danger">
+        <ion-button (click)="deletePoolAlert(pool.name)" color="danger">
           <ion-icon name="close-circle"></ion-icon>
         </ion-button>
 
