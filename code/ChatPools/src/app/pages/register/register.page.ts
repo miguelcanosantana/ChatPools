@@ -46,8 +46,6 @@ export class RegisterPage implements OnInit {
 
     // Disable Menu
     this.menu.enable(false);
-
-
   }
 
 

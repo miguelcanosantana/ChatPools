@@ -20,15 +20,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'mypools',
-    loadChildren: () => import('./pages/mypools/mypools.module').then( m => m.MypoolsPageModule)
-  },
-  {
     path: 'allpools',
     loadChildren: () => import('./pages/allpools/allpools.module').then( m => m.AllpoolsPageModule)
   },
   {
     path: 'groupchat',
+    loadChildren: () => import('./pages/groupchat/groupchat.module').then( m => m.GroupchatPageModule)
+  },
+  {
+    path: 'groupchat/:chat',
     loadChildren: () => import('./pages/groupchat/groupchat.module').then( m => m.GroupchatPageModule)
   },
   {

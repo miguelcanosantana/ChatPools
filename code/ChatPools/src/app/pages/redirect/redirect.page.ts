@@ -43,7 +43,7 @@ export class RedirectPage implements OnInit {
       data => {
 
         let user = data;
-        if (user) this.path = "/mypools";
+        if (user) this.path = "/allpools";
       }
 
     );

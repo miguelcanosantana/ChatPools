@@ -1,10 +1,10 @@
-<ion-header>
+<ion-header *ngIf="pool">
   <ion-toolbar color="primary" class="ion-text-center">
 
-    <ion-title>Group name</ion-title>
+    <ion-title>{{pool.name}}</ion-title>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="mypools"></ion-back-button>
+      <ion-back-button defaultHref="allpools"></ion-back-button>
     </ion-buttons>
 
     <ion-icon slot="end" name=""></ion-icon>
@@ -15,7 +15,8 @@
 </ion-header>
 
 
-<ion-content class="ion-padding" class="ion-text-center">
+<ion-content *ngIf="pool" class="ion-padding" class="ion-text-center" 
+[scrollEvents]="true">
 
   <ion-grid>
     <ion-row>
@@ -23,7 +24,7 @@
       <ion-col size-xs="0.25" size-md="1" size-lg="2" size-xl="3"></ion-col>
 
       <!-- Column with the page content -->
-      <ion-col size-xs="11.5" size-md="10" size-lg="8" size-xl="6">
+      <ion-col class="leave-margin" size-xs="11.5" size-md="10" size-lg="8" size-xl="6">
 
         <!-- List of Messages -->
         <ion-list lines="none">
@@ -40,25 +41,22 @@
               <!-- Bubble -->
               <ion-col>
 
-                <div class="bubble">
+                <div class="bubble" *ngFor="let message of allMessages">
 
                   <!-- Username -->
-                  <div class="message-user">Username</div>
+                  <div class="message-user"> {{message.userId}} </div>
 
                   <div class="inner-bubble-gap"></div>
 
                   <!-- Message -->
                   <div class="message-text">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, vel. 
-                    Placeat sequi autem dolorem eaque labore ullam facere. 
-                    Eveniet omnis animi obcaecati repellat iure rerum aperiam debitis 
-                    quisquam numquam totam.
+                    {{message.content}}
                   </div>
 
                   <div class="inner-bubble-gap"></div>
 
                   <!-- Date -->
-                  <div class="message-date">8/5/2021</div>
+                  <div class="message-date">{{message.time}}</div>
                   
                 </div>
 
@@ -81,7 +79,7 @@
 
             <!-- Message to write -->
             <ion-col class="ion-align-self-start">
-              <ion-input class="write-message" placeholder="Write something..."></ion-input> 
+              <ion-input [(ngModel)]="messageText" class="write-message" placeholder="Write something..."></ion-input> 
             </ion-col>
             
             <!-- Attach image -->
@@ -96,7 +94,7 @@
             <!-- Send button -->
             <ion-col size="45px">
 
-              <ion-button class="writting-button" color="primary" (click)="onClick()">
+              <ion-button class="writting-button" color="primary" (click)="sendMessage()">
                 <ion-icon slot="icon-only" name="send"></ion-icon>
               </ion-button>
 
