@@ -36,7 +36,10 @@ export class GroupchatPage implements OnInit {
     public fireStore: FirestoreService,
     private menu: MenuController,
     private auth: AuthService
-  ) {
+  ) {}
+
+
+  ngOnInit() {
 
     // Get current user
     this.getUser();
@@ -91,14 +94,10 @@ export class GroupchatPage implements OnInit {
           this.updateMessages(data);
           this.newSession = false;
         }
-
-        
       }
     )
+
   }
-
-
-  ngOnInit() {}
 
 
   // Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation

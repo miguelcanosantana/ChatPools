@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
   }
 
 
-  // Try to login and redirect to mypools
+  // Try to login and redirect to allpools
   async tryLogin() {
 
     // Log out from current user
@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
       data => {
 
         console.log("User has been logged");
-        this.router.navigateByUrl("/mypools")
+        this.router.navigateByUrl("/allpools")
       }
 
       // Catch any errors during login
