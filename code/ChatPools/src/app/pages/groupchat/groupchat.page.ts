@@ -28,6 +28,7 @@ export class GroupchatPage implements OnInit {
   messageText: string;
   currentUser: User;
   allMessages: Groupmessage[] = [];
+  newSession: boolean = true;
 
 
   constructor(
@@ -49,12 +50,49 @@ export class GroupchatPage implements OnInit {
       data => this.pool = data
     )
 
-    // Get messages
+    // Get messages and update avatars and nicks
     this.fireStore.getMessages(poolName).subscribe(
 
       async data => {
 
-        this.allMessages = data;
+        // Only if session is not new, else update everything
+        if (!this.newSession) {
+
+          // Only update if there are more than just 1 sent message by the user
+          if (data.length == this.allMessages.length) {
+
+            let hasIntegrity = true;
+
+            // Check messages integrity
+            for (let m = 0; m < data.length; m++) {
+              if (data[m].id != this.allMessages[m].id) hasIntegrity = false;
+            }
+
+            // Update all if no integrity
+            if (!hasIntegrity) {
+
+              console.log("No integrity, updating!")
+              this.updateMessages(data);
+
+            // If has integrity only update nicks and avatars
+            } else {
+              this.updateNicksAvatars();
+              console.log("There's no need to retrieve messages");
+            }
+
+          // If the lenght isn't the same just update all, because it doesn't have any integrity
+          } else {
+            this.updateMessages(data);
+          }
+
+        // If new session
+        } else {
+          
+          this.updateMessages(data);
+          this.newSession = false;
+        }
+
+        
       }
     )
   }
@@ -63,11 +101,51 @@ export class GroupchatPage implements OnInit {
   ngOnInit() {}
 
 
-  //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
+  // Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
   ionViewDidEnter() {
 
-    //Disable Menu
+    // Disable Menu
     this.menu.enable(false);
+  }
+
+
+  // Update Messages
+  async updateMessages(data: Groupmessage[]) {
+
+    this.allMessages = data;
+    await this.updateNicksAvatars();
+          
+    //TODO Scroll (WORKS BUT UGLY)
+    for (let i = 0; i < 50; i++) {
+      await this.content.scrollToBottom();
+      await this.sleep(10);
+    }
+  }
+
+
+  // Get Nicks and Avatars from Fire Store and show them on the messages
+  updateNicksAvatars() {
+
+    for (let m = 0; m < this.allMessages.length; m++) {
+
+      // If the nick or avatar are not locally in the message and the message isn't listed
+      let tempUid = this.allMessages[m].userId;
+
+      if ((!this.allMessages[m].localChatNick || !this.allMessages[m].localChatImage)) {
+
+        this.fireStore.getUserByUid(tempUid).subscribe(
+
+          data => {
+
+            // Save nick
+            this.allMessages[m].localChatNick = data.nick;
+
+            // Save image and uid
+            this.allMessages[m].localChatImage = data.image;
+          }
+        )
+      } 
+    }
   }
 
 
@@ -130,16 +208,20 @@ export class GroupchatPage implements OnInit {
           // Add message id
           tempMessage.id = tempMessage.userId + tempMessage.time;
 
+          // Add to the message list
+          this.allMessages.push(tempMessage);
+
           // Add to Fire Store
           this.fireStore.addMessage(this.pool.name, tempMessage);
 
-          // Clear message
+          // Clear message text
           this.messageText = "";
 
-          // Scroll
-          await this.sleep(500);
-          await this.content.scrollToBottom(0);
-          
+          //TODO Scroll (WORKS BUT UGLY)
+          for (let i = 0; i < 50; i++) {
+            await this.content.scrollToBottom();
+            await this.sleep(10);
+          }
 
         } catch (error) {
           console.log(error);

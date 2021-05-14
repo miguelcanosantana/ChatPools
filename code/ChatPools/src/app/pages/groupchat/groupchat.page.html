@@ -33,7 +33,12 @@
           <ion-row *ngFor="let message of allMessages">
 
             <!-- User Image -->
-            <ion-col size="12" class="ion-text-left"> 
+            <ion-col *ngIf="message.localChatImage" size="12" class="ion-text-left"> 
+              <img class="user-image" src="{{message.localChatImage}}" alt=""> 
+            </ion-col>
+
+            <!-- User Image if null -->
+            <ion-col *ngIf="!message.localChatImage" size="12" class="ion-text-left"> 
               <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt=""> 
             </ion-col>
 
@@ -43,7 +48,7 @@
               <div class="bubble">
 
                 <!-- Username -->
-                <div class="message-user"> {{message.userId}} </div>
+                <div class="message-user"> {{message.localChatNick}} </div>
 
                 <div class="inner-bubble-gap"></div>
 
@@ -72,6 +77,9 @@
   </ion-grid>
 
 </ion-content>
+
+
+<div id="scroll-to-bottom"></div>
 
 
 <!-- Writting area -->

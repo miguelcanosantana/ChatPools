@@ -6,6 +6,8 @@
    * @property {string} image? : The image of the message
    * @property {Date} time : When was the message sent
    * @property {boolean} isDeleted : Has the message been deleted?
+   * @property {string} localChatNick? : The nick the client gives
+   * @property {string} localChatImage? : The image the client gives
    */
 
   
@@ -17,4 +19,6 @@ export class Groupmessage {
     image?: string;
     time: Date;
     isDeleted: boolean;
+    localChatNick?: string;
+    localChatImage?: string;
 }

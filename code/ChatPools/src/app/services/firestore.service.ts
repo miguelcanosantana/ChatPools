@@ -46,22 +46,9 @@ export class FirestoreService {
 
 
   // Add a message to the pool
-  // addMessage(poolName: string, message: Groupmessage) {
-
-  //   this.fireStore.collection('pools/' + poolName + '/messages').doc(message.id).set(message).then(() => {
-
-  //     console.log("Message successfully written");
-  
-  //   }).catch((error) => {
-  //     console.log(error);
-  //   });
-  // }
-
-
-    // Add a message to the pool
-    public addMessage(poolName: string, message: Groupmessage): Promise<void> {
-      return this.fireStore.collection('pools/' + poolName + '/messages').doc(message.id).set(message);
-    }
+  public addMessage(poolName: string, message: Groupmessage): Promise<void> {
+    return this.fireStore.collection('pools/' + poolName + '/messages').doc(message.id).set(message);
+  }
 
 
   // Get all messages from a Pool
