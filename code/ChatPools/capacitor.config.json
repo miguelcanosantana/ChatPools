@@ -1,5 +1,5 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "github.com.miguelcanosantana.chatpoolstest",
   "appName": "ChatPools",
   "bundledWebRuntime": false,
   "npmClient": "npm",
