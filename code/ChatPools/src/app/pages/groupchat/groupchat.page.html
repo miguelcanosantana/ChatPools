@@ -66,44 +66,45 @@
 
       <ion-col size-xs="0.25" size-md="1" size-lg="2" size-xl="3"></ion-col>
 
-      <!-- Writting area -->
-      <div class="writting-area">
-
-        <ion-grid>
-          <ion-row>
-
-            <!-- Message to write -->
-            <ion-col class="ion-align-self-start">
-              <ion-input [(ngModel)]="messageText" class="write-message" placeholder="Write something..."></ion-input> 
-            </ion-col>
-            
-            <!-- Attach image -->
-            <ion-col size="45px">
-
-              <ion-button class="writting-button" color="primary" (click)="onClick()">
-                <ion-icon slot="icon-only" name="image"></ion-icon>
-              </ion-button>
-
-            </ion-col>
-
-            <!-- Send button -->
-            <ion-col size="45px">
-
-              <ion-button class="writting-button" color="primary" (click)="sendMessage()">
-                <ion-icon slot="icon-only" name="send"></ion-icon>
-              </ion-button>
-
-            </ion-col>
-
-          </ion-row>
-        </ion-grid>
-
-        
-      </div>
-
     </ion-row>
   </ion-grid>
 
   <div id="bottom"></div>
 
 </ion-content>
+
+
+<!-- Writting area -->
+<ion-item *ngIf="pool" class="writting-area" color="light">
+
+  <ion-grid>
+    <ion-row>
+
+      <!-- Message to write -->
+      <ion-col class="ion-align-self-start">
+        <ion-input [(ngModel)]="messageText" class="write-message" placeholder="Write something..."></ion-input> 
+      </ion-col>
+      
+      <!-- Attach image -->
+      <ion-col size="45px">
+
+        <ion-button class="writting-button" color="primary" (click)="onClick()">
+          <ion-icon slot="icon-only" name="image"></ion-icon>
+        </ion-button>
+
+      </ion-col>
+
+      <!-- Send button -->
+      <ion-col size="45px">
+
+        <ion-button class="writting-button" color="primary" (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send"></ion-icon>
+        </ion-button>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+        
+</ion-item>

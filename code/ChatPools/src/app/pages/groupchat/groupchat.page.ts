@@ -7,6 +7,9 @@ import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
+declare function require(name:string);
+var Filter = require('bad-words');
+
 
 @Component({
   selector: 'app-groupchat',
@@ -50,7 +53,9 @@ export class GroupchatPage implements OnInit {
     // Get messages
     this.fireStore.getMessages(poolName).subscribe(
 
-      data => this.allMessages = data
+      data => {
+        this.allMessages = data
+      }
     )
   }
 
@@ -63,6 +68,12 @@ export class GroupchatPage implements OnInit {
 
     //Disable Menu
     this.menu.enable(false);
+  }
+
+
+  // Sleep x seconds
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 
@@ -128,12 +139,19 @@ export class GroupchatPage implements OnInit {
         // Try sending the message
         try {
 
+          // Filter the message
+          let customFilter = new Filter({ placeHolder: '🐤'});
+          tempMessage.content = customFilter.clean(tempMessage.content);
+
+          // Ad to Fire Store
           this.fireStore.addMessage(this.pool.name, tempMessage);
 
+          // Clear message
+          this.messageText = "";
+
           // Scroll to the bottom of the page
-          //this.content.scrollToBottom();
           var titleELe = document.getElementById("bottom");
-          this.content.scrollToPoint(0, titleELe.offsetTop, 1000);
+          this.content.scrollToPoint(0, titleELe.offsetTop, 500);
 
         } catch (error) {
           console.log(error);
