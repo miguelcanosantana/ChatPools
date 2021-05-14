@@ -15,8 +15,7 @@
 </ion-header>
 
 
-<ion-content *ngIf="pool" class="ion-padding" class="ion-text-center" 
-[scrollEvents]="true">
+<ion-content *ngIf="pool" class="ion-padding" class="ion-text-center" [scrollEvents]="true">
 
   <ion-grid>
     <ion-row>
@@ -26,8 +25,11 @@
       <!-- Column with the page content -->
       <ion-col class="leave-margin" size-xs="11.5" size-md="10" size-lg="8" size-xl="6">
 
-        <!-- Message elemments -->
-        <ion-grid>
+        
+        <!-- Messages-->
+        <ion-grid class="message">
+
+          <!-- Each message -->
           <ion-row *ngFor="let message of allMessages">
 
             <!-- User Image -->
@@ -54,7 +56,7 @@
 
                 <!-- Date -->
                 <div class="message-date">{{message.time}}</div>
-                
+
               </div>
 
             </ion-col>
@@ -68,8 +70,6 @@
 
     </ion-row>
   </ion-grid>
-
-  <div id="bottom"></div>
 
 </ion-content>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent, MenuController } from '@ionic/angular';
 import { Groupmessage } from 'src/app/model/groupmessage';
@@ -21,7 +21,6 @@ var Filter = require('bad-words');
 export class GroupchatPage implements OnInit {
 
   @ViewChild(IonContent, { static: false }) content: IonContent;
-  dummyList: any;
 
 
   // Variables
@@ -53,8 +52,9 @@ export class GroupchatPage implements OnInit {
     // Get messages
     this.fireStore.getMessages(poolName).subscribe(
 
-      data => {
-        this.allMessages = data
+      async data => {
+
+        this.allMessages = data;
       }
     )
   }
@@ -95,22 +95,6 @@ export class GroupchatPage implements OnInit {
   }
 
 
-  // Get Nick by User id
-  getNick(userId: string) {
-
-    console.log("Entered")
-
-    let tempNick: string;
-
-    // Get the equivalent User on FireStore
-    this.fireStore.getUserByUid(userId).subscribe(
-
-      user => tempNick = user.nick
-    ).unsubscribe()
-
-  }
-
-
   // Send message
   async sendMessage() {
 
@@ -143,15 +127,19 @@ export class GroupchatPage implements OnInit {
           let customFilter = new Filter({ placeHolder: '🐤'});
           tempMessage.content = customFilter.clean(tempMessage.content);
 
-          // Ad to Fire Store
+          // Add message id
+          tempMessage.id = tempMessage.userId + tempMessage.time;
+
+          // Add to Fire Store
           this.fireStore.addMessage(this.pool.name, tempMessage);
 
           // Clear message
           this.messageText = "";
 
-          // Scroll to the bottom of the page
-          var titleELe = document.getElementById("bottom");
-          this.content.scrollToPoint(0, titleELe.offsetTop, 500);
+          // Scroll
+          await this.sleep(500);
+          await this.content.scrollToBottom(0);
+          
 
         } catch (error) {
           console.log(error);
@@ -161,3 +149,7 @@ export class GroupchatPage implements OnInit {
   }
 
 }
+function List(List: any, arg1: { read: any; }) {
+  throw new Error('Function not implemented.');
+}
+
