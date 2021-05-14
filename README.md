@@ -86,3 +86,12 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>When creating an user it's username it's added to the db</li>
   <li>Completelly Redesigned chats ui</li>
 </ol>
+
+### 5th Week (Starting at 10/05/2021)
+<ol>
+  <li>Designed the pools page</li>
+  <li>Completely revamped the chat</li>
+  <li>Created all the methods for talking in the chat as an user</li>
+  <li>Created PoolTabs control panel app</li>
+  <li>First version released as apks https://github.com/miguelcanosantana/ChatPools/releases/tag/test</li>
+</ol>
