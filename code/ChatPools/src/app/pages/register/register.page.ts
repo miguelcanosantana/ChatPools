@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { User } from 'src/app/model/user';
-import { AuthService } from 'src/app/services/auth.service';
+import { FauthService } from 'src/app/services/fauth.service';
 
 
 @Component({
@@ -15,8 +16,8 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class RegisterPage implements OnInit {
 
-
-  // Variables
+  //Variables
+  firstTimeWrite: boolean = true;
   email: string;
   password: string;
   repPassword: string;
@@ -24,49 +25,57 @@ export class RegisterPage implements OnInit {
 
 
   constructor(
-    private auth: AuthService,
+    private auth: FauthService,
     public alert: AlertController,
     private menu: MenuController,
     private router: Router,
     private fireStore: AngularFirestore
-  ) { }
+  ) {}
 
 
   ngOnInit() {}
 
-  // Animate the SVG before entering to avoid black lines
+
+  //Animate the SVG before entering to avoid black lines
   ionViewWillEnter() {
 
-    // SVG
+    //SVG
     this.setTextAnimation(0.1,3,2.5,'ease-in-out','#2660cf',false);
   }
 
-  // Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
+
+  //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
   ionViewDidEnter() {
 
-    // Disable Menu
+    //Disable Menu
     this.menu.enable(false);
   }
 
 
-  // Try to register and redirect to allpools
+  //Set firstTimeWrite to false after writing on username input
+  setFirstTime() {
+    this.firstTimeWrite = false;
+  }
+
+
+  //Try to register and redirect to allpools
   async tryRegister() {
 
-    // Log out from current user
+    //Log out from current user
     this.auth.logout();
 
-    // Create new user
+    //Create new user
     this.auth.createUser(this.email, this.password).then(
 
       data => {
 
-        // Create a new User object
+        //Create a new User object
         let tempUser: User = {
           uid: data.user.uid,
           nick: this.username
         }
 
-        // Add a new user inside Fire Store
+        //Add a new user inside Fire Store
         this.fireStore.collection('users/').doc(data.user.uid).set(tempUser).then(() => {
 
           console.log("User successfully written");
@@ -76,22 +85,22 @@ export class RegisterPage implements OnInit {
         });
 
         console.log("User has been registered");
-        this.router.navigateByUrl("/allpools");
+        this.router.navigateByUrl("/tabs/tab1");
       }
 
-      // Catch any errors during register
+      //Catch any errors during register
     ).catch(error => this.showErrorAlert(error.code));
   }
 
 
-  // Show an alert with the register error with a custom message
+  //Show an alert with the register error with a custom message
   async showErrorAlert(errorCode) {
 
     console.log(errorCode)
 
     let customMessage;
 
-    // Custom error messages
+    //Custom error messages
     if (errorCode == "auth/argument-error") {
       customMessage = "Fields can't be let empty."
     }
@@ -104,8 +113,7 @@ export class RegisterPage implements OnInit {
       customMessage = "The password is too weak."
     }
 
-
-    // Create alert
+    //Create alert
     const alert = await this.alert.create({
       header: 'There was an error',
       message: customMessage,
@@ -115,7 +123,8 @@ export class RegisterPage implements OnInit {
     await alert.present();
   }
 
-  // SVG animation
+
+  //SVG animation
   setTextAnimation(delay, duration, strokeWidth, timingFunction, strokeColor,repeat) {
       let paths = document.querySelectorAll("path");
       let mode=repeat?'infinite':'forwards'
@@ -130,6 +139,7 @@ export class RegisterPage implements OnInit {
           path.style["animation-delay"] = `${i * delay}s`;
       }
   }
-  
-  
+
+
+
 }

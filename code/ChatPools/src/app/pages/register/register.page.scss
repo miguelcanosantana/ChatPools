@@ -1,61 +1,61 @@
 img {
-    max-width: 200px;
-    max-height: 200px;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .top-space {
-    min-height: 10vh;
+  min-height: 10vh;
 }
 
 .space {
-    min-height: 5vh;
+  min-height: 5vh;
 }
 
 .form-space {
-    min-height: 20px;
+  min-height: 20px;
 }
 
 ion-input {
-    font-family: 'Ubuntu';
+  font-family: 'Ubuntu';
 }
 
 ion-label {
-    font-family: 'Ubuntu';
+  font-family: 'Ubuntu';
 }
 
-// Welcome SVG
+//Welcome SVG
 svg {
-    max-width: 250px;
+  max-width: 250px;
 }
 
 @-webkit-keyframes svg-text-anim {
 40% {
-    stroke-dashoffset: 0;
-    fill: transparent;
-    }
-    60% {
-    stroke-dashoffset: 0;
-    fill: #0f42a246;
-    }
-    100% {
-    stroke-dashoffset: 0;
-    fill: #0f42a246;
-    }
-    
+  stroke-dashoffset: 0;
+  fill: transparent;
+  }
+  60% {
+  stroke-dashoffset: 0;
+  fill: #0f42a246;
+  }
+  100% {
+  stroke-dashoffset: 0;
+  fill: #0f42a246;
+  }
+  
 }
 
 @keyframes svg-text-anim {
 40% {
-    stroke-dashoffset: 0;
-    fill: transparent;
-    }
-    60% {
-    stroke-dashoffset: 0;
-    fill: #0f42a246;
-    }
-    100% {
-    stroke-dashoffset: 0;
-    fill: #0f42a246;
-    }
-    
+  stroke-dashoffset: 0;
+  fill: transparent;
+  }
+  60% {
+  stroke-dashoffset: 0;
+  fill: #0f42a246;
+  }
+  100% {
+  stroke-dashoffset: 0;
+  fill: #0f42a246;
+  }
+  
 }

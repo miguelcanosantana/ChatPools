@@ -46,11 +46,11 @@
         <!-- Username input -->
         <ion-item class="form">
           <ion-label color="dark" position="floating">Username</ion-label>
-          <ion-input [(ngModel)]="username"></ion-input>
+          <ion-input (ngModelChange)="setFirstTime()" [(ngModel)]="username"></ion-input>
         </ion-item>
 
         <!-- Username is empty -->
-        <ion-item color="none" lines="none" class="ion-text-center" *ngIf="!username">
+        <ion-item color="none" lines="none" class="ion-text-center" *ngIf="!username && !firstTimeWrite">
           <ion-icon name="person"></ion-icon>
           <ion-label color="danger">Username can't be empty</ion-label>
           <ion-icon name=""></ion-icon>

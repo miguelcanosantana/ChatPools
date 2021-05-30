@@ -3,13 +3,8 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'redirect',
-    loadChildren: () => import('./pages/redirect/redirect.module').then( m => m.RedirectPageModule)
-  },
-  {
     path: '',
-    redirectTo: 'redirect',
-    pathMatch: 'full'
+    loadChildren: () => import('./pages/redirect/redirect.module').then(m => m.RedirectPageModule)
   },
   {
     path: 'login',
@@ -20,27 +15,22 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
-    path: 'allpools',
-    loadChildren: () => import('./pages/allpools/allpools.module').then( m => m.AllpoolsPageModule)
+    path: 'redirect',
+    loadChildren: () => import('./pages/redirect/redirect.module').then( m => m.RedirectPageModule)
   },
   {
-    path: 'groupchat',
-    loadChildren: () => import('./pages/groupchat/groupchat.module').then( m => m.GroupchatPageModule)
+    path: 'group/:chat',
+    loadChildren: () => import('./pages/group/group.module').then( m => m.GroupPageModule)
   },
   {
-    path: 'groupchat/:chat',
-    loadChildren: () => import('./pages/groupchat/groupchat.module').then( m => m.GroupchatPageModule)
-  },
-  {
-    path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
-  },
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  }
 ];
-
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

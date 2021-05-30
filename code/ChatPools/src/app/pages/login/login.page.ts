@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AlertController, MenuController } from '@ionic/angular';
+import { FauthService } from 'src/app/services/fauth.service';
 
 
 @Component({
@@ -13,18 +13,17 @@ import { Router } from '@angular/router';
 
 export class LoginPage implements OnInit {
 
-
-  // Variables
+  //Variables
   email: string;
   password: string;
 
 
   constructor(
-    private auth: AuthService,
+    private auth: FauthService,
     public alert: AlertController,
     private menu: MenuController,
     private router: Router
-    ) { }
+  ) { }
 
 
   ngOnInit() {}
@@ -38,7 +37,7 @@ export class LoginPage implements OnInit {
   }
 
 
-  // Try to login and redirect to allpools
+  //Try to login and redirect to allpools
   async tryLogin() {
 
     // Log out from current user
@@ -50,7 +49,7 @@ export class LoginPage implements OnInit {
       data => {
 
         console.log("User has been logged");
-        this.router.navigateByUrl("/allpools")
+        this.router.navigateByUrl("/tabs/tab2")
       }
 
       // Catch any errors during login
@@ -58,14 +57,14 @@ export class LoginPage implements OnInit {
   }
 
 
-  // Show an alert with the login error with a custom message
+  //Show an alert with the login error with a custom message
   async showErrorAlert(errorCode) {
 
     console.log(errorCode)
 
     let customMessage;
 
-    // Custom error messages
+    //Custom error messages
     if (errorCode == "auth/argument-error") {
       customMessage = "Fields can't be let empty."
     }
@@ -82,7 +81,7 @@ export class LoginPage implements OnInit {
       customMessage = "The password is incorrect."
     }
 
-    // Create alert
+    //Create alert
     const alert = await this.alert.create({
       header: 'There was an error',
       message: customMessage,
@@ -97,6 +96,5 @@ export class LoginPage implements OnInit {
   goToRegister() {
     this.router.navigateByUrl("/register")
   }
-
 
 }

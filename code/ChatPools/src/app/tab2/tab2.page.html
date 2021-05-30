@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary" class="ion-text-center">
+
+    <ion-title>All Pools</ion-title>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size-xs="0.25" size-md="1" size-xl="2"></ion-col>
+
+      <!-- Column with the page content -->
+      <ion-col size-xs="11.5" size-md="10" size-xl="8">
+
+        <!-- Grid of Pools -->
+        <ion-grid class="ion-text-center">
+          <ion-row>
+
+            <!-- Each Pool -->
+            <ion-col class="ion-text-center" *ngFor="let pool of allPools" size-xs="12" size-md="6">
+              
+              <div (click)="goToGroup(pool.name)" class="pool" [style.backgroundImage]="'url('+ pool.image +')'">
+
+                <ion-label class="title">{{pool.name}}</ion-label>
+
+              </div>
+
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+      </ion-col>
+
+      <ion-col size-xs="0.25" size-md="1" size-xl="2"></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  firebaseConfig: {
+  firebase: {
     apiKey: "AIzaSyBtVPnC8nfY3ka69vdheEfMyW5ysOLgDrg",
     authDomain: "chatpools-pooltabs-test.firebaseapp.com",
     projectId: "chatpools-pooltabs-test",
     storageBucket: "chatpools-pooltabs-test.appspot.com",
     messagingSenderId: "680145287225",
-    appId: "1:680145287225:web:bc10909e7190f9682435e8",
-    measurementId: "G-2FMD88XRDK"
+    appId: "1:680145287225:web:cba156d2e68432ef2435e8",
+    measurementId: "G-TNG7BW4H4J"
   }
 };
 
