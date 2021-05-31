@@ -27,10 +27,10 @@
 
         
         <!-- Messages-->
-        <ion-grid class="message">
+        <ion-grid class="messages">
 
           <!-- Each message -->
-          <ion-row *ngFor="let message of allMessages">
+          <ion-row class="message" *ngFor="let message of allMessages">
 
             <!-- User Image -->
             <ion-col *ngIf="message.localChatImage" size="12" class="ion-text-left"> 
