@@ -8,6 +8,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
 
@@ -21,7 +22,8 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    IonicStorageModule.forRoot()
   ],
 
   providers: [{ 
