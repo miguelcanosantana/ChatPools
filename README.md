@@ -102,5 +102,5 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Rebuilt the project and changed all the structure of the pages and services</li>
   <li>Added 3 tabs for the main interface</li>
   <li>Added Chat Bubbles Animation</li>
-  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-05-03%2000-00-21.png" alt="img" width="300" height="600">
+  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-06-01%2011-01-49.png" alt="img" width="300" height="600">
 </ol>
