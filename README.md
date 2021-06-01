@@ -95,3 +95,12 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Created PoolTabs control panel app</li>
   <li>First version released as apks https://github.com/miguelcanosantana/ChatPools/releases/tag/test</li>
 </ol>
+
+### 6th / 7th Week (Starting at 17/05/2021)
+<ol>
+  <li>Redesigned some aspects of the chat</li>
+  <li>Rebuilt the project and changed all the structure of the pages and services</li>
+  <li>Added 3 tabs for the main interface</li>
+  <li>Added Chat Bubbles Animation</li>
+  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-05-03%2000-00-21.png" alt="img" width="300" height="600">
+</ol>
