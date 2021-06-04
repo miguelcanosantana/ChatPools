@@ -209,7 +209,7 @@ export class GroupPage implements OnInit {
           tempMessage.content = customFilter.clean(tempMessage.content);
 
           //Add message id
-          tempMessage.id = tempMessage.userId + tempMessage.time;
+          tempMessage.id = tempMessage.time + tempMessage.userId;
 
           //Add to the message list
           this.allMessages.push(tempMessage);
