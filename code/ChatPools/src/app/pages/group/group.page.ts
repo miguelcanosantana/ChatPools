@@ -7,6 +7,7 @@ import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { PoolsService } from 'src/app/services/pools.service';
+import { SoundService } from 'src/app/services/sound.service';
 import { UserService } from 'src/app/services/user.service';
 
 declare function require(name:string);
@@ -39,7 +40,8 @@ export class GroupPage implements OnInit {
     public messagesService: MessagesService,
     public userService: UserService,
     private menu: MenuController,
-    private auth: FauthService
+    private auth: FauthService,
+    public soundService: SoundService
   ) { }
 
 
