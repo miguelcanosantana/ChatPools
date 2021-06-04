@@ -219,6 +219,9 @@ export class GroupPage implements OnInit {
           //Add to Fire Store
           this.messagesService.addMessage(this.pool.name, tempMessage);
 
+          //Play pop sound
+          this.soundService.playRandomPop();
+
           //Clear message text
           this.messageText = "";
 
