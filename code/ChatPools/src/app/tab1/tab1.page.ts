@@ -18,6 +18,8 @@ export class Tab1Page {
   //Variables
   readMode: boolean = true;
   currentUser: User;
+  nickField: string;
+  descriptionField: string;
 
 
   constructor(
@@ -46,6 +48,19 @@ export class Tab1Page {
         )
       }
     );
+  }
+
+
+  //Launch edit mode
+  goToEdit() {
+    this.readMode = false;
+    this.nickField = this.currentUser.nick;
+    this.descriptionField = this.currentUser.description;
+  }
+
+
+  goToRead() {
+    this.readMode = true;
   }
 
 }

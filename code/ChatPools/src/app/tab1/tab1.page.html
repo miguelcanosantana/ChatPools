@@ -10,10 +10,10 @@
   <ion-grid>
     <ion-row>
 
-      <ion-col size-xs="0.5" size-md="2" size-lg="3" size-xl="4"></ion-col>
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
 
       <!-- Column with the page content -->
-      <ion-col *ngIf="currentUser" size-xs="11" size-md="8" size-lg="6" size-xl="4">
+      <ion-col *ngIf="currentUser" size-xs="12" size-md="8" size-lg="6" size-xl="4">
 
         <div></div>
 
@@ -33,11 +33,18 @@
 
             </div>
 
+            <!-- Edit mode button -->
+            <ion-button (click)="goToEdit()" fill="outline">
+              Edit Profile
+            </ion-button>
+
+            <div class="form-space"></div>
+
             <!-- Role (if user has it) -->
             <div *ngIf="currentUser.isAdmin || currentUser.isModerator" class="ion-text-center">
 
               <div class="title-label">
-                <ion-label class="ion-text-center">
+                <ion-label color="dark" class="ion-text-center">
                   <h2>Roles</h2>
                 </ion-label>
               </div>
@@ -48,7 +55,7 @@
                 <ion-label>Admin</ion-label>
               </ion-chip>
 
-              <ion-chip *ngIf="currentUser.isModerator" color="tertiary">
+              <ion-chip *ngIf="currentUser.isModerator" color="secondary">
                 <ion-label>Moderator</ion-label>
               </ion-chip>
   
@@ -59,21 +66,21 @@
 
             <!-- Nick Name -->
             <div class="title-label">
-              <ion-label class="ion-text-center">
+              <ion-label color="dark" class="ion-text-center">
                 <h2>Username</h2>
               </ion-label>
             </div>
 
             <div class="form-space"></div>
 
-            <ion-label>{{currentUser.nick}}</ion-label>
+            <ion-label color="dark">{{currentUser.nick}}</ion-label>
 
             <div class="form-space"></div>
             <div class="form-space"></div>
             
             <!-- Description -->
             <div class="title-label">
-              <ion-label class="ion-text-center">
+              <ion-label color="dark" class="ion-text-center">
                 <h2>Description</h2>
               </ion-label>
             </div>
@@ -81,10 +88,73 @@
             <div class="form-space"></div>
 
             <!-- User description if null -->
-            <ion-label *ngIf="!currentUser.description">Try to write something about you :D</ion-label>
+            <ion-label color="dark" *ngIf="!currentUser.description">Try to write something about you :D</ion-label>
 
             <!-- If user has description -->
             <ion-text *ngIf="currentUser.description">{{currentUser.description}}</ion-text>
+
+            <div class="form-space"></div>
+
+            <ion-text></ion-text>
+
+          </div>
+
+          <!-- Edit mode -->
+          <div *ngIf="!readMode">
+
+            <!-- Photo -->
+            <div class="ion-padding ion-text-center">
+
+              <!-- User Image if null -->
+              <img *ngIf="!currentUser.image" class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
+              
+              <!-- If user has image -->
+              <img *ngIf="currentUser.image" class="user-image" src="{{currentUser.image}}">
+
+            </div>
+
+            <!-- Discard changes -->
+            <ion-button (click)="goToRead()" color="danger" fill="outline">
+              Discard
+            </ion-button>
+
+            <!-- Save changes button -->
+            <ion-button (click)="goToEdit()">
+              Save
+            </ion-button>
+
+            <div class="form-space"></div>
+
+            <!-- Nick Name -->
+            <div class="title-label">
+              <ion-label color="dark" class="ion-text-center">
+                <h2>Username</h2>
+              </ion-label>
+            </div>
+
+            <div class="form-space"></div>
+
+            <!-- Nick input -->
+            <ion-item class="form">
+              <ion-input [(ngModel)]="nickField"></ion-input>
+            </ion-item>
+
+            <div class="form-space"></div>
+            <div class="form-space"></div>
+            
+            <!-- Description -->
+            <div class="title-label">
+              <ion-label color="dark" class="ion-text-center">
+                <h2>Description</h2>
+              </ion-label>
+            </div>
+
+            <div class="form-space"></div>
+
+            <!-- Description input -->
+            <ion-item class="form">
+              <ion-input [(ngModel)]="descriptionField"></ion-input>
+            </ion-item>
 
             <div class="form-space"></div>
 
@@ -96,7 +166,7 @@
 
       </ion-col>
 
-      <ion-col size-xs="0.5" size-md="2" size-lg="3" size-xl="4"></ion-col>
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
 
     </ion-row>
   </ion-grid>
