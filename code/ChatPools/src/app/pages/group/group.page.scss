@@ -13,9 +13,6 @@ ion-list {
   min-height: 45px;
   background-color: rgba(155, 168, 189, 0.364);
   border-radius: 30px;
-  -webkit-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
-  box-shadow: 0px 5px 15px -5px rgba(0,0,0,0.5);
 }
 
 .messages {
@@ -81,11 +78,8 @@ ion-list {
   padding: 10px;
   margin-bottom: 20px;
   margin-right: 5px;
-  background-color: rgba(155, 168, 189, 0.141);
+  background-color: rgba(155, 168, 189, 0.1);
   border-radius: 5px 20px 20px 20px;
-  -webkit-box-shadow: 1px 1.5px 5px -1px rgba(0, 0, 0, 0.405);
-  -moz-box-shadow: 1px 1.5px 5px -1px rgba(0, 0, 0, 0.405);
-  box-shadow: 1px 1.5px 5px -1px rgba(0, 0, 0, 0.405);
 }
 
 .message-user {
