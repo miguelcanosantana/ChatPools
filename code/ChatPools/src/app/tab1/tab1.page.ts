@@ -59,8 +59,38 @@ export class Tab1Page {
   }
 
 
+  //Go to read mode
   goToRead() {
     this.readMode = true;
+  }
+
+
+  //Save changes
+  async saveChanges() {
+
+    //Save username
+    if (this.nickField != this.currentUser.nick) {
+
+      await this.userService.saveUserNick(this.currentUser.uid, this.nickField).then(
+
+        () => console.log("Nick saved!")
+
+      ).catch(error => console.log(error));
+    }
+
+    //Save description
+    if (this.descriptionField != this.currentUser.description) {
+
+      await this.userService.saveUserDescription(this.currentUser.uid, this.descriptionField).then(
+
+        () => console.log("Description saved!")
+
+      ).catch(error => console.log(error));
+    }
+
+    //Go back to read mode
+    this.goToRead();
+
   }
 
 }

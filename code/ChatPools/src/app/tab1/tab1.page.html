@@ -106,10 +106,10 @@
             <div class="ion-padding ion-text-center">
 
               <!-- User Image if null -->
-              <img *ngIf="!currentUser.image" class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
+              <img *ngIf="!currentUser.image" class="user-image edit-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
               
               <!-- If user has image -->
-              <img *ngIf="currentUser.image" class="user-image" src="{{currentUser.image}}">
+              <img *ngIf="currentUser.image" class="user-image edit-image" src="{{currentUser.image}}">
 
             </div>
 
@@ -119,7 +119,7 @@
             </ion-button>
 
             <!-- Save changes button -->
-            <ion-button (click)="goToEdit()">
+            <ion-button (click)="saveChanges()">
               Save
             </ion-button>
 
