@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
@@ -18,18 +18,53 @@ export class Tab1Page {
   //Variables
   readMode: boolean = true;
   currentUser: User;
-  nickField: string;
+  nickField: string = "";
   descriptionField: string;
+  validNick: boolean = false;
 
 
   constructor(
     public userService: UserService,
     private menu: MenuController,
     private auth: FauthService,
+    public toast: ToastController
   ) {
 
     //Get current user
     this.getUser();
+  }
+
+
+  //Check if an User with the same Nick exists
+  checkUser() {
+
+    this.userService.getUsersWithNick(this.nickField).subscribe(
+
+      data => {
+
+        console.log("Matching nick user: " + data);
+
+        //If an User has the nick taken user can't register
+        if (data.length != 0) this.validNick = false;
+        //Else it can
+        else this.validNick = true;
+      }
+    ); 
+  }
+
+
+  //Show toast with error
+  async showError(error: string) {
+
+    let msg: string;
+
+    if (error == "user-taken") msg = "The username is already taken."; 
+
+    const toast = await this.toast.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
 
@@ -68,15 +103,17 @@ export class Tab1Page {
   //Save changes
   async saveChanges() {
 
-    //Save username
-    if (this.nickField != this.currentUser.nick) {
+    //Save username if nick is valid
+    if ((this.nickField != this.currentUser.nick) && this.validNick) {
 
       await this.userService.saveUserNick(this.currentUser.uid, this.nickField).then(
 
         () => console.log("Nick saved!")
 
       ).catch(error => console.log(error));
-    }
+
+    //Show user taken toast  
+    } else if ((this.nickField != this.currentUser.nick) && !this.validNick) this.showError("user-taken");
 
     //Save description
     if (this.descriptionField != this.currentUser.description) {
@@ -90,7 +127,6 @@ export class Tab1Page {
 
     //Go back to read mode
     this.goToRead();
-
   }
 
 }

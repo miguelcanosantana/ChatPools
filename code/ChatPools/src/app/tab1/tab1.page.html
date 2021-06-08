@@ -136,7 +136,7 @@
 
             <!-- Nick input -->
             <ion-item class="form">
-              <ion-input [(ngModel)]="nickField"></ion-input>
+              <ion-input (ionChange)="checkUser()" [(ngModel)]="nickField"></ion-input>
             </ion-item>
 
             <div class="form-space"></div>

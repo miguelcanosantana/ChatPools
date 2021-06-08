@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
 import { UserService } from 'src/app/services/user.service';
-import { takeUntil } from 'rxjs/operators';
-import { map, take } from "rxjs/operators";
 
 
 @Component({
@@ -101,7 +99,6 @@ export class RegisterPage implements OnInit {
             uid: data.user.uid,
             nick: this.username
           }
-
         
           //Add a new User inside Fire Store
           this.userService.createFireStoreUser(tempUser).then(
