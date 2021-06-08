@@ -46,7 +46,7 @@
         <!-- Username input -->
         <ion-item class="form">
           <ion-label color="dark" position="floating">Username</ion-label>
-          <ion-input (ngModelChange)="setFirstTime()" [(ngModel)]="username"></ion-input>
+          <ion-input (ionChange)="setFirstTime(); checkUser()" [(ngModel)]="username"></ion-input>
         </ion-item>
 
         <!-- Username is empty -->

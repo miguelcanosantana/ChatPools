@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -13,6 +14,27 @@ export class UserService {
 
 
   constructor(private fireStore: AngularFirestore) {}
+
+
+  //Create FireStore User
+  createFireStoreUser(user: User): Promise<void> {
+    return this.fireStore.collection('users/').doc(user.uid).set(user);
+  }
+
+
+  //Get users with matching nick
+  getUsersWithNick(nickName: string): Observable<User[]> {
+
+    return this.fireStore.collection<User>('users/', ref => ref.where('nick', '==', nickName)).snapshotChanges().pipe(
+      map(
+        snaps => snaps.map(
+          snap => <User>{
+            ...snap.payload.doc.data()
+          }
+        )
+      )
+    );
+  }
 
 
   //Get FireStore User by it's id

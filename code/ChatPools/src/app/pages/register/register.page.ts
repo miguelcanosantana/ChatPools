@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
 import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
+import { UserService } from 'src/app/services/user.service';
+import { takeUntil } from 'rxjs/operators';
+import { map, take } from "rxjs/operators";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class RegisterPage implements OnInit {
   email: string;
   password: string;
   repPassword: string;
-  username: string;
+  username: string = "";
+  validNick: boolean = false;
 
 
   constructor(
@@ -29,7 +31,7 @@ export class RegisterPage implements OnInit {
     public alert: AlertController,
     private menu: MenuController,
     private router: Router,
-    private fireStore: AngularFirestore
+    private userService: UserService
   ) {}
 
 
@@ -55,41 +57,66 @@ export class RegisterPage implements OnInit {
   //Set firstTimeWrite to false after writing on username input
   setFirstTime() {
     this.firstTimeWrite = false;
+    console.log("First time is false");
   }
 
+
+  //Check if an User with the same Nick exists
+  checkUser() {
+
+    this.userService.getUsersWithNick(this.username).subscribe(
+
+      data => {
+
+        console.log("Matching nick user: " + data);
+
+        //If an User has the nick taken user can't register
+        if (data.length != 0) this.validNick = false;
+        //Else it can
+        else this.validNick = true;
+      }
+    ); 
+  }
+      
 
   //Try to register and redirect to allpools
   async tryRegister() {
 
-    //Log out from current user
-    this.auth.logout();
+    //If an User has the nick taken show alert
+    if (!this.validNick) this.showErrorAlert("nick-taken");
 
-    //Create new user
-    this.auth.createUser(this.email, this.password).then(
+    //Else continue with the register
+    else {
 
-      data => {
+      //Log out from current user
+      this.auth.logout();
 
-        //Create a new User object
-        let tempUser: User = {
-          uid: data.user.uid,
-          nick: this.username
+      //Create new user
+      this.auth.createUser(this.email, this.password).then(
+
+        async data => {
+
+          //Create a new User object
+          let tempUser: User = {
+            uid: data.user.uid,
+            nick: this.username
+          }
+
+        
+          //Add a new User inside Fire Store
+          this.userService.createFireStoreUser(tempUser).then(
+
+            () => {
+
+              console.log("User successfully written");
+              this.router.navigateByUrl("/tabs/tab1");
+            }
+          ).catch(error => this.showErrorAlert(error.code));
         }
 
-        //Add a new user inside Fire Store
-        this.fireStore.collection('users/').doc(data.user.uid).set(tempUser).then(() => {
-
-          console.log("User successfully written");
-
-        }).catch((error) => {
-          console.error(error => this.showErrorAlert(error.code));
-        });
-
-        console.log("User has been registered");
-        this.router.navigateByUrl("/tabs/tab1");
-      }
-
-      //Catch any errors during register
-    ).catch(error => this.showErrorAlert(error.code));
+        //Catch any errors during register
+      ).catch(error => this.showErrorAlert(error.code));
+    }
   }
 
 
@@ -113,6 +140,14 @@ export class RegisterPage implements OnInit {
       customMessage = "The password is too weak."
     }
 
+    if (errorCode == "auth/email-already-in-use") {
+      customMessage = "The email is already in use."
+    }
+
+    if (errorCode == "nick-taken") {
+      customMessage = "The username is already in use."
+    }
+
     //Create alert
     const alert = await this.alert.create({
       header: 'There was an error',
@@ -126,8 +161,10 @@ export class RegisterPage implements OnInit {
 
   //SVG animation
   setTextAnimation(delay, duration, strokeWidth, timingFunction, strokeColor,repeat) {
+
       let paths = document.querySelectorAll("path");
-      let mode=repeat?'infinite':'forwards'
+      let mode = repeat?'infinite':'forwards';
+
       for (let i = 0; i < paths.length; i++) {
           const path = paths[i];
           const length = path.getTotalLength();
