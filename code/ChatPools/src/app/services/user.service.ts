@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../model/user';
 import { map } from 'rxjs/operators';
+import { Pool } from '../model/pool';
 
 
 @Injectable({
@@ -52,6 +53,18 @@ export class UserService {
   //Save User description
   public saveUserDescription(uid: string, text: string): Promise<void> {
     return this.fireStore.collection('users/').doc(uid).update({description: text});
+  }
+
+
+  //Save Pool User is on
+  public savePoolOnUser(uid: string, poolName: string): Promise<void> {
+    return this.fireStore.collection('users/' + uid + '/userPools').doc(poolName).set({pool: poolName});
+  }
+
+
+  //Get Pool User is on
+  public getPoolOfUserByName(uid: string, poolName: string): Observable<unknown> {
+    return this.fireStore.collection('users/' + uid + '/userPools').doc<unknown>(poolName).valueChanges();
   }
   
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonContent, MenuController } from '@ionic/angular';
 import { Message } from 'src/app/model/message';
 import { Pool } from 'src/app/model/pool';
@@ -41,7 +41,8 @@ export class GroupPage implements OnInit {
     public userService: UserService,
     private menu: MenuController,
     private auth: FauthService,
-    public soundService: SoundService
+    public soundService: SoundService,
+    private router: Router
   ) { }
 
 
@@ -238,5 +239,10 @@ export class GroupPage implements OnInit {
     }
   }
 
+
+  //Go to my pools tab (tab 3)
+  goToMyPools() {
+    this.router.navigateByUrl("/tabs/tab3");
+  }
 
 }

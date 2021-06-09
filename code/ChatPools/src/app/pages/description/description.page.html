@@ -1,0 +1,55 @@
+<ion-content *ngIf="!showContent" class="ion-padding">
+  <!-- Loading spinner -->
+  <div class="load_spin">
+
+    <ion-label color="dark" class="load_text">Loading</ion-label>
+    <div class="space"></div>
+    <ion-spinner color="dark" class="spinner" name="crescent"></ion-spinner>
+
+  </div>
+</ion-content>
+
+
+<ion-header class="fade" *ngIf="currentPool && currentUser && showContent">
+  <ion-toolbar color="primary" class="ion-text-center">
+
+    <ion-title>{{currentPool.name}}</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+
+    <ion-icon slot="end" name=""></ion-icon>
+    <ion-icon slot="end" name=""></ion-icon>
+    <ion-icon slot="end" name=""></ion-icon>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="currentPool && currentUser && showContent" class="ion-padding ion-text-center fade">
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+
+      <!-- Column with the page content -->
+      <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4">
+
+        <ion-card class="ion-padding ion-text-center">
+
+          <ion-button (click)="joinGroup()">
+            Join in
+          </ion-button>
+
+        </ion-card>
+
+      </ion-col>
+
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

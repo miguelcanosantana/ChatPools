@@ -1,10 +1,10 @@
-<ion-header *ngIf="pool">
+<ion-header class="fade" *ngIf="pool">
   <ion-toolbar color="primary" class="ion-text-center">
 
     <ion-title>{{pool.name}}</ion-title>
 
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+      <ion-back-button (click)="goToMyPools()" defaultHref="/tabs/tab3"></ion-back-button>
     </ion-buttons>
 
     <ion-icon slot="end" name=""></ion-icon>
@@ -15,7 +15,7 @@
 </ion-header>
 
 
-<ion-content *ngIf="pool" class="ion-padding" class="ion-text-center" [scrollEvents]="true">
+<ion-content *ngIf="pool" class="ion-padding ion-text-center fade" [scrollEvents]="true">
 
   <ion-grid>
     <ion-row>
@@ -83,7 +83,7 @@
 
 
 <!-- Writting area -->
-<ion-item *ngIf="pool" class="writting-area" color="light">
+<ion-item *ngIf="pool" class="writting-area fade" color="light">
 
   <ion-grid>
     <ion-row>

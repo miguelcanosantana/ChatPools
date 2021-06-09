@@ -21,7 +21,7 @@
             <!-- Each Pool -->
             <ion-col class="ion-text-center" *ngFor="let pool of allPools" size-xs="12" size-md="6">
               
-              <div (click)="goToGroup(pool.name)" class="pool" [style.backgroundImage]="'url('+ pool.image +')'">
+              <div (click)="goToGroupDescription(pool.name)" class="pool" [style.backgroundImage]="'url('+ pool.image +')'">
 
                 <ion-label class="title">{{pool.name}}</ion-label>
 

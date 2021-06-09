@@ -28,21 +28,19 @@ export class Tab2Page {
     this.poolsService.getPools().subscribe(
       data => this.allPools = data
     );
-
   }
 
 
-  //Go to chat
-  goToGroup(name: string) {
+  //Go to group description
+  goToGroupDescription(name: string) {
 
     try {
 
-      this.router.navigateByUrl(`/group${name != undefined ? '/' + name : ''}`);
+      this.router.navigateByUrl(`/description${name != undefined ? '/' + name : ''}`);
     
     } catch (error) {
       console.log("Error entering the chat");
     }
-
   }
 
 }
