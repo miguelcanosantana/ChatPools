@@ -134,7 +134,7 @@ export class GroupPage implements OnInit {
 
     for (let m = 0; m < this.allMessages.length; m++) {
 
-      // If the nick or avatar are not locally in the message and the message isn't listed
+      //If the nick or avatar are not locally in the message and the message isn't listed
       let tempUid = this.allMessages[m].userId;
 
       if ((!this.allMessages[m].localChatNick || !this.allMessages[m].localChatImage)) {
@@ -143,13 +143,20 @@ export class GroupPage implements OnInit {
 
           data => {
 
-            // Save nick
-            this.allMessages[m].localChatNick = data.nick;
+            //If user was deleted set custom nick
+            if (!data) this.allMessages[m].localChatNick = "Deleted User";
+            //Else save specs
+            else {
 
-            // Save image and uid
-            this.allMessages[m].localChatImage = data.image;
+              //Save nick
+              this.allMessages[m].localChatNick = data.nick;
+
+              //Save image and uid
+              this.allMessages[m].localChatImage = data.image;
+            }
           }
-        )
+        );
+        
       } 
     }
   }
