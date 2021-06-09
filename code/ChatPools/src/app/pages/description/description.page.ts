@@ -39,7 +39,7 @@ export class DescriptionPage implements OnInit {
     //Get pool
     this.getPool(poolName);
 
-    await this.sleep(1000);
+    await this.sleep(500);
 
     //Get current user
     await this.getUser();
