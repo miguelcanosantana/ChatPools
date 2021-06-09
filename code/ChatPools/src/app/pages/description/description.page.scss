@@ -79,3 +79,10 @@ ion-card {
 .spinner {
   transform: scale(2);
 }
+
+.pool-image {
+  min-width: none;
+  min-height: 260px;
+  max-height: 260px;
+  border-radius: 5px;
+}

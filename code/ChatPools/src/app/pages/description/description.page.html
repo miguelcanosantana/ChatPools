@@ -39,9 +39,30 @@
 
         <ion-card class="ion-padding ion-text-center">
 
+          <!-- Image -->
+          <div class="pool-image" [style.backgroundImage]="'url('+ currentPool.image +')'"></div>
+
+          <div class="form-space"></div>
+
+          <!-- Join button -->
           <ion-button (click)="joinGroup()">
             Join in
           </ion-button>
+
+          <div class="form-space"></div>
+
+          <!-- Pool description -->
+          <div class="title-label">
+            <ion-label color="dark" class="ion-text-center">
+              <h2>What's the Pool about?</h2>
+            </ion-label>
+          </div>
+
+          <div class="form-space"></div>
+
+          <ion-text color="dark">{{currentPool.description}}</ion-text>
+          
+          <div class="form-space"></div>
 
         </ion-card>
 
