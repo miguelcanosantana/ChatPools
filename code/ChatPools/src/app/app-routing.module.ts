@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+
+
+//Guard redirect route
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["login"]);
+
 
 const routes: Routes = [
   {
@@ -20,15 +26,21 @@ const routes: Routes = [
   },
   {
     path: 'group/:chat',
-    loadChildren: () => import('./pages/group/group.module').then( m => m.GroupPageModule)
+    loadChildren: () => import('./pages/group/group.module').then( m => m.GroupPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   },
   {
     path: 'description/:chat',
-    loadChildren: () => import('./pages/description/description.module').then( m => m.DescriptionPageModule)
+    loadChildren: () => import('./pages/description/description.module').then( m => m.DescriptionPageModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin}
   }
 ];
 @NgModule({
