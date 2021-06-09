@@ -81,7 +81,13 @@ export class Tab1Page {
         //Get the equivalent User on FireStore
         this.userService.getUserByUid(data.uid).subscribe(
 
-          user => this.currentUser = user
+          user => {
+
+            this.currentUser = user;
+
+            //Redirect if user not logged or deleted
+            if (!user || user.isBanned) this.router.navigateByUrl("login/banned");
+          }
         )
       }
     );
@@ -129,6 +135,13 @@ export class Tab1Page {
 
     //Go back to read mode
     this.goToRead();
+  }
+
+
+  //Logout
+  async logout() {
+    await this.auth.logout();
+    this.router.navigateByUrl("login");
   }
 
 }

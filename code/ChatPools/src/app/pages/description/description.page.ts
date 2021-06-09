@@ -67,16 +67,22 @@ export class DescriptionPage implements OnInit {
 
             this.currentUser = user;
 
-            //Check if User is already in pool and redirect if so
-            this.userService.getPoolOfUserByName(this.currentUser.uid, this.currentPool.name).subscribe(
+            //Redirect if user not logged or deleted
+            if (!user || user.isBanned) this.router.navigateByUrl("login/banned");
+            //Else check if User is already in pool and redirect if so
+            else {
 
-              data => {
+              this.userService.getPoolOfUserByName(this.currentUser.uid, this.currentPool.name).subscribe(
 
-                  if (data) this.goToGroup(this.currentPool.name);
-                  //Else show page content
-                  else this.showContent = true;
-                }
-            );
+                data => {
+  
+                    if (data) this.goToGroup(this.currentPool.name);
+                    //If user is not in Pool show page content
+                    else this.showContent = true;
+                  }
+              );
+            }
+            
           }
         )
       }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -16,17 +18,26 @@ export class LoginPage implements OnInit {
   //Variables
   email: string;
   password: string;
-
+  currentUser: User;
+  userBanned: boolean = false;
 
   constructor(
     private auth: FauthService,
     public alert: AlertController,
     private menu: MenuController,
-    private router: Router
+    private router: Router,
+    public userService: UserService,
+    private activatedRoute: ActivatedRoute
   ) { }
 
 
-  ngOnInit() {}
+  ngOnInit() {
+
+    //Get user state from the url
+    const userState = this.activatedRoute.snapshot.paramMap.get('state');
+
+    if (userState == "banned") this.showErrorAlert("user-banned");
+  }
 
 
   //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
@@ -40,16 +51,25 @@ export class LoginPage implements OnInit {
   //Try to login and redirect to allpools
   async tryLogin() {
 
-    // Log out from current user
-    this.auth.logout();
+    //Log in with user
+    await this.auth.login(this.email, this.password).then(
 
-    // Log in with new user
-    this.auth.login(this.email, this.password).then(
+      async data => {
 
-      data => {
+        //Get the equivalent User on FireStore
+        await this.userService.getUserByUid(data.user.uid).subscribe(
 
-        console.log("User has been logged");
-        this.router.navigateByUrl("/tabs/tab2")
+          async user => {
+
+            this.currentUser = user;
+
+            //If User is not banned
+            if (!user.isBanned) this.router.navigateByUrl("/tabs/tab2");
+            //Else show guide
+            else this.userBanned = true;
+          }
+        );
+
       }
 
       // Catch any errors during login
@@ -79,6 +99,10 @@ export class LoginPage implements OnInit {
 
     if (errorCode == "auth/wrong-password") {
       customMessage = "The password is incorrect."
+    }
+
+    if (errorCode == "user-banned") {
+      customMessage = "The user has been banned."
     }
 
     //Create alert

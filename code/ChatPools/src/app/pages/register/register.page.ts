@@ -111,7 +111,7 @@ export class RegisterPage implements OnInit {
           ).catch(error => this.showErrorAlert(error.code));
         }
 
-        //Catch any errors during register
+      //Catch any errors during register
       ).catch(error => this.showErrorAlert(error.code));
     }
   }

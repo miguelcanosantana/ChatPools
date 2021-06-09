@@ -94,8 +94,14 @@
             <ion-text *ngIf="currentUser.description">{{currentUser.description}}</ion-text>
 
             <div class="form-space"></div>
+            <div class="form-space"></div>
 
-            <ion-text></ion-text>
+            <!-- Logout button -->
+            <ion-button color="danger" (click)="logout()" fill="outline">
+              Logout
+            </ion-button>
+
+            <div class="form-space"></div>
 
           </div>
 
@@ -157,8 +163,6 @@
             </ion-item>
 
             <div class="form-space"></div>
-
-            <ion-text></ion-text>
 
           </div>
 

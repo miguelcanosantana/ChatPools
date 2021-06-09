@@ -7,48 +7,64 @@
 </ion-header>
 
 
-<ion-content class="ion-padding ion-text-center">
+<ion-content class="ion-padding ion-text-center fade">
 
   <ion-grid>
     <ion-row>
 
-      <ion-col size-xs="1.5" size-md="3" size-lg="4" size-xl="4.5"></ion-col>
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
 
       <!-- Column with the page content -->
-      <ion-col size-xs="9" size-md="6" size-lg="4" size-xl="3">
+      <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4">
 
         <div class="top-space"></div>
 
-        <!-- Logo -->
-        <img src="https://raw.githubusercontent.com/miguelcanosantana/ChatPools/main/media/logo.svg" alt="Logo">
-      
-        <div class="space"></div>
-      
-        <!-- Email input -->
-        <ion-item class="form">
-          <ion-label color="dark" position="floating">Email</ion-label>
-          <ion-input [(ngModel)]="email" type="email"></ion-input>
-        </ion-item>
+        <ion-card class="ion-padding ion-text-center">
 
-        <div class="form-space"></div>
-      
-        <!-- Password input -->
-        <ion-item class="form">
-          <ion-label color="dark" position="floating">Password</ion-label>
-          <ion-input [(ngModel)]="password" type="password"></ion-input>
-        </ion-item>
-      
-        <div class="space"></div>
-      
-        <!-- Register button -->
-        <ion-button color="primary" fill="outline" (click)="goToRegister()">Register</ion-button>
-      
-        <!-- Login button -->
-        <ion-button color="primary" (click)="tryLogin()">Login</ion-button>
+          <div class="form-space"></div>
+
+          <!-- Logo -->
+          <img src="https://raw.githubusercontent.com/miguelcanosantana/ChatPools/main/media/logo.svg" alt="Logo">
+        
+          <div class="space"></div>
+        
+          <!-- Email input -->
+          <ion-item class="form">
+            <ion-label color="dark" position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="email" type="email"></ion-input>
+          </ion-item>
+
+          <div class="form-space"></div>
+        
+          <!-- Password input -->
+          <ion-item class="form">
+            <ion-label color="dark" position="floating">Password</ion-label>
+            <ion-input [(ngModel)]="password" type="password"></ion-input>
+          </ion-item>
+        
+          <div class="space"></div>
+        
+          <!-- Register button -->
+          <ion-button color="primary" fill="outline" (click)="goToRegister()">Register</ion-button>
+        
+          <!-- Login button -->
+          <ion-button color="primary" (click)="tryLogin()">Login</ion-button>
+
+          <div class="form-space"></div>
+          <div class="form-space"></div>
+
+          <ion-card *ngIf="userBanned" class="banner fade" color="warning">
+            <ion-text class="banner">
+              You have been banned<br> 
+              If you want a review of your account email miguelcanosantana@gmail.com
+            </ion-text>
+          </ion-card>
+
+        </ion-card>
 
       </ion-col>
 
-      <ion-col size-xs="1.5" size-md="3" size-lg="4" size-xl="4.5"></ion-col>
+      <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
 
     </ion-row>
   </ion-grid>
