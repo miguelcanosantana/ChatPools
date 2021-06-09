@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuController, ToastController } from '@ionic/angular';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
@@ -27,7 +28,8 @@ export class Tab1Page {
     public userService: UserService,
     private menu: MenuController,
     private auth: FauthService,
-    public toast: ToastController
+    public toast: ToastController,
+    private router: Router
   ) {
 
     //Get current user
@@ -96,7 +98,7 @@ export class Tab1Page {
 
   //Go to read mode
   goToRead() {
-    this.readMode = true;
+    this.readMode = true;  
   }
 
 

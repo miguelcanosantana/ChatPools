@@ -5,7 +5,7 @@
 </ion-header>
 
 
-<ion-content class="ion-padding ion-text-center">
+<ion-content class="ion-padding ion-text-center fade">
 
   <ion-grid>
     <ion-row>
@@ -20,7 +20,7 @@
         <ion-card class="ion-padding ion-text-center">
 
           <!-- Read mode -->
-          <div *ngIf="readMode">
+          <div *ngIf="readMode" class="fade">
 
             <!-- Photo -->
             <div class="ion-padding ion-text-center">
@@ -100,7 +100,7 @@
           </div>
 
           <!-- Edit mode -->
-          <div *ngIf="!readMode">
+          <div *ngIf="!readMode" class="fade">
 
             <!-- Photo -->
             <div class="ion-padding ion-text-center">
