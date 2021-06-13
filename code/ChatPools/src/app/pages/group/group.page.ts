@@ -10,9 +10,9 @@ import { PoolsService } from 'src/app/services/pools.service';
 import { SoundService } from 'src/app/services/sound.service';
 import { UserService } from 'src/app/services/user.service';
 
-declare function require(name:string);
-var Filter = require('bad-words');
-var Moment = require('moment');
+import * as Moment from 'moment';
+import * as Filter from 'bad-words';
+
 
 
 @Component({

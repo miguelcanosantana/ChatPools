@@ -4,7 +4,7 @@ export class Message {
   userId: string;
   content: string;
   image?: string;
-  time: Date;
+  time: number;
   isDeleted: boolean;
   localChatNick?: string;
   localChatImage?: string;
