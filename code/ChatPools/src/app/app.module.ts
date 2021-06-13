@@ -10,6 +10,9 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+
 
 @NgModule({
 
@@ -24,7 +27,8 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    AngularFireStorageModule
   ],
 
   providers: [
@@ -32,7 +36,8 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
     },
-    AngularFireAuthGuard
+    AngularFireAuthGuard,
+    InAppBrowser
 ],
 
   bootstrap: [AppComponent],
