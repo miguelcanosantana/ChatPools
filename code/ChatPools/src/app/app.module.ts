@@ -11,8 +11,6 @@ import { environment } from 'src/environments/environment';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-
 
 @NgModule({
 
@@ -36,8 +34,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
       provide: RouteReuseStrategy, 
       useClass: IonicRouteStrategy 
     },
-    AngularFireAuthGuard,
-    InAppBrowser
+    AngularFireAuthGuard
 ],
 
   bootstrap: [AppComponent],
