@@ -12,6 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 
 declare function require(name:string);
 var Filter = require('bad-words');
+var Moment = require('moment');
 
 
 @Component({
@@ -207,14 +208,15 @@ export class GroupPage implements OnInit {
 
         console.log("User can send messages")
 
-        let currentTime: Date = new Date();
+        //Time
+        let utcTime = Moment.utc().valueOf();
 
         let tempMessage: Message = {
 
           userId: this.currentUser.uid,
           content: this.messageText,
           isDeleted: false,
-          time: currentTime
+          time: utcTime
         }
 
         //Try sending the message

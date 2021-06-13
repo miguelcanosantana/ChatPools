@@ -28,6 +28,7 @@
     "@ionic/storage-angular": "^3.0.6",
     "bad-words": "^3.0.4",
     "firebase": "^8.6.7",
+    "moment": "^2.29.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
