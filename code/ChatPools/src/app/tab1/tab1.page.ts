@@ -171,13 +171,14 @@ export class Tab1Page {
 
       data => {
 
+        console.log(data.state)
+
         //Get the url
         data.ref.getDownloadURL().then(
 
           url => {
             
             uploadedImageUrl = url;
-            console.log(uploadedImageUrl)
             
             //Save the url in the avatar
             this.userService.saveUserAvatar(this.currentUser.uid, uploadedImageUrl).then(

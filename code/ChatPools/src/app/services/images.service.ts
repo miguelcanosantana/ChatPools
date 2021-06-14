@@ -23,8 +23,8 @@ export class ImagesService {
     let path: AngularFireStorageReference;
 
     //Choose path depending on image type
-    if (isAvatar) path = this.fireStorage.ref("avatars/" + utcTime + uid);
-    else path = this.fireStorage.ref("images/" + utcTime + uid);
+    if (isAvatar) path = this.fireStorage.ref("avatars/" + uid + "/" + utcTime);
+    else path = this.fireStorage.ref("chats/" + uid + "/" + utcTime);
 
     return path.putString(imageBase, "base64");
   }
