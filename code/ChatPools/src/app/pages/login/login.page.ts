@@ -64,8 +64,8 @@ export class LoginPage implements OnInit {
             this.currentUser = user;
 
             //If User is not banned
-            if (!user.isBanned) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
-            //Else show guide and popup
+            if (user.isBanned == false) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
+            //Else show guide
             else {
               this.userBanned = true;
             }
