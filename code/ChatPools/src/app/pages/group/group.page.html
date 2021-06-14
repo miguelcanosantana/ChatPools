@@ -88,7 +88,7 @@
 
 
 <!-- Image Holder area -->
-<ion-content *ngIf="imageUrlHolder" class="image-holder fade" color="light">
+<ion-content *ngIf="imageUrlHolder" class="image-holder fade ion-padding ion-text-center" color="light">
   <img src="{{imageUrlHolder}}">
 </ion-content>
 
@@ -118,9 +118,16 @@
         </ion-button>
       </ion-col>
 
-      <!-- Send button -->
-      <ion-col size="45px">
-        <ion-button class="writting-button " color="primary" (click)="sendMessage()">
+      <!-- Send button enabled-->
+      <ion-col *ngIf="messageText" size="45px" class="fade">
+        <ion-button class="writting-button" color="primary" (click)="sendMessage()">
+          <ion-icon slot="icon-only" name="send"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <!-- Send button disabled -->
+      <ion-col *ngIf="!messageText" size="45px" class="fade">
+        <ion-button disabled="true" class="writting-button" color="primary">
           <ion-icon slot="icon-only" name="send"></ion-icon>
         </ion-button>
       </ion-col>
