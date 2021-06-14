@@ -20,5 +20,8 @@ https://cloud.google.com/firestore/docs/query-data/queries#web-v8_2
 https://www.npmjs.com/package/moment
 https://firebase.google.com/docs/firestore/manage-data/enable-offline#web-v8_2
 https://capacitorjs.com/docs/apis/camera
-https://firebase.google.com/docs/firestore/security/rules-query
+https://firebase.google.com/docs/storage/web/upload-files
+https://firebase.google.com/docs/storage/web/download-files
+https://firebase.google.com/docs/storage/web/delete-files
 
+https://firebase.google.com/docs/firestore/security/rules-query
