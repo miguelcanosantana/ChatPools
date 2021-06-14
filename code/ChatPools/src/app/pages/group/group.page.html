@@ -83,7 +83,7 @@
 
 
 <!-- Writting area -->
-<ion-item *ngIf="pool" class="writting-area fade" color="light">
+<ion-content *ngIf="pool" class="writting-area fade" color="light">
 
   <ion-grid>
     <ion-row>
@@ -96,7 +96,7 @@
       <!-- Attach image -->
       <ion-col size="45px">
 
-        <ion-button class="writting-button" color="primary" (click)="onClick()">
+        <ion-button class="image-button" fill="outline" color="primary" (click)="onClick()">
           <ion-icon slot="icon-only" name="image"></ion-icon>
         </ion-button>
 
@@ -105,7 +105,7 @@
       <!-- Send button -->
       <ion-col size="45px">
 
-        <ion-button class="writting-button" color="primary" (click)="sendMessage()">
+        <ion-button class="writting-button " color="primary" (click)="sendMessage()">
           <ion-icon slot="icon-only" name="send"></ion-icon>
         </ion-button>
 
@@ -113,6 +113,5 @@
 
     </ion-row>
   </ion-grid>
-
         
-</ion-item>
+</ion-content>

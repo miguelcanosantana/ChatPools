@@ -133,20 +133,29 @@ ion-list {
 
 .writting-area {
   width: 100%;
-  min-height: 60px;
+  min-height: 88px;
+  max-height: 88px;
 }
 
 .write-message {
-  min-height: 50px;
+  min-height: 60px;
   max-width: calc(100vw - 10px);
   text-align: left;
   margin-top: 5px;
 }
 
 .writting-button {
-  max-width: 50px;
-  max-height: 50px;
-  min-width: 50px;
-  min-height: 50px;
+  max-width: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  min-height: 60px;
+  margin-left: 5px;
+}
+
+.image-button {
+  max-width: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  min-height: 60px;
   margin-left: 5px;
 }
