@@ -106,7 +106,7 @@ export class RegisterPage implements OnInit {
             () => {
 
               console.log("User successfully written");
-              this.router.navigateByUrl("/tabs/tab1");
+              this.router.navigateByUrl("/tabs/tab1", { replaceUrl: true });
             }
           ).catch(error => this.showErrorAlert(error.code));
         }
