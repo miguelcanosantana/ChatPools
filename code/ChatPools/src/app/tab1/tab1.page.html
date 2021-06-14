@@ -110,10 +110,15 @@
             <div class="ion-padding ion-text-center">
 
               <!-- User Image if null -->
-              <img *ngIf="!currentUser.image" class="user-image edit-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
+              <img *ngIf="!currentUser.image" (click)="takePicture()" class="user-image edit-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
               
               <!-- If user has image -->
-              <img *ngIf="currentUser.image" class="user-image edit-image" src="{{currentUser.image}}">
+              <img *ngIf="currentUser.image" (click)="takePicture()" class="user-image edit-image" src="{{currentUser.image}}">
+
+              <br>
+
+              <!-- Tap message -->
+              <ion-label>Tap the image to change it</ion-label>
 
             </div>
 

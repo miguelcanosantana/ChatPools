@@ -87,5 +87,11 @@ export class UserService {
       )
     );
   }
+
+  //Save User avatar
+  public saveUserAvatar(uid: string, imagePath: string): Promise<void> {
+    console.log(imagePath);
+    return this.fireStore.collection('users/').doc(uid).update({image: imagePath});
+  }
   
 }

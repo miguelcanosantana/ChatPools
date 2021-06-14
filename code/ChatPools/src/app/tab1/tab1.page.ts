@@ -4,6 +4,9 @@ import { MenuController, ToastController } from '@ionic/angular';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ImagesService } from '../services/images.service';
 
 
 @Component({
@@ -29,7 +32,8 @@ export class Tab1Page {
     private menu: MenuController,
     private auth: FauthService,
     public toast: ToastController,
-    private router: Router
+    private router: Router,
+    private imagesService: ImagesService
   ) {
 
     //Get current user
@@ -142,6 +146,51 @@ export class Tab1Page {
   async logout() {
     await this.auth.logout();
     this.router.navigateByUrl("login");
+  }
+
+
+  //Take or load picture
+  async takePicture() {
+
+    const image = await Camera.getPhoto({
+      quality: 70,
+      allowEditing: true,
+      source: CameraSource.Prompt,
+      resultType: CameraResultType.Base64
+    });
+
+    let imageBase = image.base64String;
+    console.log(imageBase)
+
+    const isAvatar: boolean = true;
+
+    //Upload the image
+    let uploadedImageUrl;
+
+    this.imagesService.uploadImage(isAvatar, imageBase, this.currentUser.uid).then(
+
+      data => {
+
+        //Get the url
+        data.ref.getDownloadURL().then(
+
+          url => {
+            
+            uploadedImageUrl = url;
+            console.log(uploadedImageUrl)
+            
+            //Save the url in the avatar
+            this.userService.saveUserAvatar(this.currentUser.uid, uploadedImageUrl).then(
+
+            ).catch();
+
+          }
+
+        ).catch();
+
+      }
+
+    ).catch();
   }
 
 }
