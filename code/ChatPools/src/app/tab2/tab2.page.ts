@@ -53,7 +53,7 @@ export class Tab2Page {
             this.currentUser = user;
 
             //Redirect if user not logged or deleted
-            if (!user || user.isBanned) this.router.navigateByUrl("login/banned");
+            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true, skipLocationChange: true });
           }
         );
       }
