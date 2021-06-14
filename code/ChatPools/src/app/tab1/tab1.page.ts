@@ -5,7 +5,6 @@ import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ImagesService } from '../services/images.service';
 
 
