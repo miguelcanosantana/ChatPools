@@ -20,6 +20,7 @@ export class LoginPage implements OnInit {
   password: string;
   currentUser: User;
   userBanned: boolean = false;
+  alertDebounce: boolean = false;
 
   constructor(
     private auth: FauthService,
@@ -36,7 +37,7 @@ export class LoginPage implements OnInit {
     //Get user state from the url
     const userState = this.activatedRoute.snapshot.paramMap.get('state');
 
-    if (userState == "banned") this.showErrorAlert("user-banned");
+    if (userState == "banned") this.userBanned = true;
   }
 
 
@@ -65,8 +66,11 @@ export class LoginPage implements OnInit {
 
             //If User is not banned
             if (!user.isBanned) this.router.navigateByUrl("/tabs/tab2");
-            //Else show guide
-            else this.userBanned = true;
+            //Else show guide and popup
+            else {
+              this.userBanned = true;
+              this.showErrorAlert("user-banned");
+            }
           }
         );
 
@@ -109,10 +113,24 @@ export class LoginPage implements OnInit {
     const alert = await this.alert.create({
       header: 'There was an error',
       message: customMessage,
-      buttons: ['Ok']
+      buttons: [
+        {
+          text: "Okey",
+          handler: () => {
+            this.alertDebounce = false;
+          }
+        }
+      ]
     });
 
-    await alert.present();
+    //Present alert and debounce it
+    if (!this.alertDebounce) {
+      
+      this.alertDebounce = true;
+      await alert.present();
+      this.alertDebounce = false;
+    }
+    
   }
 
 
