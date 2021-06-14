@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
@@ -33,7 +33,8 @@ export class Tab1Page {
     private auth: FauthService,
     public toast: ToastController,
     private router: Router,
-    private imagesService: ImagesService
+    private imagesService: ImagesService,
+    public alert: AlertController,
   ) {
 
     //Get current user
@@ -183,15 +184,36 @@ export class Tab1Page {
             //Save the url in the avatar
             this.userService.saveUserAvatar(this.currentUser.uid, uploadedImageUrl).then(
 
-            ).catch();
+            ).catch(error => this.showErrorAlert(error));
 
           }
 
-        ).catch();
+        ).catch(error => this.showErrorAlert(error));
 
       }
 
-    ).catch();
+    ).catch(error => this.showErrorAlert(error));
+  }
+
+
+  //Show an alert with the upload image error
+  async showErrorAlert(error) {
+
+    console.log(error);
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'There was an error',
+      message: error,
+      buttons: [
+        {
+          text: "Okey",
+          handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }

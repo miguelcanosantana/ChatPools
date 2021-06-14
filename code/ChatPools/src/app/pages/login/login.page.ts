@@ -84,7 +84,7 @@ export class LoginPage implements OnInit {
   //Show an alert with the login error with a custom message
   async showErrorAlert(errorCode) {
 
-    console.log(errorCode)
+    console.log(errorCode);
 
     let customMessage;
 
