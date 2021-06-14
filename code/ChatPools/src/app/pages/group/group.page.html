@@ -34,12 +34,12 @@
 
             <!-- User Image -->
             <ion-col *ngIf="message.localChatImage" size="12" class="ion-text-left"> 
-              <img class="user-image" src="{{message.localChatImage}}"> 
+              <img class="user-image" src="{{message.localChatImage}}" onerror="this.src='../../../assets/images/avatar.svg';"> 
             </ion-col>
 
             <!-- User Image if null -->
             <ion-col *ngIf="!message.localChatImage" size="12" class="ion-text-left"> 
-              <img class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png" alt=""> 
+              <img class="user-image" src="../../../assets/images/avatar.svg"> 
             </ion-col>
 
             <!-- Bubble -->
@@ -60,7 +60,7 @@
                 <div class="inner-bubble-gap"></div>
 
                 <!-- Image (if has) -->
-                <img class="message-image fade" src="{{message.image}}">
+                <img *ngIf="message.image" class="message-image fade" src="{{message.image}}" onerror="this.src='../../../assets/images/image-deleted.svg';">
 
                 <div class="inner-bubble-gap"></div>
 

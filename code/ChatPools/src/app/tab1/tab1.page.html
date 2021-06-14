@@ -24,10 +24,10 @@
             <div class="ion-padding ion-text-center">
 
               <!-- User Image if null -->
-              <img *ngIf="!currentUser.image" class="user-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
+              <img *ngIf="!currentUser.image" class="user-image" src="../../../assets/images/avatar.svg"> 
               
               <!-- If user has image -->
-              <img *ngIf="currentUser.image" class="user-image" src="{{currentUser.image}}">
+              <img *ngIf="currentUser.image" class="user-image" src="{{currentUser.image}}" onerror="this.src='../../../assets/images/avatar.svg';">
 
             </div>
 
@@ -110,10 +110,10 @@
             <div class="ion-padding ion-text-center">
 
               <!-- User Image if null -->
-              <img *ngIf="!currentUser.image" (click)="takePicture()" class="user-image edit-image" src="https://www.fierrosylaminas.com/static/img/webNueva/acerca/usuario.png"> 
+              <img *ngIf="!currentUser.image" (click)="takePicture()" class="user-image" src="../../../assets/images/avatar.svg"> 
               
               <!-- If user has image -->
-              <img *ngIf="currentUser.image" (click)="takePicture()" class="user-image edit-image" src="{{currentUser.image}}">
+              <img *ngIf="currentUser.image" (click)="takePicture()" class="user-image" src="{{currentUser.image}}" onerror="this.src='../../../assets/images/avatar.svg';">
 
               <br>
 

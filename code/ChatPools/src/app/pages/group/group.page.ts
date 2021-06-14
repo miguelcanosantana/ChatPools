@@ -330,6 +330,7 @@ export class GroupPage implements OnInit {
     await alert.present();
   }
 
+
   //Remove picture from imageHolder and FireStore Storage (to save space)
   async removePicture() {
 
@@ -339,9 +340,16 @@ export class GroupPage implements OnInit {
     );
   }
 
+
   //Remove picture only from imageHolder
   clearHolder() {
     this.imageUrlHolder = "";
+  }
+
+
+  //Set deleted image
+  public setDeletedImage() {
+
   }
 
 }
