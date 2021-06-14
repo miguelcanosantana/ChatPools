@@ -131,6 +131,10 @@ ion-list {
   font-size: 15px;
 }
 
+.message-image {
+  border-radius: 20px;
+}
+
 .writting-area {
   width: 100%;
   min-height: 88px;
@@ -149,7 +153,6 @@ ion-list {
   max-height: 60px;
   min-width: 60px;
   min-height: 60px;
-  margin-left: 5px;
 }
 
 .image-button {
@@ -158,4 +161,8 @@ ion-list {
   min-width: 60px;
   min-height: 60px;
   margin-left: 5px;
+}
+
+.image-holder {
+  max-height: 50vh;
 }

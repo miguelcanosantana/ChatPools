@@ -29,6 +29,12 @@ export class ImagesService {
     return path.putString(imageBase, "base64");
   }
 
+
+  //Upload image to storage and get it's url back
+  deleteImage(imageUrl: string): Observable<any> {
+    return this.fireStorage.refFromURL(imageUrl).delete();
+  }
+
 }
 
 

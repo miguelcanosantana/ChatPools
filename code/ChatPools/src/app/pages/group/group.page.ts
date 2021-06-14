@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IonContent, MenuController } from '@ionic/angular';
+import { AlertController, IonContent, MenuController } from '@ionic/angular';
 import { Message } from 'src/app/model/message';
 import { Pool } from 'src/app/model/pool';
 import { User } from 'src/app/model/user';
@@ -9,9 +9,11 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { PoolsService } from 'src/app/services/pools.service';
 import { SoundService } from 'src/app/services/sound.service';
 import { UserService } from 'src/app/services/user.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 import * as Moment from 'moment';
 import * as Filter from 'bad-words';
+import { ImagesService } from 'src/app/services/images.service';
 
 
 
@@ -33,7 +35,7 @@ export class GroupPage implements OnInit {
   currentUser: User;
   allMessages: Message[] = [];
   newSession: boolean = true;
-
+  imageUrlHolder: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,7 +45,9 @@ export class GroupPage implements OnInit {
     private menu: MenuController,
     private auth: FauthService,
     public soundService: SoundService,
-    private router: Router
+    private router: Router,
+    private imagesService: ImagesService,
+    public alert: AlertController,
   ) { }
 
 
@@ -208,7 +212,7 @@ export class GroupPage implements OnInit {
 
         console.log("User can send messages")
 
-        //Time
+        //Get UTC time value
         let utcTime = Moment.utc().valueOf();
 
         let tempMessage: Message = {
@@ -216,8 +220,11 @@ export class GroupPage implements OnInit {
           userId: this.currentUser.uid,
           content: this.messageText,
           isDeleted: false,
-          time: utcTime
+          time: utcTime,
         }
+
+        //Add optional image if it's in the holder
+        if (this.imageUrlHolder) tempMessage.image = this.imageUrlHolder;
 
         //Try sending the message
         try {
@@ -234,6 +241,9 @@ export class GroupPage implements OnInit {
 
           //Add to Fire Store
           this.messagesService.addMessage(this.pool.name, tempMessage);
+
+          //Remove ImageHolder
+          this.imageUrlHolder = "";
 
           //Play pop sound
           this.soundService.playRandomPop();
@@ -258,6 +268,80 @@ export class GroupPage implements OnInit {
   //Go to my pools tab (tab 3)
   goToMyPools() {
     this.router.navigateByUrl("/tabs/tab3");
+  }
+
+
+  //Take or load picture
+  async takePicture() {
+
+    const image = await Camera.getPhoto({
+      quality: 70,
+      allowEditing: true,
+      source: CameraSource.Prompt,
+      resultType: CameraResultType.Base64
+    });
+
+    let imageBase = image.base64String;
+    console.log(imageBase)
+
+    const isAvatar: boolean = false;
+
+    //Upload the image
+    this.imagesService.uploadImage(isAvatar, imageBase, this.currentUser.uid).then(
+
+      data => {
+
+        console.log(data.state)
+
+        //Get the url
+        data.ref.getDownloadURL().then(
+
+          url => {
+
+            //Save the url in the imageHolder
+            this.imageUrlHolder = url;
+          }
+
+        ).catch(error => this.showErrorAlert(error));
+
+      }
+
+    ).catch(error => this.showErrorAlert(error));
+  }
+
+
+  //Show an alert with the upload image error
+  async showErrorAlert(error) {
+
+    console.log(error);
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'There was an error',
+      message: error,
+      buttons: [
+        {
+          text: "Okey",
+          handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  //Remove picture from imageHolder and FireStore Storage (to save space)
+  async removePicture() {
+
+    await this.imagesService.deleteImage(this.imageUrlHolder).subscribe(
+
+      () => this.imageUrlHolder = ""
+    );
+  }
+
+  //Remove picture only from imageHolder
+  clearHolder() {
+    this.imageUrlHolder = "";
   }
 
 }

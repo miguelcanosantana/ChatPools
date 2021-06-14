@@ -59,6 +59,11 @@
 
                 <div class="inner-bubble-gap"></div>
 
+                <!-- Image (if has) -->
+                <img class="message-image fade" src="{{message.image}}">
+
+                <div class="inner-bubble-gap"></div>
+
                 <!-- Date -->
                 <div class="message-date">{{message.time}}</div>
 
@@ -82,6 +87,12 @@
 <div id="scroll-to-bottom"></div>
 
 
+<!-- Image Holder area -->
+<ion-content *ngIf="imageUrlHolder" class="image-holder fade" color="light">
+  <img src="{{imageUrlHolder}}">
+</ion-content>
+
+
 <!-- Writting area -->
 <ion-content *ngIf="pool" class="writting-area fade" color="light">
 
@@ -93,22 +104,25 @@
         <ion-input [(ngModel)]="messageText" class="write-message" placeholder="Write something..."></ion-input> 
       </ion-col>
       
-      <!-- Attach image -->
-      <ion-col size="45px">
-
-        <ion-button class="image-button" fill="outline" color="primary" (click)="onClick()">
+      <!-- Attach image (If not already) -->
+      <ion-col *ngIf="!imageUrlHolder" size="45px" class="fade">
+        <ion-button class="image-button" fill="outline" color="secondary" (click)="takePicture()">
           <ion-icon slot="icon-only" name="image"></ion-icon>
         </ion-button>
+      </ion-col>
 
+      <!-- Remove image (If not already) -->
+      <ion-col *ngIf="imageUrlHolder" size="45px" class="fade">
+        <ion-button class="image-button" fill="outline" color="danger" (click)="removePicture()">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
       </ion-col>
 
       <!-- Send button -->
       <ion-col size="45px">
-
         <ion-button class="writting-button " color="primary" (click)="sendMessage()">
           <ion-icon slot="icon-only" name="send"></ion-icon>
         </ion-button>
-
       </ion-col>
 
     </ion-row>
