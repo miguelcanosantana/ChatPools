@@ -27,7 +27,8 @@ export class LoginPage implements OnInit {
     private menu: MenuController,
     private router: Router,
     public userService: UserService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private fauth: FauthService
   ) { }
 
 
@@ -37,6 +38,14 @@ export class LoginPage implements OnInit {
     const userState = this.activatedRoute.snapshot.paramMap.get('state');
 
     if (userState == "banned") this.userBanned = true;
+  }
+
+
+  //Logout current user before entering the view
+  async ionViewWillEnter() {
+
+    //Logout from user
+    await this.fauth.logout();
   }
 
 
@@ -65,7 +74,7 @@ export class LoginPage implements OnInit {
 
             //If User is not banned
             if (user.isBanned == false) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true, skipLocationChange: true });
-            //Else show guide
+            //Else show guide and logout
             else {
               this.userBanned = true;
             }

@@ -127,8 +127,16 @@ ion-list {
 
 .message-date {
   font-family: 'Ubuntu';
-  text-align: right;
   font-size: 15px;
+  margin-top: 7.5px;
+}
+
+.report {
+  margin-top: -27.5px;
+}
+
+.report-icon {
+  font-size: 35px;
 }
 
 .message-image {

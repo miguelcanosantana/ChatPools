@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonContent, MenuController } from '@ionic/angular';
+import { AlertController, IonContent, MenuController, ToastController } from '@ionic/angular';
 import { Message } from 'src/app/model/message';
 import { Pool } from 'src/app/model/pool';
 import { User } from 'src/app/model/user';
@@ -14,6 +14,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import * as Moment from 'moment';
 import * as Filter from 'bad-words';
 import { ImagesService } from 'src/app/services/images.service';
+import { Report } from 'src/app/model/report';
+import { ReportsService } from 'src/app/services/reports.service';
 
 
 
@@ -48,6 +50,8 @@ export class GroupPage implements OnInit {
     private router: Router,
     private imagesService: ImagesService,
     public alert: AlertController,
+    private reportsService: ReportsService,
+    public toast: ToastController
   ) { }
 
 
@@ -184,12 +188,26 @@ export class GroupPage implements OnInit {
         //Get the equivalent User on FireStore
         this.userService.getUserByUid(data.uid).subscribe(
 
-          user => {
+          async user => {
             
             this.currentUser = user;
-            
+
             //Redirect if user not logged or deleted
-            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true, skipLocationChange: true });
+            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+
+            //Get number of reports and autoban user if >= 10
+            await this.reportsService.getReports(user.uid).subscribe(
+
+              async reports => {
+                
+                //Unsubscribe, Ban and redirect
+                if (reports.length >= 10) {
+
+                  this.userService.banUser(user.uid);
+                  this.router.navigateByUrl("login/banned", { replaceUrl: true });
+                }
+              }
+            )
           }
         )
       }
@@ -347,9 +365,84 @@ export class GroupPage implements OnInit {
   }
 
 
-  //Set deleted image
-  public setDeletedImage() {
+  //Show an alert with report options
+  async showReportAlert(message: Message) {
 
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'Report the message',
+      message: 'You are going to report a message from the user ' + message.localChatNick + '.',
+      inputs: [
+        {
+          name: 'reason',
+          id: 'reason',
+          type: 'textarea',
+          placeholder: 'Describe the reason...'
+        },
+      ],
+      buttons: [
+        {
+          text: "Cancel",
+          handler: (alertData) => {
+
+            //Clear the reason
+            alertData.reason = "";
+
+          }
+        },
+        {
+          text: "Submit",
+          handler: (alertData) => {
+
+            //Get UTC time value
+            let utcTime = Moment.utc().valueOf();
+
+            let tempReport: Report = {
+              reportId: utcTime + message.id,
+              messageId: message.id,
+              reportedUserId: message.userId,
+              reason: alertData.reason,
+              time: utcTime
+            }
+
+            //Add the report to the reports folder
+            this.reportsService.addReport(tempReport).then(
+
+              //If success show toast
+              () => this.showReportToast()
+
+            //If failed show toast with error
+            ).catch(() => this.showReportToast(true));
+
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  //Show report status Toast
+  async showReportToast(failed?: boolean) {
+
+    let toast = await this.toast.create({
+      message: 'The report is sent.',
+      duration: 2000
+    });
+
+    //If fails change text
+    if (failed) {
+      toast.message = "There was an error sending the report, try later."
+      toast.duration = 4000
+    }
+
+    toast.present();
+  }
+
+
+  //When leaving the page unsubscribe
+  ionViewDidLeave() {
   }
 
 }

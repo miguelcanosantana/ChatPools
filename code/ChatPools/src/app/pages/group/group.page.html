@@ -64,8 +64,14 @@
 
                 <div class="inner-bubble-gap"></div>
 
-                <!-- Date -->
-                <div class="message-date">{{message.time}}</div>
+                <!-- Date and Report -->
+                <div class="message-date ion-text-end">{{message.time}}</div>
+
+                <!-- Report -->
+                <div class="ion-text-start report">
+                  <ion-icon color="danger" (click)="showReportAlert(message)" class="report-icon" name="alert-circle-outline"></ion-icon>
+                </div>
+               
 
               </div>
 
