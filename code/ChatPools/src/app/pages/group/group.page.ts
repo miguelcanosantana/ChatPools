@@ -498,6 +498,7 @@ export class GroupPage implements OnInit {
     this.fauthSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.banSubscription.unsubscribe();
+    this.getPoolsUserSubscription.unsubscribe();
   }
 
 }
