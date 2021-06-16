@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, MenuController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -20,6 +21,7 @@ export class LoginPage implements OnInit {
   password: string;
   currentUser: User;
   userBanned: boolean = false;
+  private userSubscription: Subscription = new Subscription();
 
   constructor(
     private auth: FauthService,
@@ -58,7 +60,7 @@ export class LoginPage implements OnInit {
       async data => {
 
         //Get the equivalent User on FireStore
-        await this.userService.getUserByUid(data.user.uid).subscribe(
+        this.userSubscription = await this.userService.getUserByUid(data.user.uid).subscribe(
 
           async user => {
 
@@ -124,6 +126,12 @@ export class LoginPage implements OnInit {
   // Redirect to register page
   goToRegister() {
     this.router.navigateByUrl("/register", { replaceUrl: true })
+  }
+
+
+  //Close all subscriptions
+  ionViewWillLeave() {
+    this.userSubscription.unsubscribe();
   }
 
 }

@@ -34,6 +34,7 @@ export class GroupPage implements OnInit {
 
   //Variables
   pool: Pool;
+  poolName: string;
   messageText: string;
   currentUser: User;
   lastBannedUid: string;
@@ -43,6 +44,7 @@ export class GroupPage implements OnInit {
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private banSubscription: Subscription = new Subscription();
+  private getPoolsUserSubscription: Subscription = new Subscription();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,16 +72,16 @@ export class GroupPage implements OnInit {
     this.getUser();
 
     //Get Pool name from the url
-    const poolName = this.activatedRoute.snapshot.paramMap.get('chat');
+    this.poolName = this.activatedRoute.snapshot.paramMap.get('chat');
 
     //Get Pool
-    this.poolsService.getPoolByName(poolName).subscribe(
+    this.poolsService.getPoolByName(this.poolName).subscribe(
 
       data => this.pool = data
     );
 
     //Get messages and update avatars and nicks
-    this.messagesService.getMessages(poolName).subscribe(
+    this.messagesService.getMessages(this.poolName).subscribe(
 
       async data => {
 
@@ -203,6 +205,23 @@ export class GroupPage implements OnInit {
 
             //Redirect if user is banned
             if (user.isBanned == true) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+
+            //Get pools from the user and redirect if User is not in the Pool
+            this.getPoolsUserSubscription = await this.userService.getPoolsFromUser(user.uid).subscribe(
+
+              pools => {
+
+                let isInPool: boolean = false;
+
+                //If a pool with the same name is detected User is in Pool
+                pools.forEach(pool => {
+                  if (pool.name == this.poolName) isInPool = true;
+                });
+
+                //If user is not on Pool redirect to the Pools page
+                if (!isInPool) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
+              }
+            ); 
 
             //Get number of reports and autoban user if >= 10
             this.banSubscription = await this.reportsService.getReports(user.uid).subscribe(
