@@ -6,6 +6,7 @@ import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ImagesService } from '../services/images.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -24,7 +25,9 @@ export class Tab1Page {
   nickField: string = "";
   descriptionField: string;
   validNick: boolean = false;
-
+  private fauthSubscription: Subscription = new Subscription();
+  private userSubscription: Subscription = new Subscription();
+  private checkSubscription: Subscription = new Subscription();
 
   constructor(
     public userService: UserService,
@@ -44,9 +47,9 @@ export class Tab1Page {
 
 
   //Check if an User with the same Nick exists
-  checkUser() {
+  async checkUser() {
 
-    this.userService.getUsersWithNick(this.nickField).subscribe(
+    this.checkSubscription = await this.userService.getUsersWithNick(this.nickField).subscribe(
 
       data => {
 
@@ -80,16 +83,17 @@ export class Tab1Page {
   async getUser() {
 
     //Get current FireAuth user
-    await this.auth.getCurrentUser().subscribe(
+    this.fauthSubscription = await this.auth.getCurrentUser().subscribe(
 
-      data => {
+      async data => {
 
         //Get the equivalent User on FireStore
-        this.userService.getUserByUid(data.uid).subscribe(
+        this.userSubscription = await this.userService.getUserByUid(data.uid).subscribe(
 
           user => {
 
             this.currentUser = user;
+            console.log("User info updated");
 
             //Redirect if user is banned
             if (user.isBanned == true) this.router.navigateByUrl("login/banned");
@@ -215,6 +219,14 @@ export class Tab1Page {
     });
 
     await alert.present();
+  }
+
+
+  //Close all subscriptions
+  ionViewWillLeave() {
+    this.fauthSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.checkSubscription.unsubscribe();
   }
 
 }
