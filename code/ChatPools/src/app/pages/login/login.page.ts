@@ -41,14 +41,6 @@ export class LoginPage implements OnInit {
   }
 
 
-  //Logout current user before entering the view
-  async ionViewWillEnter() {
-
-    //Logout from user
-    await this.fauth.logout();
-  }
-
-
   //Using ionViewDidEnter instead ionViewWillEnter prevents missing menu hide animation
   ionViewDidEnter() {
 
