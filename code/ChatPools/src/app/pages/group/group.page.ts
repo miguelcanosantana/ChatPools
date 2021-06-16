@@ -200,8 +200,19 @@ export class GroupPage implements OnInit {
 
               async reports => {
                 
-                //Unsubscribe, Ban and redirect
-                if (reports.length >= 10) {
+                //Ban if reports are at least from 3 different people
+                let reportersUids: string[] = [];
+
+                reports.forEach(report => {
+
+                  //If the reporter is not in the list add it
+                  if (!reportersUids.includes(report.reporterId)) reportersUids.push(report.reporterId);
+                  
+                });
+
+                console.log(reportersUids.length);
+
+                if (reportersUids.length >= 3) {
 
                   this.userService.banUser(user.uid);
                   this.router.navigateByUrl("login/banned", { replaceUrl: true });
@@ -400,6 +411,7 @@ export class GroupPage implements OnInit {
             let tempReport: Report = {
               reportId: utcTime + message.id,
               messageId: message.id,
+              reporterId: this.currentUser.uid,
               reportedUserId: message.userId,
               reason: alertData.reason,
               time: utcTime

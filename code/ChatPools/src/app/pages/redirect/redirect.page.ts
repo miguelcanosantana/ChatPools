@@ -31,7 +31,7 @@ export class RedirectPage implements OnInit {
     //If the route is null, redirect to the login screen
     if (!this.path) this.router.navigateByUrl("/login");
     //else navigate to the url
-    else await this.router.navigateByUrl(this.path, { replaceUrl: true, skipLocationChange: true });
+    else await this.router.navigateByUrl(this.path, { replaceUrl: true });
   }
 
 

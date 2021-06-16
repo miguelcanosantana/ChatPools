@@ -70,10 +70,10 @@ export class LoginPage implements OnInit {
 
           async user => {
 
-            this.currentUser = user;
+            this.currentUser = await user;
 
             //If User is not banned
-            if (user.isBanned == false) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true, skipLocationChange: true });
+            if (!user.isBanned) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
             //Else show guide and logout
             else {
               this.userBanned = true;
