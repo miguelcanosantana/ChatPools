@@ -440,9 +440,4 @@ export class GroupPage implements OnInit {
     toast.present();
   }
 
-
-  //When leaving the page unsubscribe
-  ionViewDidLeave() {
-  }
-
 }
