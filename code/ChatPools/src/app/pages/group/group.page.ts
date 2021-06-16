@@ -16,7 +16,7 @@ import * as Filter from 'bad-words';
 import { ImagesService } from 'src/app/services/images.service';
 import { Report } from 'src/app/model/report';
 import { ReportsService } from 'src/app/services/reports.service';
-
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -28,16 +28,21 @@ import { ReportsService } from 'src/app/services/reports.service';
 
 export class GroupPage implements OnInit {
 
-  @ViewChild(IonContent, { static: false }) content: IonContent;
+  @ViewChild(IonContent, { static: false })
+  content: IonContent;
   
 
   //Variables
   pool: Pool;
   messageText: string;
   currentUser: User;
+  lastBannedUid: string;
   allMessages: Message[] = [];
   newSession: boolean = true;
   imageUrlHolder: string;
+  private fauthSubscription: Subscription = new Subscription();
+  private userSubscription: Subscription = new Subscription();
+  private banSubscription: Subscription = new Subscription();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -55,7 +60,11 @@ export class GroupPage implements OnInit {
   ) { }
 
 
-  ngOnInit() {
+  ngOnInit() {}
+
+
+  //When entering instead onInit, so doesn't conflict with multiple users
+  ionViewWillEnter() {
 
     //Get current user
     this.getUser();
@@ -181,42 +190,54 @@ export class GroupPage implements OnInit {
   async getUser() {
 
     //Get current FireAuth user
-    await this.auth.getCurrentUser().subscribe(
+    this.fauthSubscription = await this.auth.getCurrentUser().subscribe(
 
       data => {
 
         //Get the equivalent User on FireStore
-        this.userService.getUserByUid(data.uid).subscribe(
+        this.userSubscription = this.userService.getUserByUid(data.uid).subscribe(
 
           async user => {
             
             this.currentUser = user;
 
-            //Redirect if user not logged or deleted
-            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+            //Redirect if user is banned
+            if (user.isBanned == true) this.router.navigateByUrl("login/banned", { replaceUrl: true });
 
             //Get number of reports and autoban user if >= 10
-            await this.reportsService.getReports(user.uid).subscribe(
+            this.banSubscription = await this.reportsService.getReports(user.uid).subscribe(
 
               async reports => {
+
+                if (this.lastBannedUid != user.uid) {
                 
-                //Ban if reports are at least from 3 different people
-                let reportersUids: string[] = [];
+                  //Ban if reports are at least from 3 different people
+                  let reportersUids: string[] = [];
 
-                reports.forEach(report => {
+                  reports.forEach(report => {
 
-                  //If the reporter is not in the list add it
-                  if (!reportersUids.includes(report.reporterId)) reportersUids.push(report.reporterId);
-                  
-                });
+                    //If the reporter is not in the list add it
+                    if (!reportersUids.includes(report.reporterId)) reportersUids.push(report.reporterId);
+                    
+                  });
 
-                console.log(reportersUids.length);
+                  console.log(reportersUids.length);
 
-                if (reportersUids.length >= 3) {
+                  //Unsubscribe, ban and redirect
+                  if (reportersUids.length >= 3) {
 
-                  this.userService.banUser(user.uid);
-                  this.router.navigateByUrl("login/banned", { replaceUrl: true });
+                    await this.fauthSubscription.unsubscribe();
+                    await this.userSubscription.unsubscribe();
+                    await this.banSubscription.unsubscribe();
+
+                    await this.userService.banUser(user.uid);
+                    this.lastBannedUid = user.uid;
+                    
+                    this.router.navigateByUrl("login/banned", { replaceUrl: true });
+                  }
+
                 }
+
               }
             )
           }
@@ -450,6 +471,14 @@ export class GroupPage implements OnInit {
     }
 
     toast.present();
+  }
+
+
+  //Close all subscriptions
+  ionViewWillLeave() {
+    this.fauthSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.banSubscription.unsubscribe();
   }
 
 }

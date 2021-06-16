@@ -67,8 +67,8 @@ export class DescriptionPage implements OnInit {
 
             this.currentUser = user;
 
-            //Redirect if user not logged or deleted
-            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+            //Redirect if user is banned
+            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
             //Else check if User is already in pool and redirect if so
             else {
 

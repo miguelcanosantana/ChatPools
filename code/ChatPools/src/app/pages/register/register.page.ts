@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { FauthService } from 'src/app/services/fauth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -22,6 +23,7 @@ export class RegisterPage implements OnInit {
   repPassword: string;
   username: string = "";
   validNick: boolean = false;
+  private checkUserSubscription: Subscription = new Subscription();
 
 
   constructor(
@@ -41,6 +43,9 @@ export class RegisterPage implements OnInit {
 
     //SVG
     this.setTextAnimation(0.1,3,2.5,'ease-in-out','#2660cf',false);
+
+    //Log out from current user
+    this.auth.logout();
   }
 
 
@@ -62,7 +67,7 @@ export class RegisterPage implements OnInit {
   //Check if an User with the same Nick exists
   checkUser() {
 
-    this.userService.getUsersWithNick(this.username).subscribe(
+    this.checkUserSubscription = this.userService.getUsersWithNick(this.username).subscribe(
 
       data => {
 
@@ -87,7 +92,7 @@ export class RegisterPage implements OnInit {
     else {
 
       //Log out from current user
-      this.auth.logout();
+      await this.auth.logout();
 
       //Create new user
       this.auth.createUser(this.email, this.password).then(
@@ -97,7 +102,8 @@ export class RegisterPage implements OnInit {
           //Create a new User object
           let tempUser: User = {
             uid: data.user.uid,
-            nick: this.username
+            nick: this.username,
+            isBanned: false
           }
         
           //Add a new User inside Fire Store
@@ -106,6 +112,7 @@ export class RegisterPage implements OnInit {
             () => {
 
               console.log("User successfully written");
+              this.checkUserSubscription.unsubscribe();
               this.router.navigateByUrl("/tabs/tab1", { replaceUrl: true });
             }
           ).catch(error => this.showErrorAlert(error.code));

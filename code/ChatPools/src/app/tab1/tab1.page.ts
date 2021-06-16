@@ -34,10 +34,12 @@ export class Tab1Page {
     private router: Router,
     private imagesService: ImagesService,
     public alert: AlertController,
-  ) {
+  ) {}
 
-    //Get current user
-    this.getUser();
+
+  //Get user
+  async ionViewWillEnter() {
+    await this.getUser();
   }
 
 
@@ -89,8 +91,8 @@ export class Tab1Page {
 
             this.currentUser = user;
 
-            //Redirect if user not logged or deleted
-            if (!user || user.isBanned) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+            //Redirect if user is banned
+            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
           }
         )
       }
