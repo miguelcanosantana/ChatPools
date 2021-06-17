@@ -10,7 +10,7 @@
   <br>
 
   <p align="center">
-    <a href="empty">View Video</a>
+    <a href="https://youtu.be/f56JraMWI8Y">View Video</a>
     ·
     <a href="https://github.com/miguelcanosantana/ChatPools/issues">Report Bug</a>
   </p>
@@ -102,5 +102,20 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Rebuilt the project and changed all the structure of the pages and services</li>
   <li>Added 3 tabs for the main interface</li>
   <li>Added Chat Bubbles Animation</li>
+  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-06-01%2011-01-49.png" alt="img" width="300" height="600">
+</ol>
+
+### Last Weeks
+<ol>
+  <p> Last weeks have been the most intense...</p>
+  <li>Rebuilt some aspects of the project</li>
+  <li>Implemented ban logic</li>
+  <li>Implemented search filter</li>
+  <li>Stable Android Builds</li>
+  <li>Users can take or select pictures</li>
+  <li>Configured FireStore storage</li>
+  <li>Completely redone PoolTabs App</li>
+  <li>Admins can now ban/unban manage roles of users, create, delete or update pools</li>
+  <li>PoolTabs now hosted at https://chatpools-pooltabs-test.web.app</li>
   <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-06-01%2011-01-49.png" alt="img" width="300" height="600">
 </ol>
