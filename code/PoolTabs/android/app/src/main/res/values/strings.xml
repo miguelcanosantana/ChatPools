@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PoolTabs</string>
+    <string name="title_activity_main">PoolTabs</string>
+    <string name="package_name">github.com.miguelcanosantana.pooltabstest</string>
+    <string name="custom_url_scheme">github.com.miguelcanosantana.pooltabstest</string>
+</resources>
