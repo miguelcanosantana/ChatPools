@@ -105,12 +105,39 @@ ion-menu-button {
 }
 
 .search-bar {
-  -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
 
 ion-searchbar {
   --box-shadow: none !important;
+}
+
+.user-image {
+  padding: 2px;
+  max-height: 50px;
+  max-width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.user-big-image {
+  max-height: 250px;
+  max-width: 250px;
+  min-height: 50px;
+  min-width: 50px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.selectable-text {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }

@@ -24,10 +24,10 @@ export class UserService {
   }
 
 
-  //Get users with matching nick
-  getUsersWithNick(nickName: string): Observable<User[]> {
+  //Get all Users from FireStore
+  public getUsers(): Observable<User[]> {
 
-    return this.fireStore.collection<User>('users/', ref => ref.where('nick', '==', nickName)).snapshotChanges().pipe(
+    return this.fireStore.collection<User>('users').snapshotChanges().pipe(
       map(
         snaps => snaps.map(
           snap => <User>{
@@ -64,10 +64,24 @@ export class UserService {
   }
 
 
-  //Ban user
+  //Ban User
   public banUser(uid: string): Promise<void> {
     return this.fireStore.collection('users/').doc(uid).update({isBanned: true});
   }
 
+
+  //Promote User to Moderator or Admin
+  public promoteUser(uid: string, promotionType: string): Promise<void> {
+
+    if (promotionType == "toAdmin") return this.fireStore.collection('users/').doc(uid).update({isAdmin: true});
+    if (promotionType == "toModerator") return this.fireStore.collection('users/').doc(uid).update({isModerator: true});
+  }
+
+  //Demote User from Moderator or Admin
+  public demoteUser(uid: string, demotionType: string): Promise<void> {
+
+    if (demotionType == "fromAdmin") return this.fireStore.collection('users/').doc(uid).update({isAdmin: false});
+    if (demotionType == "fromModerator") return this.fireStore.collection('users/').doc(uid).update({isModerator: false});
+  }
 
 }

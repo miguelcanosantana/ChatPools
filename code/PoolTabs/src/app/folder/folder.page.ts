@@ -9,6 +9,8 @@ import { PoolsService } from '../services/pools.service';
 import { UserService } from '../services/user.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ImagesService } from '../services/images.service';
+import { Report } from '../model/report';
+import { ReportsService } from '../services/reports.service';
 
 
 @Component({
@@ -28,7 +30,10 @@ export class FolderPage implements OnInit {
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private poolsSubscription: Subscription = new Subscription();
+  private allUsersSubscription: Subscription = new Subscription();
   private getPoolByNameSubscription: Subscription = new Subscription();
+  private getUserByUidSubscription: Subscription = new Subscription();
+  private getUserReportsSubscription: Subscription = new Subscription();
   
   poolInput: string = "";
   listOfPools: Pool[] = [];
@@ -38,6 +43,12 @@ export class FolderPage implements OnInit {
   newPoolNameInput: string;
   newPoolDescriptionInput: string;
   newPoolImageUrl: string;
+
+  userInput: string = "";
+  selectedUser: User;
+  listOfUsers: User[] = [];
+  filteredUsers: User[] = [];
+  userReports: Report[] = [];
 
 
   constructor(
@@ -49,7 +60,8 @@ export class FolderPage implements OnInit {
     private poolsService: PoolsService,
     public alert: AlertController,
     public toast: ToastController,
-    private imagesService: ImagesService
+    private imagesService: ImagesService,
+    private reportsService: ReportsService
     ) { }
 
 
@@ -86,14 +98,123 @@ export class FolderPage implements OnInit {
             }
 
             //Start a subscription to all pools
-            this.poolsService.getPools().subscribe(
+            this.poolsSubscription = this.poolsService.getPools().subscribe(
 
               pools => this.listOfPools = pools
+            );
+
+            //Start a subscription to all users
+            this.allUsersSubscription = this.userService.getUsers().subscribe(
+
+              users => this.listOfUsers = users
             );
           }
         );
       }
     );
+  }
+
+
+  //Delete Report
+  async deleteReport(report: Report) {
+
+    this.reportsService.deleteReport(report).then(
+
+      () => this.showToast("Report deleted.", 2000)
+
+    ).catch(error => this.showErrorAlert(error));
+
+  }
+
+
+  //Filter Users by name if input contains something
+  filterUsers() {
+
+    //Reset the filter
+    this.filteredUsers = [];
+    
+    //Filter Users
+    this.listOfUsers.filter(
+      
+      (user) => {
+        
+        if (user.nick.toLocaleLowerCase().startsWith(this.userInput.toLocaleLowerCase())) {
+          this.filteredUsers.unshift(user);
+        }
+      }
+    );
+  }
+
+
+  //Get an User from FireStore
+  async getUser(uid: string) {
+
+    //Check that you don't get yourself
+    if (uid != this.currentUser.uid) {
+
+      this.getUserByUidSubscription = await this.userService.getUserByUid(uid).subscribe(
+
+        data => {
+          
+          this.selectedUser = data;
+        
+          //Get User reports
+          this.getUserReportsSubscription = this.reportsService.getReports(data.uid).subscribe(
+
+            reports => this.userReports = reports
+          );
+        }
+      );
+      
+    } else this.showToast("You can't modify your own user.");
+  }
+
+
+  //Clear the User
+  clearUser() {
+    this.selectedUser = null;
+  }
+
+
+  //Promote user
+  async promoteUser(promotionType: string) {
+
+    await this.userService.promoteUser(this.selectedUser.uid, promotionType).then(
+
+      () => {this.showToast("The user has been promoted.")}
+
+    ).catch(error => this.showErrorAlert(error));
+  }
+
+
+  //Promote user
+  async demoteUser(demotionType: string) {
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'Demote the User',
+      message: 'You are going to DEMOTE the user ' + this.selectedUser.nick +", you can still promote it after, are you sure?",
+
+      buttons: [
+        {
+          text: "Go back",
+          handler: () => {}
+        },
+        {
+          text: "Demote the User",
+          handler: async () => {
+
+            await this.userService.demoteUser(this.selectedUser.uid, demotionType).then(
+
+              () => {this.showToast("The user has been demoted.")}
+        
+            ).catch(error => this.showErrorAlert(error));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 
@@ -146,7 +267,7 @@ export class FolderPage implements OnInit {
     if (this.poolDescriptionInput != this.selectedPool.description) {
 
       await this.poolsService.updatePoolName(this.selectedPool.name, this.poolDescriptionInput).then()
-            .catch(error => console.log(error));
+            .catch(error => this.showErrorAlert(error));
     }
   }
 
@@ -173,7 +294,7 @@ export class FolderPage implements OnInit {
 
               () => this.showToast("The pool was deleted.")
             )
-            .catch(error => console.log(error));
+            .catch(error => this.showErrorAlert(error));
           }
         }
       ]
@@ -184,12 +305,15 @@ export class FolderPage implements OnInit {
 
 
   //Show Toast with a message
-  async showToast(msg: string) {
+  async showToast(msg: string, time?: number) {
 
     let toast = await this.toast.create({
       message: msg,
-      duration: 4000
+      duration: 3000
     });
+
+    //If given time use it instead default
+    if (time) toast.duration = time;
 
     await toast.present();
   }
@@ -306,6 +430,8 @@ export class FolderPage implements OnInit {
     this.userSubscription.unsubscribe();
     this.poolsSubscription.unsubscribe();
     this.getPoolByNameSubscription.unsubscribe();
+    this.getUserByUidSubscription.unsubscribe();
+    this.allUsersSubscription.unsubscribe();
   }
 
 }

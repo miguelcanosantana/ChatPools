@@ -38,7 +38,7 @@
           <!-- New Pool Name Input -->
           <ion-item class="form fade" *ngIf="!selectedPool">
             <ion-label color="dark" position="floating">Name</ion-label>
-            <ion-input (ionChange)="filterPools()" [(ngModel)]="newPoolNameInput"></ion-input>
+            <ion-input [(ngModel)]="newPoolNameInput"></ion-input>
           </ion-item>
 
           <div *ngIf="!selectedPool" class="form-space"></div>
@@ -46,7 +46,7 @@
           <!-- New Pool Description Input -->
           <ion-item class="form fade" *ngIf="!selectedPool">
             <ion-label color="dark" position="floating">Description</ion-label>
-            <ion-textarea autoGrow="true" (ionChange)="filterPools()" [(ngModel)]="newPoolDescriptionInput"></ion-textarea>
+            <ion-textarea autoGrow="true" [(ngModel)]="newPoolDescriptionInput"></ion-textarea>
           </ion-item>
 
           <div *ngIf="!selectedPool" class="form-space"></div>
@@ -144,7 +144,114 @@
 
 
   <!-- Users Page -->
-  <div *ngIf="this.folder == 'Users'">
+  <div *ngIf="this.folder == 'Users'" class="ion-text-center">
+
+    <!-- Upper Margin -->
+    <div class="upper-margin"></div>
+
+    <ion-grid>
+      <ion-row>
+  
+        <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+  
+        <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4" class="ion-text-center">
+
+          <!-- Search user-->
+          <ion-label *ngIf="!selectedUser">Search User</ion-label>
+
+          <div class="form-space"></div>
+
+          <!-- User Name Input -->
+          <div class="search-bar">
+            <ion-searchbar (ionChange)="filterUsers()" [(ngModel)]="userInput" class="fade" *ngIf="!selectedUser" animated placeholder="Username...">
+            </ion-searchbar>
+          </div>
+
+          <div class="form-space"></div>
+
+          <!-- Filtered Users list -->
+          <ion-list class="fade" *ngIf="!selectedUser">
+            <ion-item class="fade" *ngFor="let u of filteredUsers" button (click)="getUser(u.uid)">
+              <img class="user-image" src="{{u.image}}" onerror="this.src='../../../assets/images/avatar.svg';">
+              <ion-label>Nick: {{u.nick}}</ion-label>
+              <ion-label>Banned: {{u.isBanned}}</ion-label>
+            </ion-item>
+          </ion-list>
+
+          <!-- Unselect User -->
+          <ion-button *ngIf="selectedUser" (click)="clearUser()" fill="outline" color="secondary">
+            Unselect this User
+          </ion-button>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Photo Preview -->
+          <img *ngIf="selectedUser" class="user-big-image fade" src="{{selectedUser.image}}" onerror="this.src='../../../assets/images/avatar.svg';">
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Nickname -->
+          <ion-text class="selectable-text" *ngIf="selectedUser" color="dark">Nick: {{selectedUser.nick}}</ion-text>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Uid -->
+          <ion-text class="selectable-text" *ngIf="selectedUser" color="dark">Uid: {{selectedUser.uid}}</ion-text>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Role Chips -->
+          <ion-chip *ngIf="selectedUser && selectedUser.isAdmin" (click)="demoteUser('fromAdmin')" color="danger">
+            <ion-icon name="close" color="danger"></ion-icon>
+            <ion-label>Admin</ion-label>
+          </ion-chip>
+
+          <ion-chip *ngIf="selectedUser && selectedUser.isModerator" (click)="demoteUser('fromModerator')" color="secondary">
+            <ion-icon name="close" color="secondary"></ion-icon>
+            <ion-label>Moderator</ion-label>
+          </ion-chip>
+
+          <ion-chip class="fade" *ngIf="selectedUser && !selectedUser.isAdmin && !selectedUser.isBanned" (click)="promoteUser('toAdmin')" outline="true" color="danger">
+            <ion-label>Promote to Admin</ion-label>
+          </ion-chip>
+
+          <ion-chip class="fade" *ngIf="selectedUser && !selectedUser.isModerator && !selectedUser.isBanned" (click)="promoteUser('toModerator')" outline="true" color="secondary">
+            <ion-label>Promote to Moderator</ion-label>
+          </ion-chip>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Reports -->
+          <ion-text *ngIf="selectedUser && userReports.length > 0" color="dark">Reports</ion-text>
+
+          <div *ngIf="selectedUser && userReports.length > 0" class="form-space"></div>
+
+          <!-- List of Reports -->
+          <ion-list class="fade" *ngIf="selectedUser && userReports.length > 0">
+            <ion-item class="fade item-text-wrap" *ngFor="let r of userReports" button>
+
+              <!-- If has reason -->
+              <ion-text *ngIf="r.reason" class="selectable-text">{{r.reason}}</ion-text>
+
+              <!-- Else -->
+              <ion-text *ngIf="!r.reason" class="selectable-text">No reason given</ion-text>
+
+              <ion-button slot="end" fill="none" (click)="deleteReport(r)">
+                <ion-icon color="danger" slot="icon-only" name="trash"></ion-icon>
+              </ion-button>
+
+            </ion-item>
+          </ion-list>
+
+  
+        </ion-col>
+  
+        <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+  
+      </ion-row>
+    </ion-grid>
+    
+    <div class="form-space"></div>
     
   </div>
 
