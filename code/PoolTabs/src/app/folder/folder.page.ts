@@ -160,7 +160,7 @@ export class FolderPage implements OnInit {
           handler: () => {}
         },
         {
-          text: "Exit the Pool",
+          text: "Delete the Pool",
           handler: () => {
 
             //Delete the Pool from FireStore
