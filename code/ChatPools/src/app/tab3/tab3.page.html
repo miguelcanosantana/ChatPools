@@ -15,7 +15,7 @@
       <ion-col *ngIf="currentUser" size-xs="12" size-md="8" size-lg="6" size-xl="4">
 
         <!-- Each Pool -->
-        <ion-card class="ion-padding fade" *ngFor="let pool of userPoolsObject" >
+        <ion-card *ngFor="let pool of userPools" (click)="goToGroup(pool.name)" class="ion-padding fade" >
 
           <!-- Name of the Pool -->
           <ion-label>{{pool.name}}</ion-label>
