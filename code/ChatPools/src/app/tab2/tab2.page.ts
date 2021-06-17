@@ -21,6 +21,8 @@ export class Tab2Page {
 
   //Variables
   allPools: Pool[] = [];
+  filteredPools: Pool[] = [];
+  searchInput: string = "";
   currentUser: User;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
@@ -43,6 +45,9 @@ export class Tab2Page {
 
   //Get User and Pools
   async ionViewWillEnter() {
+
+    //Reset search Input
+    this.searchInput = "";
 
     //Get current user
     await this.getUser();
@@ -69,10 +74,37 @@ export class Tab2Page {
 
             //Get all pools and subscribe
             this.getPoolsSubscription = await this.poolsService.getPools().subscribe(
-              data => this.allPools = data
+              
+              data => {
+                
+                this.allPools = data;
+
+                //Filter once so all Pools appear
+                this.filterPools();
+              }
             );
           }
         );
+      }
+    );
+  }
+
+
+  //Filter Pools by name if input contains something
+  filterPools() {
+
+    //Reset the filter
+    this.filteredPools = [];
+    
+    //Filter Pools
+    this.allPools.filter(
+      
+      (pool) => {
+        
+        if (pool.name.toLocaleLowerCase().startsWith(this.searchInput.toLocaleLowerCase())) {
+          this.filteredPools.unshift(pool);
+        }
+        
       }
     );
   }

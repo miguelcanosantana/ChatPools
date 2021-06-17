@@ -12,14 +12,18 @@
       <ion-col size-xs="0.25" size-md="1" size-xl="2"></ion-col>
 
       <!-- Column with the page content -->
-      <ion-col size-xs="11.5" size-md="10" size-xl="8">
+      <ion-col size-xs="11.5" size-md="10" size-xl="8" class="ion-text-center fade">
+
+        <!-- SearchBar -->
+        <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="searchInput" class="search fade" animated placeholder="Search Pools...">
+        </ion-searchbar>
 
         <!-- Grid of Pools -->
         <ion-grid *ngIf="allPools.length > 0" class="ion-text-center fade">
           <ion-row>
 
             <!-- Each Pool -->
-            <ion-col class="ion-text-center fade" *ngFor="let pool of allPools" size-xs="12" size-md="6">
+            <ion-col class="ion-text-center fade" *ngFor="let pool of filteredPools" size-xs="12" size-md="6">
               
               <div (click)="goToGroupDescription(pool.name)" class="pool fade" [style.backgroundImage]="'url('+ pool.image +')'">
 
