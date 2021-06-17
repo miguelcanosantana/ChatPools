@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FireAuthService } from './services/fire-auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -6,13 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Pools', url: '/folder/Pools', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/Outbox', icon: 'people' },
-    { title: 'Favorites', url: '/folder/Favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/Archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
+    { title: 'Pools', url: '/folder/Pools', icon: 'water' },
+    { title: 'Users', url: '/folder/Users', icon: 'people' },
+    { title: 'Admins', url: '/folder/Admins', icon: 'shield-half' }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {}
+
+  constructor(private fauth: FireAuthService) {}
 }
