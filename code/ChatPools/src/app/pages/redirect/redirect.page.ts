@@ -25,7 +25,7 @@ export class RedirectPage implements OnInit {
   async ngOnInit() {
 
     await this.checkUser();
-    await this.sleep(1500);
+    await this.sleep(2000);
     
 
     //If the route is null, redirect to the login screen
