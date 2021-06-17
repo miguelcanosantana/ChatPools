@@ -19,6 +19,7 @@
 <br>
 
 ## About The Project
+(New) Release: https://github.com/miguelcanosantana/ChatPools/releases/tag/release
 ChatPools is an Open Source chat client focused on it's community.
 The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms) based on their interest for communicating with people with the same interests.
 
@@ -117,5 +118,4 @@ Click the name for a link to the repository of Pool Tabs App.
   <li>Completely redone PoolTabs App</li>
   <li>Admins can now ban/unban manage roles of users, create, delete or update pools</li>
   <li>PoolTabs now hosted at https://chatpools-pooltabs-test.web.app</li>
-  <img src="https://github.com/miguelcanosantana/ChatPools/blob/main/media/Captura%20de%20pantalla%20de%202021-06-01%2011-01-49.png" alt="img" width="300" height="600">
 </ol>
