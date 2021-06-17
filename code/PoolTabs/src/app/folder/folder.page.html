@@ -79,8 +79,10 @@
           <div class="form-space"></div>
 
           <!-- Pool Name Input -->
-          <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="poolInput" class="fade" *ngIf="!selectedPool" animated placeholder="Pool Name...">
-          </ion-searchbar>
+          <div class="search-bar">
+            <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="poolInput" class="fade" *ngIf="!selectedPool" animated placeholder="Pool Name...">
+            </ion-searchbar>
+          </div>
           
           <div class="form-space"></div>
 

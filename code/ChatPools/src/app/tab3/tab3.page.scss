@@ -46,9 +46,6 @@ ion-text {
   font-family: 'Ubuntu';
 }
 
-.delete-button {
-}
-
 .pool-name {
   min-height: 100%;
   padding-top: 25px;
@@ -58,4 +55,20 @@ ion-text {
 img {
   border-radius: 5px;
   object-fit: cover;
+}
+
+.search-bar {
+  -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  margin-top: -15px;
+}
+
+ion-searchbar {
+  --box-shadow: none !important;
+}
+
+.form-space {
+  min-height: 20px;
 }

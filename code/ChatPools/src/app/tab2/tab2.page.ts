@@ -24,6 +24,7 @@ export class Tab2Page {
   filteredPools: Pool[] = [];
   searchInput: string = "";
   currentUser: User;
+  hasFiltered: boolean;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private getPoolsSubscription: Subscription = new Subscription();
@@ -48,6 +49,7 @@ export class Tab2Page {
 
     //Reset search Input
     this.searchInput = "";
+    this.hasFiltered = false;
 
     //Get current user
     await this.getUser();
@@ -80,7 +82,11 @@ export class Tab2Page {
                 this.allPools = data;
 
                 //Filter once so all Pools appear
-                this.filterPools();
+                if (!this.hasFiltered) {
+                  this.filterPools();
+                  this.hasFiltered = true;
+                }
+                
               }
             );
           }

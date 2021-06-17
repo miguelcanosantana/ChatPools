@@ -22,7 +22,10 @@ export class Tab3Page {
 
   //Variables
   currentUser: User;
+  searchInput: string = "";
   userPools: UserPool[] = [];
+  userFilteredPools: UserPool[] = [];
+  hasFiltered: boolean;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private getPoolsUserSubscription: Subscription = new Subscription();
@@ -47,8 +50,11 @@ export class Tab3Page {
   //Get user in ionViewWillEnter to avoid mixing users pools while the info is loading
   async ionViewWillEnter() {
 
+    //Reset search Input
+    this.searchInput = "";
+    this.hasFiltered = false;
+
     await this.getUser();
-    this.userPools = [];
   }
 
   //Get Fire Store User
@@ -74,7 +80,13 @@ export class Tab3Page {
 
               pools => {
                 
-                this.userPools = pools
+                this.userPools = pools;
+
+                //Filter once so all Pools appear
+                if (!this.hasFiltered) {
+                  this.filterPools();
+                  this.hasFiltered = true;
+                }
 
                 //Get Pools images
                 this.userPools.forEach(async pool => {
@@ -93,6 +105,25 @@ export class Tab3Page {
     );
   }
 
+
+  //Filter Pools by name if input contains something
+  filterPools() {
+
+    //Reset the filter
+    this.userFilteredPools = [];
+    
+    //Filter Pools
+    this.userPools.filter(
+      
+      (pool) => {
+        
+        if (pool.name.toLocaleLowerCase().startsWith(this.searchInput.toLocaleLowerCase())) {
+          this.userFilteredPools.unshift(pool);
+        }
+        
+      }
+    );
+  }
 
   //Go to chat
   goToGroup(name: string) {

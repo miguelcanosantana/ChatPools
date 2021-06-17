@@ -12,13 +12,21 @@
       <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
 
       <!-- Column with the page content -->
-      <ion-col *ngIf="currentUser" size-xs="12" size-md="8" size-lg="6" size-xl="4">
+      <ion-col *ngIf="currentUser" size-xs="12" size-md="8" size-lg="6" size-xl="4" class="ion-text-center">
+
+        <!-- SearchBar -->
+        <div class="search-bar fade">
+          <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="searchInput" class="fade" animated placeholder="Search Pools...">
+          </ion-searchbar>
+        </div>
+
+        <div class="form-space"></div>
 
         <!-- User Pools -->
         <div *ngIf="userPools" class="fade">
 
           <!-- Each Pool -->
-          <ion-card *ngFor="let pool of userPools" class="fade">
+          <ion-card *ngFor="let pool of userFilteredPools" class="fade">
 
             <ion-item button lines="none" class="ion-text-center">
 
@@ -28,7 +36,7 @@
               </ion-button>
 
               <ion-thumbnail (click)="goToGroup(pool.name)" slot="end">
-                <img src="{{pool.image}}" onerror="this.src='../../../assets/images/image-deleted.svg';">
+                <img src="{{pool.image}}" onerror="this.src='../../../assets/images/image-deleted-small.svg';">
               </ion-thumbnail>
 
               <!-- Name of the Pool -->

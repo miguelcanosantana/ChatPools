@@ -15,8 +15,12 @@
       <ion-col size-xs="11.5" size-md="10" size-xl="8" class="ion-text-center fade">
 
         <!-- SearchBar -->
-        <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="searchInput" class="search fade" animated placeholder="Search Pools...">
-        </ion-searchbar>
+        <div class="search-bar fade">
+          <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="searchInput" class="fade" animated placeholder="Search Pools...">
+          </ion-searchbar>
+        </div>
+
+        <div class="form-space"></div>
 
         <!-- Grid of Pools -->
         <ion-grid *ngIf="allPools.length > 0" class="ion-text-center fade">
