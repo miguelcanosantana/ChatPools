@@ -3,5 +3,18 @@
 	"appName": "ChatPools",
 	"webDir": "www",
 	"linuxAndroidStudioPath": "/var/lib/snapd/snap/android-studio/103/android-studio/bin/studio.sh",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"plugins": {
+		"SplashScreen": {
+			"launchShowDuration": 5000,
+			"launchAutoHide": true,
+			"androidScaleType": "CENTER_CROP",
+			"androidSplashResourceName": "splash",
+			"splashFullScreen": false,
+			"splashImmersive": false
+		}
+	},
+	"android": {
+		"allowMixedContent": true
+	}
 }
