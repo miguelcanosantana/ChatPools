@@ -7,6 +7,8 @@ import { User } from '../model/user';
 import { FireAuthService } from '../services/fire-auth.service';
 import { PoolsService } from '../services/pools.service';
 import { UserService } from '../services/user.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { ImagesService } from '../services/images.service';
 
 
 @Component({
@@ -33,7 +35,9 @@ export class FolderPage implements OnInit {
   filteredPools: Pool[] = [];
   selectedPool: Pool;
   poolDescriptionInput: string;
-  poolImageInput: string;
+  newPoolNameInput: string;
+  newPoolDescriptionInput: string;
+  newPoolImageUrl: string;
 
 
   constructor(
@@ -44,7 +48,8 @@ export class FolderPage implements OnInit {
     public menu: MenuController,
     private poolsService: PoolsService,
     public alert: AlertController,
-    public toast: ToastController
+    public toast: ToastController,
+    private imagesService: ImagesService
     ) { }
 
 
@@ -166,7 +171,7 @@ export class FolderPage implements OnInit {
             //Delete the Pool from FireStore
             this.poolsService.deletePool(this.selectedPool.name).then(
 
-              () => this.deletePoolToast()
+              () => this.showToast("The pool was deleted.")
             )
             .catch(error => console.log(error));
           }
@@ -178,13 +183,119 @@ export class FolderPage implements OnInit {
   }
 
 
-  //Toast with Pool delete message
-  async deletePoolToast() {
+  //Show Toast with a message
+  async showToast(msg: string) {
 
     let toast = await this.toast.create({
-      message: 'The pool was deleted.',
-      duration: 2000
+      message: msg,
+      duration: 4000
     });
+
+    await toast.present();
+  }
+
+
+  //Upload Pool picture
+  async uploadPoolPicture(mode: string) {
+
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      source: CameraSource.Prompt,
+      resultType: CameraResultType.Base64
+    });
+
+    let imageBase = image.base64String;
+
+    const isAvatar: boolean = false;
+
+    //Upload the image
+    let uploadedImageUrl;
+
+    this.imagesService.uploadImage(isAvatar, imageBase, this.currentUser.uid).then(
+
+      data => {
+
+        //Get the url
+        data.ref.getDownloadURL().then(
+
+          url => {
+            
+            uploadedImageUrl = url;
+
+            //If mode is New Pool
+            if (mode == "new-pool") {
+
+              //Save the url in the Input
+              this.newPoolImageUrl = uploadedImageUrl;
+            }
+
+            //If mode is Update Pool
+            if (mode == "update-pool") {
+
+              //Save the url in the Pool
+              this.poolsService.savePoolImage(this.selectedPool.name, uploadedImageUrl).then()
+              .catch(error => this.showErrorAlert(error));
+            }
+
+          }
+
+        ).catch(error => this.showErrorAlert(error));
+
+      }
+
+    ).catch(error => this.showErrorAlert(error));
+  }
+
+
+  //Show an alert with the upload image error
+  async showErrorAlert(error) {
+
+    console.log(error);
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'There was an error',
+      message: error,
+      buttons: [
+        {
+          text: "Okey",
+          handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  //Create the Pool in FireStore if all inputs are filled
+  async createPool() {
+
+    if (this.newPoolNameInput && this.newPoolDescriptionInput && this.newPoolImageUrl) {
+
+      let tempPool: Pool = {
+        name: this.newPoolNameInput,
+        description: this.newPoolDescriptionInput,
+        image: this.newPoolImageUrl,
+        usersNumber: 0
+      }
+
+      //Upload the Pool and show toast if success
+      this.poolsService.createPool(tempPool).then(
+
+        () => {
+          
+          this.showToast("Pool has been uploaded.");
+
+          //Delete and hide inputs
+          this.newPoolNameInput = "";
+          this.newPoolDescriptionInput = "";
+          this.newPoolImageUrl = "";
+        }
+
+      ).catch(error => this.showErrorAlert(error));
+    }
 
   }
 

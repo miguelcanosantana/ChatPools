@@ -28,13 +28,59 @@
   
         <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
   
-        <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4">
+        <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4" class="ion-text-center">
+
+          <!-- New Pool Creation -->
+          <ion-label *ngIf="!selectedPool">New Pool Creation</ion-label>
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- New Pool Name Input -->
+          <ion-item class="form fade" *ngIf="!selectedPool">
+            <ion-label color="dark" position="floating">Name</ion-label>
+            <ion-input (ionChange)="filterPools()" [(ngModel)]="newPoolNameInput"></ion-input>
+          </ion-item>
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- New Pool Description Input -->
+          <ion-item class="form fade" *ngIf="!selectedPool">
+            <ion-label color="dark" position="floating">Description</ion-label>
+            <ion-textarea autoGrow="true" (ionChange)="filterPools()" [(ngModel)]="newPoolDescriptionInput"></ion-textarea>
+          </ion-item>
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- New Pool Photo Input -->
+          <ion-button *ngIf="!selectedPool" (click)="uploadPoolPicture('new-pool')" color="secondary">
+            <ion-icon slot="start" name="camera"></ion-icon>
+            Choose Pool Image
+          </ion-button>
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- Photo Preview -->
+          <img *ngIf="newPoolImageUrl && !selectedPool" class="pool-photo fade" src="{{newPoolImageUrl}}">
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- Create Pool Button -->
+          <ion-button *ngIf="!selectedPool" (click)="createPool()" color="primary">
+            Create the Pool
+          </ion-button>
+
+          <div *ngIf="!selectedPool" class="form-space"></div>
+          <div *ngIf="!selectedPool" class="form-space"></div>
+          <div *ngIf="!selectedPool" class="form-space"></div>
+
+          <!-- Search existing Pool -->
+          <ion-label *ngIf="!selectedPool">Search existing Pool</ion-label>
+
+          <div class="form-space"></div>
 
           <!-- Pool Name Input -->
-          <ion-item class="form fade" *ngIf="!selectedPool">
-            <ion-label color="dark" position="floating">Pool Name</ion-label>
-            <ion-input (ionChange)="filterPools()" [(ngModel)]="poolInput"></ion-input>
-          </ion-item>
+          <ion-searchbar (ionChange)="filterPools()" [(ngModel)]="poolInput" class="fade" *ngIf="!selectedPool" animated placeholder="Pool Name...">
+          </ion-searchbar>
           
           <div class="form-space"></div>
 
@@ -58,14 +104,19 @@
           <div class="form-space"></div>
           <div class="form-space"></div>
 
-          <div *ngIf="selectedPool" class="pool fade" [style.backgroundImage]="'url('+ selectedPool.image +')'">
+          <div *ngIf="selectedPool" (click)="uploadPoolPicture('update-pool')" 
+          class="pool fade" [style.backgroundImage]="'url('+ selectedPool.image +')'">
             <ion-label class="title">{{selectedPool.name}}</ion-label>
           </div>
+
+          <ion-label color="medium" *ngIf="selectedPool">Click the image to change it</ion-label>
+
+          <div class="form-space"></div>
 
           <!-- Pool Description Input -->
           <ion-item class="form fade" *ngIf="selectedPool">
             <ion-label color="dark" position="floating">Pool Description</ion-label>
-            <ion-textarea autoGrow="true" (ionChange)="filterPools()" [(ngModel)]="poolDescriptionInput"></ion-textarea>
+            <ion-textarea autoGrow="true" [(ngModel)]="poolDescriptionInput"></ion-textarea>
           </ion-item>
 
           <div class="form-space"></div>

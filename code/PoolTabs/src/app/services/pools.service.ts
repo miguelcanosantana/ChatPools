@@ -43,9 +43,21 @@ export class PoolsService {
   }
 
 
+  //Save Pool image
+  public savePoolImage(name: string, imagePath: string): Promise<void> {
+    console.log(imagePath);
+    return this.fireStore.collection('pools/').doc(name).update({image: imagePath});
+  }
+
+
   //Delete a Pool
   public deletePool(name: string): Promise<void> {
     return this.fireStore.collection('pools/').doc(name).delete();
+  }
+
+  //Create a Pool
+  createPool(pool: Pool): Promise<void> {
+    return this.fireStore.collection('pools/').doc(pool.name).set(pool);
   }
 
 }
