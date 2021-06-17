@@ -23,6 +23,8 @@
 ChatPools is an Open Source chat client focused on it's community.
 The main goal of ChatPools is to allow to it's users to make "Pools" (Chat rooms) based on their interest for communicating with people with the same interests.
 
+Landing: https://github.com/miguelcanosantana/ChatPoolsLandingPage
+
 ## Project Structure
 <ol>
   <li>ChatPools App: This repo and the main app for mobile users</li>
