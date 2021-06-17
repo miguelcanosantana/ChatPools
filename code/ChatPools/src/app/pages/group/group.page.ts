@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonContent, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, IonContent, MenuController, Platform, ToastController } from '@ionic/angular';
 import { Message } from 'src/app/model/message';
 import { Pool } from 'src/app/model/pool';
 import { User } from 'src/app/model/user';
@@ -58,8 +58,15 @@ export class GroupPage implements OnInit {
     private imagesService: ImagesService,
     public alert: AlertController,
     private reportsService: ReportsService,
-    public toast: ToastController
-  ) { }
+    public toast: ToastController,
+    private platform: Platform
+  ) {
+
+    //Back button
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      router.navigateByUrl("/tabs/tab3");
+    });
+  }
 
 
   ngOnInit() {}
@@ -345,7 +352,7 @@ export class GroupPage implements OnInit {
 
     const image = await Camera.getPhoto({
       quality: 70,
-      allowEditing: true,
+      allowEditing: false,
       source: CameraSource.Prompt,
       resultType: CameraResultType.Base64
     });

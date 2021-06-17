@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ChatPools</string>
+    <string name="title_activity_main">ChatPools</string>
+    <string name="package_name">github.com.miguelcanosantana.chatpoolstest</string>
+    <string name="custom_url_scheme">github.com.miguelcanosantana.chatpoolstest</string>
+</resources>
