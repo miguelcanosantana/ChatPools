@@ -24,3 +24,57 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+//Ubuntu Fonts
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('./assets/fonts/Ubuntu-Regular.ttf');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('./assets/fonts/Ubuntu-Bold.ttf');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('./assets/fonts/Ubuntu-BoldItalic.ttf');
+  font-style: italic;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('./assets/fonts/Ubuntu-Italic.ttf');
+  font-style: italic;
+  font-weight: normal;
+}
+
+
+//Parts of the UI
+ion-label {
+  font-family: 'Ubuntu';
+}
+
+ion-text {
+  font-family: 'Ubuntu';
+}
+
+ion-title {
+  font-family: 'Ubuntu';
+  font-weight: bold;
+}
+
+ion-button {
+  font-family: 'Ubuntu';
+  font-weight: bold;
+}
+
+.form {
+  border-radius: 5px 5px 0px 0px;
+}

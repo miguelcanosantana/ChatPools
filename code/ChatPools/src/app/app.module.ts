@@ -35,7 +35,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
       useClass: IonicRouteStrategy 
     },
     AngularFireAuthGuard
-],
+  ],
 
   bootstrap: [AppComponent],
 })

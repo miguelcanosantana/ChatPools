@@ -1,6 +1,7 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "github.com.miguelcanosantana.pooltabstest",
 	"appName": "PoolTabs",
 	"webDir": "www",
-	"bundledWebRuntime": false
+	"bundledWebRuntime": false,
+	"linuxAndroidStudioPath": "/var/lib/snapd/snap/android-studio/103/android-studio/bin/studio.sh"
 }
