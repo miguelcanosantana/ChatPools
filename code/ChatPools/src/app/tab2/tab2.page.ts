@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { App } from '@capacitor/app';
+import { Platform } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Pool } from '../model/pool';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
@@ -19,21 +22,30 @@ export class Tab2Page {
   //Variables
   allPools: Pool[] = [];
   currentUser: User;
+  private fauthSubscription: Subscription = new Subscription();
+  private userSubscription: Subscription = new Subscription();
+  private getPoolsSubscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
     public auth: FauthService,
     private poolsService: PoolsService,
-    public userService: UserService
+    public userService: UserService,
+    private platform: Platform
   ) {
 
-    //Get current user
-    this.getUser();
+    //Back button (Exit App)
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      App.exitApp();
+    });
+  }
 
-    //Get all pools and subscribe
-    this.poolsService.getPools().subscribe(
-      data => this.allPools = data
-    );
+
+  //Get User and Pools
+  async ionViewWillEnter() {
+
+    //Get current user
+    await this.getUser();
   }
 
 
@@ -41,19 +53,24 @@ export class Tab2Page {
   async getUser() {
 
     //Get current FireAuth user
-    await this.auth.getCurrentUser().subscribe(
+    this.fauthSubscription = await this.auth.getCurrentUser().subscribe(
 
-      data => {
+      async data => {
 
         //Get the equivalent User on FireStore
-        this.userService.getUserByUid(data.uid).subscribe(
+        this.userSubscription = await this.userService.getUserByUid(data.uid).subscribe(
 
-          user => {
+          async user => {
 
             this.currentUser = user;
 
             //Redirect if user is banned
             if (user.isBanned == true) this.router.navigateByUrl("login/banned");
+
+            //Get all pools and subscribe
+            this.getPoolsSubscription = await this.poolsService.getPools().subscribe(
+              data => this.allPools = data
+            );
           }
         );
       }
@@ -71,6 +88,14 @@ export class Tab2Page {
     } catch (error) {
       console.log("Error entering the chat");
     }
+  }
+
+
+  //Close all subscriptions
+  ionViewWillLeave() {
+    this.fauthSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
+    this.getPoolsSubscription.unsubscribe();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { App } from '@capacitor/app';
+import { AlertController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from '../model/user';
 import { UserPool } from '../model/user-pool';
@@ -33,8 +34,15 @@ export class Tab3Page {
     public userService: UserService,
     public poolsService: PoolsService,
     private router: Router,
-    private alert: AlertController
-  ) {}
+    private alert: AlertController,
+    private platform: Platform
+  ) {
+
+    //Back button (Exit App)
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      App.exitApp();
+    });
+  }
 
   //Get user in ionViewWillEnter to avoid mixing users pools while the info is loading
   async ionViewWillEnter() {
@@ -135,6 +143,5 @@ export class Tab3Page {
     this.getPoolsUserSubscription.unsubscribe();
     this.getPoolsImagesSubscription.unsubscribe();
   }
-
 
 }

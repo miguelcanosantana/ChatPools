@@ -15,13 +15,13 @@
       <ion-col size-xs="11.5" size-md="10" size-xl="8">
 
         <!-- Grid of Pools -->
-        <ion-grid class="ion-text-center">
+        <ion-grid *ngIf="allPools.length > 0" class="ion-text-center fade">
           <ion-row>
 
             <!-- Each Pool -->
             <ion-col class="ion-text-center fade" *ngFor="let pool of allPools" size-xs="12" size-md="6">
               
-              <div (click)="goToGroupDescription(pool.name)" class="pool" [style.backgroundImage]="'url('+ pool.image +')'">
+              <div (click)="goToGroupDescription(pool.name)" class="pool fade" [style.backgroundImage]="'url('+ pool.image +')'">
 
                 <ion-label class="title">{{pool.name}}</ion-label>
 

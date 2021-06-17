@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { AlertController, MenuController, Platform, ToastController } from '@ionic/angular';
 import { User } from '../model/user';
 import { FauthService } from '../services/fauth.service';
 import { UserService } from '../services/user.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ImagesService } from '../services/images.service';
 import { Subscription } from 'rxjs';
+import { App } from '@capacitor/app';
 
 
 @Component({
@@ -37,7 +38,14 @@ export class Tab1Page {
     private router: Router,
     private imagesService: ImagesService,
     public alert: AlertController,
-  ) {}
+    private platform: Platform
+  ) {
+
+    //Back button (Exit App)
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      App.exitApp();
+    });
+  }
 
 
   //Get user
