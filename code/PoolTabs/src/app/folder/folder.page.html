@@ -221,6 +221,25 @@
 
           <div *ngIf="selectedUser" class="form-space"></div>
 
+          <!-- Ban User -->
+          <ion-button class="fade" *ngIf="selectedUser && !selectedUser.isBanned" (click)="banUser()" color="danger">
+            Ban User
+          </ion-button>
+
+          <!-- UnBan User -->
+          <ion-button class="fade" *ngIf="selectedUser && selectedUser.isBanned" disabled="{{userReports.length >= 3}}" (click)="unBanUser()" color="danger">
+            Restore User
+          </ion-button>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
+          <!-- Explanation -->
+          <ion-text class="fade" *ngIf="selectedUser && selectedUser.isBanned && userReports.length >= 3" color="dark">
+            A banned user can only be restored if the number of reports is less than 3.
+          </ion-text>
+
+          <div *ngIf="selectedUser" class="form-space"></div>
+
           <!-- Reports -->
           <ion-text *ngIf="selectedUser && userReports.length > 0" color="dark">Reports</ion-text>
 
@@ -242,7 +261,6 @@
 
             </ion-item>
           </ion-list>
-
   
         </ion-col>
   

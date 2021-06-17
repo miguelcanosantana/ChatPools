@@ -115,6 +115,49 @@ export class FolderPage implements OnInit {
   }
 
 
+  //Ban User
+  async banUser() {
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'Ban the user',
+      message: 'You are going to BAN the user ' + this.selectedUser.nick +", however, you can still unban it after, are you sure?",
+
+      buttons: [
+        {
+          text: "Go back",
+          handler: () => {}
+        },
+        {
+          text: "Ban the user",
+          handler: () => {
+
+            //Ban the User
+            this.userService.banUser(this.selectedUser.uid).then(
+
+              () => this.showToast("The user has been banned.")
+              
+            ).catch(error => this.showErrorAlert(error));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  //UnBan User
+  async unBanUser() {
+
+    await this.userService.unBanUser(this.selectedUser.uid).then(
+
+      () => this.showToast("User has been restored")
+
+    ).catch(error => this.showErrorAlert(error));
+  }
+
+
   //Delete Report
   async deleteReport(report: Report) {
 
@@ -123,7 +166,6 @@ export class FolderPage implements OnInit {
       () => this.showToast("Report deleted.", 2000)
 
     ).catch(error => this.showErrorAlert(error));
-
   }
 
 
@@ -173,6 +215,7 @@ export class FolderPage implements OnInit {
   //Clear the User
   clearUser() {
     this.selectedUser = null;
+    this.userReports = [];
   }
 
 
@@ -432,6 +475,7 @@ export class FolderPage implements OnInit {
     this.getPoolByNameSubscription.unsubscribe();
     this.getUserByUidSubscription.unsubscribe();
     this.allUsersSubscription.unsubscribe();
+    this.getUserReportsSubscription.unsubscribe();
   }
 
 }
