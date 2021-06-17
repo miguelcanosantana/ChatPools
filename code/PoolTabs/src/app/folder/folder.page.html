@@ -1,4 +1,4 @@
-<ion-header *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned" [translucent]="true">
+<ion-header class="fade" *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,12 +7,63 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned" class="ion-padding">
+<!-- Pages -->
+<ion-content class="ion-padding fade" *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned">
 
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ folder }}</ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <!-- Pools Page -->
+  <div *ngIf="this.folder == 'Pools'" class="ion-text-center">
+
+    <!-- Upper Margin -->
+    <div class="upper-margin"></div>
+
+    <ion-grid>
+      <ion-row>
+  
+        <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+  
+        <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4">
+
+          <!-- Pool Name Imput -->
+          <ion-item class="form fade" *ngIf="!selectedPool">
+            <ion-label color="dark" position="floating">Pool Name</ion-label>
+            <ion-input (ionChange)="filterPools()" [(ngModel)]="poolInput"></ion-input>
+          </ion-item>
+          <br>
+
+          <!-- Filtered Pools list -->
+          <ion-list class="fade" *ngIf="!selectedPool">
+            <ion-item class="fade" *ngFor="let p of filteredPools" button (click)="getPool(p.name)">
+              <ion-label>{{p.name}}</ion-label>
+            </ion-item>
+          </ion-list>
+  
+        </ion-col>
+  
+        <ion-col size-xs="0" size-md="2" size-lg="3" size-xl="4"></ion-col>
+  
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+
+  <!-- Users Page -->
+  <div *ngIf="this.folder == 'Users'">
+    
+  </div>
+
+
+  <!-- Admins Page -->
+  <div *ngIf="this.folder == 'Admins'">
+    
+  </div>
+
 
 </ion-content>
