@@ -1,14 +1,6 @@
 {
-  "appId": "github.com.miguelcanosantana.pooltabsstest",
-  "appName": "PoolTabs",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "www",
-  "linuxAndroidStudioPath": "/snap/android-studio/current/android-studio/bin/studio.sh",
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 0
-    }
-  },
-  "cordova": {}
+	"appId": "io.ionic.starter",
+	"appName": "PoolTabs",
+	"webDir": "www",
+	"bundledWebRuntime": false
 }
