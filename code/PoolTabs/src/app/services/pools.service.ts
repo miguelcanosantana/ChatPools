@@ -37,9 +37,9 @@ export class PoolsService {
   }
 
 
-  //Update a Pool
-  public saveUserNick(name: string, pool: Pool): Promise<void> {
-    return this.fireStore.collection('pools/').doc(name).update(pool);
+  //Update the description of Pool
+  public updatePoolName(poolName: string, newDescription: string): Promise<void> {
+    return this.fireStore.collection('pools/').doc(poolName).update({description: newDescription});
   }
 
 

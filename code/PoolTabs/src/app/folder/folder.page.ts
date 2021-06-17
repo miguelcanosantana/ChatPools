@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Pool } from '../model/pool';
 import { User } from '../model/user';
@@ -32,6 +32,8 @@ export class FolderPage implements OnInit {
   listOfPools: Pool[] = [];
   filteredPools: Pool[] = [];
   selectedPool: Pool;
+  poolDescriptionInput: string;
+  poolImageInput: string;
 
 
   constructor(
@@ -40,7 +42,9 @@ export class FolderPage implements OnInit {
     private userService: UserService,
     private router: Router,
     public menu: MenuController,
-    private poolsService: PoolsService
+    private poolsService: PoolsService,
+    public alert: AlertController,
+    public toast: ToastController
     ) { }
 
 
@@ -113,8 +117,75 @@ export class FolderPage implements OnInit {
 
     this.getPoolByNameSubscription = await this.poolsService.getPoolByName(name).subscribe(
 
-      data => this.selectedPool = data
+      data => {
+
+        this.selectedPool = data;
+
+        //Update the input
+        this.poolDescriptionInput = data.description;
+      }
     );
+  }
+
+
+  //Clear the Pool
+  clearPool() {
+    this.selectedPool = null;
+  }
+
+
+  //Update the Pool
+  async updatePool() {
+
+    //Update the description only
+    if (this.poolDescriptionInput != this.selectedPool.description) {
+
+      await this.poolsService.updatePoolName(this.selectedPool.name, this.poolDescriptionInput).then()
+            .catch(error => console.log(error));
+    }
+  }
+
+
+  //Delete the Pool
+  async deletePool() {
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'Delete the Pool',
+      message: 'You are going to DELETE the pool ' + this.selectedPool.name +", you can't recover the messages, are you sure?",
+
+      buttons: [
+        {
+          text: "Go back",
+          handler: () => {}
+        },
+        {
+          text: "Exit the Pool",
+          handler: () => {
+
+            //Delete the Pool from FireStore
+            this.poolsService.deletePool(this.selectedPool.name).then(
+
+              () => this.deletePoolToast()
+            )
+            .catch(error => console.log(error));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
+  //Toast with Pool delete message
+  async deletePoolToast() {
+
+    let toast = await this.toast.create({
+      message: 'The pool was deleted.',
+      duration: 2000
+    });
+
   }
 
 

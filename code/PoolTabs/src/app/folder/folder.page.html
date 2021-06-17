@@ -30,12 +30,13 @@
   
         <ion-col size-xs="12" size-md="8" size-lg="6" size-xl="4">
 
-          <!-- Pool Name Imput -->
+          <!-- Pool Name Input -->
           <ion-item class="form fade" *ngIf="!selectedPool">
             <ion-label color="dark" position="floating">Pool Name</ion-label>
             <ion-input (ionChange)="filterPools()" [(ngModel)]="poolInput"></ion-input>
           </ion-item>
-          <br>
+          
+          <div class="form-space"></div>
 
           <!-- Filtered Pools list -->
           <ion-list class="fade" *ngIf="!selectedPool">
@@ -43,6 +44,41 @@
               <ion-label>{{p.name}}</ion-label>
             </ion-item>
           </ion-list>
+
+          <!-- Unselect Pool -->
+          <ion-button *ngIf="selectedPool" (click)="clearPool()" fill="outline" color="secondary">
+            Unselect this Pool
+          </ion-button>
+
+          <div class="form-space"></div>
+
+          <!-- Preview of the Pool -->
+          <ion-label *ngIf="selectedPool">Preview of the Pool</ion-label>
+
+          <div class="form-space"></div>
+          <div class="form-space"></div>
+
+          <div *ngIf="selectedPool" class="pool fade" [style.backgroundImage]="'url('+ selectedPool.image +')'">
+            <ion-label class="title">{{selectedPool.name}}</ion-label>
+          </div>
+
+          <!-- Pool Description Input -->
+          <ion-item class="form fade" *ngIf="selectedPool">
+            <ion-label color="dark" position="floating">Pool Description</ion-label>
+            <ion-textarea autoGrow="true" (ionChange)="filterPools()" [(ngModel)]="poolDescriptionInput"></ion-textarea>
+          </ion-item>
+
+          <div class="form-space"></div>
+
+          <!-- Delete Pool -->
+          <ion-button *ngIf="selectedPool" color="danger" fill="outline" (click)="deletePool()">
+            Delete
+          </ion-button>
+
+          <!-- Update Pool -->
+          <ion-button *ngIf="selectedPool" (click)="updatePool()">
+            Update
+          </ion-button>
   
         </ion-col>
   
