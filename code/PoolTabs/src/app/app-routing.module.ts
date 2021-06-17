@@ -14,14 +14,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
     path: 'folder/:id',
     loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule),
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin}
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   }
 ];
 

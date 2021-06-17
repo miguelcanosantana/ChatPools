@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned" [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="currentUser && currentUser.isAdmin && !currentUser.isBanned" class="ion-padding">
 
   <ion-header collapse="condense">
     <ion-toolbar>

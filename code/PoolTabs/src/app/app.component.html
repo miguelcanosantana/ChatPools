@@ -5,15 +5,20 @@
 
         <ion-list id="inbox-list">
           <ion-list-header class="ubuntu">PoolTabs</ion-list-header>
-          <ion-note class="ubuntu">hi@ionicframework.com</ion-note>
+          <ion-note class="ubuntu"></ion-note>
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
+            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="true" routerLinkActive="selected">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label class="ubuntu">{{ p.title }}</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+
+        <ion-item (click)="goToLogin()" button lines="none">
+          <ion-icon slot="start" name="close"></ion-icon>
+          <ion-label class="ubuntu">Logout</ion-label>
+        </ion-item>
 
       </ion-content>
     </ion-menu>
