@@ -100,5 +100,11 @@ export class UserService {
   public banUser(uid: string): Promise<void> {
     return this.fireStore.collection('users/').doc(uid).update({isBanned: true});
   }
+
+
+  //Delete a Pool that was joined by the User
+  public deletePoolOfUser(uid: string, poolName: string): Promise<void> {
+    return this.fireStore.collection('users/' + uid + '/userPools').doc(poolName).delete();
+  }
   
 }

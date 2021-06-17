@@ -37,3 +37,25 @@ ion-card {
   -moz-box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.145);
   box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 0.145);
 }
+
+ion-label {
+  font-family: 'Ubuntu';
+}
+
+ion-text {
+  font-family: 'Ubuntu';
+}
+
+.delete-button {
+}
+
+.pool-name {
+  min-height: 100%;
+  padding-top: 25px;
+  font-family: 'Ubuntu';
+}
+
+img {
+  border-radius: 5px;
+  object-fit: cover;
+}

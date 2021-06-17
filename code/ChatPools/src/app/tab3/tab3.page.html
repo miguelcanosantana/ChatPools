@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding ion-text-center fade">
+<ion-content class="ion-padding ion-text-left fade">
 
   <ion-grid>
     <ion-row>
@@ -14,13 +14,33 @@
       <!-- Column with the page content -->
       <ion-col *ngIf="currentUser" size-xs="12" size-md="8" size-lg="6" size-xl="4">
 
-        <!-- Each Pool -->
-        <ion-card *ngFor="let pool of userPools" (click)="goToGroup(pool.name)" class="ion-padding fade" >
+        <!-- User Pools -->
+        <div *ngIf="userPools" class="fade">
 
-          <!-- Name of the Pool -->
-          <ion-label>{{pool.name}}</ion-label>
+          <!-- Each Pool -->
+          <ion-card *ngFor="let pool of userPools" class="fade">
 
-        </ion-card>
+            <ion-item button lines="none" class="ion-text-center">
+
+              <!-- Delete Pool -->
+              <ion-button (click)="showDeleteAlert(pool.name)" slot="start" fill="none">
+                <ion-icon color="danger" slot="icon-only" name="close-circle"></ion-icon>
+              </ion-button>
+
+              <ion-thumbnail (click)="goToGroup(pool.name)" slot="end">
+                <img src="{{pool.image}}" onerror="this.src='../../../assets/images/image-deleted.svg';">
+              </ion-thumbnail>
+
+              <!-- Name of the Pool -->
+              <ion-label class="pool-name" (click)="goToGroup(pool.name)">
+                {{pool.name}}
+              </ion-label>
+
+            </ion-item>
+            
+          </ion-card>
+
+        </div>
 
       </ion-col>
 

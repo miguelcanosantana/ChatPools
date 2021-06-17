@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from '../model/user';
 import { UserPool } from '../model/user-pool';
@@ -24,13 +25,15 @@ export class Tab3Page {
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private getPoolsUserSubscription: Subscription = new Subscription();
-  
+  private getPoolsImagesSubscription: Subscription = new Subscription();
+
 
   constructor(
     private auth: FauthService,
     public userService: UserService,
     public poolsService: PoolsService,
-    private router: Router
+    private router: Router,
+    private alert: AlertController
   ) {}
 
   //Get user in ionViewWillEnter to avoid mixing users pools while the info is loading
@@ -61,8 +64,21 @@ export class Tab3Page {
             //Get pools from the user
             this.getPoolsUserSubscription = await this.userService.getPoolsFromUser(user.uid).subscribe(
 
-              pools => this.userPools = pools
-            ); 
+              pools => {
+                
+                this.userPools = pools
+
+                //Get Pools images
+                this.userPools.forEach(async pool => {
+
+                  this.getPoolsImagesSubscription = await this.poolsService.getPoolByName(pool.name).subscribe(
+
+                    data =>
+                      pool.image = data.image
+                  );
+                });
+              }
+            );
           }
         );
       }
@@ -83,11 +99,41 @@ export class Tab3Page {
   }
 
 
+  //Show an alert for deleting the Pool
+  async showDeleteAlert(poolName: string) {
+
+    //Create alert
+    const alert = await this.alert.create({
+      header: 'Exit the Pool',
+      message: 'You are going to exit the pool ' + poolName +', you can join it again if you want.',
+
+      buttons: [
+        {
+          text: "Go back",
+          handler: () => {}
+        },
+        {
+          text: "Exit the Pool",
+          handler: () => {
+
+            //Delete the Pool from user's folder in FireStore
+            this.userService.deletePoolOfUser(this.currentUser.uid, poolName).then()
+            .catch(error => console.log(error));
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+
   //Close all subscriptions
   ionViewWillLeave() {
     this.fauthSubscription.unsubscribe();
     this.userSubscription.unsubscribe();
     this.getPoolsUserSubscription.unsubscribe();
+    this.getPoolsImagesSubscription.unsubscribe();
   }
 
 
