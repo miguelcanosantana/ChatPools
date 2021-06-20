@@ -13,6 +13,8 @@
     <a href="https://youtu.be/f56JraMWI8Y">View Video</a>
     ·
     <a href="https://github.com/miguelcanosantana/ChatPools/issues">Report Bug</a>
+    ·
+    <a href="https://miguelcanosantana.github.io/ChatPoolsLandingPage/">Landing Page</a>
   </p>
 </p>
 
