@@ -26,6 +26,7 @@ export class Tab1Page {
   nickField: string = "";
   descriptionField: string;
   validNick: boolean = false;
+  hasRedirected: boolean = false;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private checkSubscription: Subscription = new Subscription();
@@ -50,6 +51,10 @@ export class Tab1Page {
 
   //Get user
   async ionViewWillEnter() {
+
+    //Set redirected as false
+    this.hasRedirected = false;
+
     await this.getUser();
   }
 
@@ -104,7 +109,10 @@ export class Tab1Page {
             console.log("User info updated");
 
             //Redirect if user is banned
-            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
+            if (user.isBanned == true && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("login/banned");
+            }
           }
         )
       }
@@ -159,7 +167,11 @@ export class Tab1Page {
   //Logout
   async logout() {
     await this.auth.logout();
-    this.router.navigateByUrl("login");
+
+    if (this.hasRedirected == false) {
+      this.hasRedirected = true;
+      this.router.navigateByUrl("login");
+    }
   }
 
 

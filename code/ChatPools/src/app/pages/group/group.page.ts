@@ -41,6 +41,7 @@ export class GroupPage implements OnInit {
   allMessages: Message[] = [];
   newSession: boolean = true;
   imageUrlHolder: string;
+  hasRedirected: boolean = false;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private banSubscription: Subscription = new Subscription();
@@ -64,7 +65,11 @@ export class GroupPage implements OnInit {
 
     //Back button
     this.platform.backButton.subscribeWithPriority(10, () => {
-      router.navigateByUrl("/tabs/tab3");
+
+      if (this.hasRedirected == false) {
+        this.hasRedirected = true;
+        router.navigateByUrl("/tabs/tab3");
+      }
     });
   }
 
@@ -74,6 +79,9 @@ export class GroupPage implements OnInit {
 
   //When entering instead onInit, so doesn't conflict with multiple users
   ionViewWillEnter() {
+
+    //Set redirected as false
+    this.hasRedirected = false;
 
     //Get current user
     this.getUser();
@@ -211,7 +219,10 @@ export class GroupPage implements OnInit {
             this.currentUser = user;
 
             //Redirect if user is banned
-            if (user.isBanned == true) this.router.navigateByUrl("login/banned", { replaceUrl: true });
+            if (user.isBanned == true && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("login/banned");
+            }
 
             //Get pools from the user and redirect if User is not in the Pool
             this.getPoolsUserSubscription = await this.userService.getPoolsFromUser(user.uid).subscribe(
@@ -226,7 +237,10 @@ export class GroupPage implements OnInit {
                 });
 
                 //If user is not on Pool redirect to the Pools page
-                if (!isInPool) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
+                if (!isInPool && this.hasRedirected == false) {
+                  this.hasRedirected = true;
+                  this.router.navigateByUrl("/tabs/tab2");
+                }
               }
             ); 
 
@@ -259,7 +273,10 @@ export class GroupPage implements OnInit {
                     await this.userService.banUser(user.uid);
                     this.lastBannedUid = user.uid;
                     
-                    this.router.navigateByUrl("login/banned", { replaceUrl: true });
+                    if (this.hasRedirected == false) {
+                      this.hasRedirected = true;
+                      this.router.navigateByUrl("login/banned");
+                    }
                   }
 
                 }
@@ -343,7 +360,11 @@ export class GroupPage implements OnInit {
 
   //Go to my pools tab (tab 3)
   goToMyPools() {
-    this.router.navigateByUrl("/tabs/tab3");
+
+    if (this.hasRedirected == false) {
+      this.hasRedirected = true;
+      this.router.navigateByUrl("/tabs/tab3");
+    }
   }
 
 

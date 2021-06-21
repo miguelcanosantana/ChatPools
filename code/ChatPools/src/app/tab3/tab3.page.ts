@@ -26,6 +26,7 @@ export class Tab3Page {
   userPools: UserPool[] = [];
   userFilteredPools: UserPool[] = [];
   hasFiltered: boolean;
+  hasRedirected: boolean = false;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private getPoolsUserSubscription: Subscription = new Subscription();
@@ -50,6 +51,9 @@ export class Tab3Page {
   //Get user in ionViewWillEnter to avoid mixing users pools while the info is loading
   async ionViewWillEnter() {
 
+    //Set redirected as false
+    this.hasRedirected = false;
+
     //Reset search Input
     this.searchInput = "";
     this.hasFiltered = false;
@@ -73,7 +77,10 @@ export class Tab3Page {
             this.currentUser = user;
             
             //Redirect if user is banned
-            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
+            if (user.isBanned == true && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("login/banned");
+            }
 
             //Get pools from the user
             this.getPoolsUserSubscription = await this.userService.getPoolsFromUser(user.uid).subscribe(
@@ -130,7 +137,10 @@ export class Tab3Page {
 
     try {
 
-      this.router.navigateByUrl(`/group${name != undefined ? '/' + name : ''}`);
+      if (this.hasRedirected == false) {
+        this.hasRedirected = true;
+        this.router.navigateByUrl(`/group${name != undefined ? '/' + name : ''}`);
+      }
     
     } catch (error) {
       console.log("Error entering the chat");

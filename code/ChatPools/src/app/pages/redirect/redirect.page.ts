@@ -14,6 +14,7 @@ export class RedirectPage implements OnInit {
 
   //Variables
   path: string;
+  hasRedirected: boolean = false;
 
 
   constructor(
@@ -22,16 +23,32 @@ export class RedirectPage implements OnInit {
   ) { }
 
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+
+  //Set redirected as false
+  ionViewWillEnter() {
+    this.hasRedirected = false;
+  }
+
+
+  async ionViewDidEnter() {
 
     await this.checkUser();
     await this.sleep(2000);
     
-
     //If the route is null, redirect to the login screen
-    if (!this.path) this.router.navigateByUrl("/login");
+    if (!this.path && this.hasRedirected == false) {
+      this.hasRedirected = true;
+      this.router.navigateByUrl("/login");
+    }
+
     //else navigate to the url
-    else await this.router.navigateByUrl(this.path);
+    else if (this.hasRedirected == false) {
+      this.hasRedirected = true;
+      await this.router.navigateByUrl(this.path);
+    }
+
   }
 
 

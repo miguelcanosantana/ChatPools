@@ -21,6 +21,8 @@ export class DescriptionPage implements OnInit {
   currentUser: User;
   currentPool: Pool;
   showContent: boolean = false;
+  hasRedirected: boolean = false;
+
 
   constructor(
     private router: Router,
@@ -30,8 +32,13 @@ export class DescriptionPage implements OnInit {
     private poolsService: PoolsService
     ) {}
 
+  async ngOnInit() {}
 
-  async ngOnInit() {
+
+  async ionViewWillEnter() {
+
+    //Set redirected as false
+    this.hasRedirected = false;
 
     //Get Pool name from the url
     const poolName = this.activatedRoute.snapshot.paramMap.get('chat');
@@ -68,7 +75,11 @@ export class DescriptionPage implements OnInit {
             this.currentUser = user;
 
             //Redirect if user is banned
-            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
+            if (user.isBanned == true && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("login/banned");
+            }
+
             //Else check if User is already in pool and redirect if so
             else {
 
@@ -114,7 +125,10 @@ export class DescriptionPage implements OnInit {
 
     try {
 
-      this.router.navigateByUrl(`/group${name != undefined ? '/' + name : ''}`);
+      if (this.hasRedirected == false) {
+        this.hasRedirected = true;
+        this.router.navigateByUrl(`/group${name != undefined ? '/' + name : ''}`);
+      }
     
     } catch (error) {
       console.log("Error entering the chat");

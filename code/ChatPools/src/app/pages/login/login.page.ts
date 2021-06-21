@@ -21,6 +21,7 @@ export class LoginPage implements OnInit {
   password: string;
   currentUser: User;
   userBanned: boolean = false;
+  hasRedirected: boolean = false;
   private userSubscription: Subscription = new Subscription();
 
   constructor(
@@ -40,6 +41,12 @@ export class LoginPage implements OnInit {
     const userState = this.activatedRoute.snapshot.paramMap.get('state');
 
     if (userState == "banned") this.userBanned = true;
+  }
+
+
+  //Set redirected as false
+  ionViewWillEnter() {
+    this.hasRedirected = false;
   }
 
 
@@ -67,9 +74,13 @@ export class LoginPage implements OnInit {
             this.currentUser = user;
 
             //If User is not banned
-            if (user.isBanned == false) this.router.navigateByUrl("/tabs/tab2", { replaceUrl: true });
+            if (user.isBanned == false && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("/tabs/tab2");
+            }
+
             //Else show guide and logout
-            else {
+            else if (this.hasRedirected == false) {
               this.userBanned = true;
             }
           }
@@ -125,7 +136,11 @@ export class LoginPage implements OnInit {
 
   // Redirect to register page
   goToRegister() {
-    this.router.navigateByUrl("/register", { replaceUrl: true })
+
+    if (this.hasRedirected == false) {
+      this.hasRedirected = true;
+      this.router.navigateByUrl("/register");
+    }
   }
 
 

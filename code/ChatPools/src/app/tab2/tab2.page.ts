@@ -25,6 +25,7 @@ export class Tab2Page {
   searchInput: string = "";
   currentUser: User;
   hasFiltered: boolean;
+  hasRedirected: boolean = false;
   private fauthSubscription: Subscription = new Subscription();
   private userSubscription: Subscription = new Subscription();
   private getPoolsSubscription: Subscription = new Subscription();
@@ -46,6 +47,9 @@ export class Tab2Page {
 
   //Get User and Pools
   async ionViewWillEnter() {
+
+    //Set redirected as false
+    this.hasRedirected = false;
 
     //Reset search Input
     this.searchInput = "";
@@ -72,7 +76,10 @@ export class Tab2Page {
             this.currentUser = user;
 
             //Redirect if user is banned
-            if (user.isBanned == true) this.router.navigateByUrl("login/banned");
+            if (user.isBanned == true && this.hasRedirected == false) {
+              this.hasRedirected = true;
+              this.router.navigateByUrl("login/banned");
+            }
 
             //Get all pools and subscribe
             this.getPoolsSubscription = await this.poolsService.getPools().subscribe(
@@ -121,7 +128,10 @@ export class Tab2Page {
 
     try {
 
-      this.router.navigateByUrl(`/description${name != undefined ? '/' + name : ''}`);
+      if (this.hasRedirected == false) {
+        this.hasRedirected = true;
+        this.router.navigateByUrl(`/description${name != undefined ? '/' + name : ''}`);
+      }
     
     } catch (error) {
       console.log("Error entering the chat");

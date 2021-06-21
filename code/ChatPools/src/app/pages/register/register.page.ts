@@ -23,6 +23,7 @@ export class RegisterPage implements OnInit {
   repPassword: string;
   username: string = "";
   validNick: boolean = false;
+  hasRedirected: boolean = false;
   private checkUserSubscription: Subscription = new Subscription();
 
 
@@ -40,6 +41,9 @@ export class RegisterPage implements OnInit {
 
   //Animate the SVG before entering to avoid black lines
   ionViewWillEnter() {
+
+    //Set redirected as false
+    this.hasRedirected = false;
 
     //SVG
     this.setTextAnimation(0.1,3,2.5,'ease-in-out','#2660cf',false);
@@ -113,7 +117,11 @@ export class RegisterPage implements OnInit {
 
               console.log("User successfully written");
               this.checkUserSubscription.unsubscribe();
-              this.router.navigateByUrl("/tabs/tab1", { replaceUrl: true });
+
+              if (this.hasRedirected == false) {
+                this.hasRedirected = true;
+                this.router.navigateByUrl("/tabs/tab1");
+              }
             }
           ).catch(error => this.showErrorAlert(error.code));
         }
