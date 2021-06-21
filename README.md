@@ -14,7 +14,7 @@
     ·
     <a href="https://github.com/miguelcanosantana/ChatPools/issues">Report Bug</a>
     ·
-    <a href="https://miguelcanosantana.github.io/ChatPoolsLandingPage/">Landing Page</a>
+    <a href="https://miguelcanosantana.github.io/ChatPoolsLandingPage/?version=f36af92">Landing Page</a>
   </p>
 </p>
 
