@@ -76,7 +76,9 @@ export class LoginPage implements OnInit {
             if (user.isAdmin && !user.isBanned && !this.hasRedirected) {
               this.hasRedirected = true;
               this.router.navigateByUrl("");
-            }
+
+            //Else show error
+            } else this.showErrorAlert("banned-admin");
           }
         );
 
@@ -109,6 +111,10 @@ export class LoginPage implements OnInit {
 
     if (errorCode == "auth/wrong-password") {
       customMessage = "The password is incorrect."
+    }
+
+    if (errorCode == "banned-admin") {
+      customMessage = "The user isn't admin or has been banned."
     }
 
     //Create alert
